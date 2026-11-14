@@ -19,6 +19,7 @@
 		0E021D7B7AFBD086411B7A59 /* SynthParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4187B3B39490D7744EFB583 /* SynthParameter.swift */; };
 		0F58E9AD45D789BAA9813CAD /* iOS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E78A40268F6EDA4713F45A3 /* iOS-Info.plist */; };
 		109C20FACFDC8B18D7E03649 /* m3_info.c in Sources */ = {isa = PBXBuildFile; fileRef = 46CE2A6E7C273CF274B811EE /* m3_info.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		10BF119C67F416844606125A /* MIDILearnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E19EBFEF7D2EE2BE42CE0FD /* MIDILearnView.swift */; };
 		1155B349B86753A80FC4B461 /* FirmwarePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D7100A979EB3B964966FC8 /* FirmwarePicker.swift */; };
 		1254040FC9E835A61E20C11A /* m3_function.c in Sources */ = {isa = PBXBuildFile; fileRef = 92D758BEBF7AD59344ABF692 /* m3_function.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
 		1600090260526641E63B5BB5 /* SynthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26661BAFBC13BB50FD81E16 /* SynthModel.swift */; };
@@ -65,6 +66,7 @@
 		54EB99AC4A8471AA9C3704CB /* ESPatcherMacAU.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F670D4352DC26758110A992E /* ESPatcherMacAU.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		55A68D7A0C8B3C9C20667E45 /* StudioKnobIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF31D85527FF736FE3E4AA7 /* StudioKnobIndicator.swift */; };
 		565CC3599BB6F764825F4E5F /* AudioUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5E210B8CF01C3B63B2725 /* AudioUnitViewController.swift */; };
+		58FC8BB2256BCD95BE6132CE /* HostMIDIInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E4F6D761B1D25FFFFDD126 /* HostMIDIInput.swift */; };
 		5915A03709825BC935E1B01A /* m3_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 461551DFEE6ABBE727E599F3 /* m3_parse.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
 		5AD8D7FF87CD3FF5C58D1141 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7EC4A301ADB7D9A536CBA833 /* LICENSE */; };
 		5BF487024F4CA92E348F423E /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7201BAAC13B8F5B41C495EC5 /* NavigationModel.swift */; };
@@ -101,6 +103,7 @@
 		896C99936E46E008D656A905 /* ParameterSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAA57A07955CC3F3F34B19F /* ParameterSlider.swift */; };
 		89EA07B6395B8236DED6C2BA /* LFOWaveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3E4A40B495C3293F19445 /* LFOWaveform.swift */; };
 		8A99AD45BCA6854326E5E06E /* NoteKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794B1C16D111FD95CE692F5 /* NoteKey.swift */; };
+		97242EB0DB77508AE16D0F49 /* MIDILearnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E19EBFEF7D2EE2BE42CE0FD /* MIDILearnView.swift */; };
 		9C83108322889C5BF404CD26 /* PerformancePads.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F39EBEA44121DD9F5A0305 /* PerformancePads.swift */; };
 		9DBAA5E6913DF280470536FA /* m3_emit.c in Sources */ = {isa = PBXBuildFile; fileRef = 416DF35699DACF93FF93AB80 /* m3_emit.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
 		9E1ED9A5A5E7D9CFC9079F0C /* SynthTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EBD50D3B295EB11650C6D2 /* SynthTheme.swift */; };
@@ -109,6 +112,7 @@
 		A749D03B40BC278E0A6D1B2C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7EC4A301ADB7D9A536CBA833 /* LICENSE */; };
 		A79FF8BF5D8AC736EEC6D7F3 /* m3_bind.c in Sources */ = {isa = PBXBuildFile; fileRef = 8DB22A17BAF3531D50651431 /* m3_bind.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
 		A892421315BD2BC2E32B4149 /* SynthParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4187B3B39490D7744EFB583 /* SynthParameter.swift */; };
+		A91312A724E1FB3C4D036E08 /* MIDILearnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E19EBFEF7D2EE2BE42CE0FD /* MIDILearnView.swift */; };
 		ACC2397A0A4FC87C2B4507AC /* SynthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FAB8C9E2546987C4C966F7 /* SynthView.swift */; };
 		B025BEDCBA4C9D12C10B1685 /* m3_compile.c in Sources */ = {isa = PBXBuildFile; fileRef = 6447919CC616596A80FF8C3D /* m3_compile.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
 		B25D32CC0F28F6DF0B1B6DAF /* ParameterSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAA57A07955CC3F3F34B19F /* ParameterSlider.swift */; };
@@ -129,6 +133,7 @@
 		CEFB17F088F19F53506345C7 /* m3_env.c in Sources */ = {isa = PBXBuildFile; fileRef = 3ED012F59D60A92F54902DDD /* m3_env.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
 		D02E89F7BD9C209D21DC7B81 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7EC4A301ADB7D9A536CBA833 /* LICENSE */; };
 		D89A42AAF096A718AA2BC455 /* NoteKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794B1C16D111FD95CE692F5 /* NoteKey.swift */; };
+		DA5302FDB5B7B3F50E480BC8 /* MIDILearnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E19EBFEF7D2EE2BE42CE0FD /* MIDILearnView.swift */; };
 		DB4320436C7581E98F65D5A5 /* m3_env.c in Sources */ = {isa = PBXBuildFile; fileRef = 3ED012F59D60A92F54902DDD /* m3_env.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
 		DBDCE11DB6E264E5407F4F7A /* AudioUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5E210B8CF01C3B63B2725 /* AudioUnitViewController.swift */; };
 		DC19974B3076ADE0E0253F48 /* AudioHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464250D71DCC9B0CCC66EDF8 /* AudioHost.swift */; };
@@ -140,6 +145,7 @@
 		E397B940094608F5F36C6EDE /* NavigationStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375FD475D7B006F81961628 /* NavigationStrip.swift */; };
 		E44C5B520094B181F076D61D /* NavigationBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 822BAD6086F84FD5A7646B9A /* NavigationBridge.mm */; };
 		E53123F23FE50CA786A5A99E /* m3_function.c in Sources */ = {isa = PBXBuildFile; fileRef = 92D758BEBF7AD59344ABF692 /* m3_function.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		E6A47080BD8F4369D04FE70F /* HostMIDIInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9E4F6D761B1D25FFFFDD126 /* HostMIDIInput.swift */; };
 		E78EED01D615F9394211708E /* m3_function.c in Sources */ = {isa = PBXBuildFile; fileRef = 92D758BEBF7AD59344ABF692 /* m3_function.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
 		E80F49498B0129F4AB078EA2 /* NoteKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794B1C16D111FD95CE692F5 /* NoteKey.swift */; };
 		E875D0AB92B3D286FF586A78 /* InstrumentControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ACCD1BEC3378093C449C2D /* InstrumentControls.swift */; };
@@ -231,6 +237,7 @@
 		8DB22A17BAF3531D50651431 /* m3_bind.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_bind.c; sourceTree = "<group>"; };
 		92D758BEBF7AD59344ABF692 /* m3_function.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_function.c; sourceTree = "<group>"; };
 		9AF31D85527FF736FE3E4AA7 /* StudioKnobIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioKnobIndicator.swift; sourceTree = "<group>"; };
+		9E19EBFEF7D2EE2BE42CE0FD /* MIDILearnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MIDILearnView.swift; sourceTree = "<group>"; };
 		9E78A40268F6EDA4713F45A3 /* iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "iOS-Info.plist"; sourceTree = "<group>"; };
 		A0F5E210B8CF01C3B63B2725 /* AudioUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitViewController.swift; sourceTree = "<group>"; };
 		A1ACCD1BEC3378093C449C2D /* InstrumentControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentControls.swift; sourceTree = "<group>"; };
@@ -238,6 +245,7 @@
 		A2EC6BD796307227E2C06C54 /* GlitchSynthApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlitchSynthApp.swift; sourceTree = "<group>"; };
 		A8D7100A979EB3B964966FC8 /* FirmwarePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwarePicker.swift; sourceTree = "<group>"; };
 		ADA81B11B5436F73A0AF9CFD /* SynthKnob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthKnob.swift; sourceTree = "<group>"; };
+		BF6F2DD692B00EFB43438DC8 /* MIDIMap.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MIDIMap.hpp; sourceTree = "<group>"; };
 		C00EA6D74337A2CF9FE3CFCA /* m3_exec.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_exec.c; sourceTree = "<group>"; };
 		C13477DCAC8483632404FD66 /* m3_code.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_code.c; sourceTree = "<group>"; };
 		C26661BAFBC13BB50FD81E16 /* SynthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthModel.swift; sourceTree = "<group>"; };
@@ -250,6 +258,7 @@
 		D3EBD50D3B295EB11650C6D2 /* SynthTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthTheme.swift; sourceTree = "<group>"; };
 		D4855DA8D023FA1B6C663A56 /* Modules */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Modules; path = Firmware/Modules; sourceTree = SOURCE_ROOT; };
 		D68A05AC79D62A2A21332645 /* m3_core.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_core.c; sourceTree = "<group>"; };
+		E9E4F6D761B1D25FFFFDD126 /* HostMIDIInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostMIDIInput.swift; sourceTree = "<group>"; };
 		EA3AB3652D56EF3AA02D528E /* Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		F670D4352DC26758110A992E /* ESPatcherMacAU.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ESPatcherMacAU.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD3E8D04987BF4B425F0C12B /* ChordLaunchers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordLaunchers.swift; sourceTree = "<group>"; };
@@ -283,6 +292,7 @@
 			children = (
 				464250D71DCC9B0CCC66EDF8 /* AudioHost.swift */,
 				A2EC6BD796307227E2C06C54 /* GlitchSynthApp.swift */,
+				E9E4F6D761B1D25FFFFDD126 /* HostMIDIInput.swift */,
 			);
 			name = App;
 			path = Apple/App;
@@ -291,6 +301,7 @@
 		4D664149C50B941CA566721F /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				BF6F2DD692B00EFB43438DC8 /* MIDIMap.hpp */,
 				C2CB8531E6AEE11EE9910851 /* Navigation.hpp */,
 				09F3872CA269AB22FDF8C985 /* Scope.hpp */,
 				77B6863E337A479CE2CD7F77 /* Synth.hpp */,
@@ -321,6 +332,7 @@
 				A1ACCD1BEC3378093C449C2D /* InstrumentControls.swift */,
 				C6D8A1FCC2111D64F46B507F /* InstrumentScreen.swift */,
 				4FD3E4A40B495C3293F19445 /* LFOWaveform.swift */,
+				9E19EBFEF7D2EE2BE42CE0FD /* MIDILearnView.swift */,
 				CB6C6575DF874323C704A076 /* NavigationBridge.h */,
 				822BAD6086F84FD5A7646B9A /* NavigationBridge.mm */,
 				7201BAAC13B8F5B41C495EC5 /* NavigationModel.swift */,
@@ -541,6 +553,7 @@
 				2B8C61849C257FDA5D11D6D4 /* InstrumentControls.swift in Sources */,
 				21CFF37BFBBD3664E799D8F7 /* InstrumentScreen.swift in Sources */,
 				63D6EA53AFAC0BEBC7BFC8DC /* LFOWaveform.swift in Sources */,
+				97242EB0DB77508AE16D0F49 /* MIDILearnView.swift in Sources */,
 				17ABA802A2F6B5AB9ED06078 /* NavigationBridge.mm in Sources */,
 				86F0CCAF4D8BC087183312F2 /* NavigationModel.swift in Sources */,
 				E8BC6CB277AB4762AD61D679 /* NavigationStrip.swift in Sources */,
@@ -580,9 +593,11 @@
 				BCD495A90098BF58007BC450 /* ChordLaunchers.swift in Sources */,
 				1155B349B86753A80FC4B461 /* FirmwarePicker.swift in Sources */,
 				01D099A75A5918ED0C002CBA /* GlitchSynthApp.swift in Sources */,
+				E6A47080BD8F4369D04FE70F /* HostMIDIInput.swift in Sources */,
 				4778767519AE87021CD407CE /* InstrumentControls.swift in Sources */,
 				FB9843A063D1C7B6359505E8 /* InstrumentScreen.swift in Sources */,
 				FA3E32245C4DF00E3B261CD8 /* LFOWaveform.swift in Sources */,
+				DA5302FDB5B7B3F50E480BC8 /* MIDILearnView.swift in Sources */,
 				E44C5B520094B181F076D61D /* NavigationBridge.mm in Sources */,
 				5BF487024F4CA92E348F423E /* NavigationModel.swift in Sources */,
 				E397B940094608F5F36C6EDE /* NavigationStrip.swift in Sources */,
@@ -622,9 +637,11 @@
 				16728892069F219A4A8A24FE /* ChordLaunchers.swift in Sources */,
 				40E0CFBC04D239844D889E1B /* FirmwarePicker.swift in Sources */,
 				F24C6234F755B71BE1EC0683 /* GlitchSynthApp.swift in Sources */,
+				58FC8BB2256BCD95BE6132CE /* HostMIDIInput.swift in Sources */,
 				E875D0AB92B3D286FF586A78 /* InstrumentControls.swift in Sources */,
 				20908F33B413AD11874063B9 /* InstrumentScreen.swift in Sources */,
 				F9C2FE702FBAA7DFF6478E0B /* LFOWaveform.swift in Sources */,
+				10BF119C67F416844606125A /* MIDILearnView.swift in Sources */,
 				65DC8DED7612ECA8A4099241 /* NavigationBridge.mm in Sources */,
 				6A4E21BDD17DCBE353C18953 /* NavigationModel.swift in Sources */,
 				CA3C8923DAABEC7D3E78378A /* NavigationStrip.swift in Sources */,
@@ -666,6 +683,7 @@
 				1DF4FBC2A7BC0CB5E216C5D3 /* InstrumentControls.swift in Sources */,
 				CDD3C2C70F7934A168C3EF8F /* InstrumentScreen.swift in Sources */,
 				89EA07B6395B8236DED6C2BA /* LFOWaveform.swift in Sources */,
+				A91312A724E1FB3C4D036E08 /* MIDILearnView.swift in Sources */,
 				B708F8D5528BA920B3251EA3 /* NavigationBridge.mm in Sources */,
 				B31C2D4EB9A15C87CA7610B7 /* NavigationModel.swift in Sources */,
 				BECCFACDF4F3A77DB9ACD61C /* NavigationStrip.swift in Sources */,

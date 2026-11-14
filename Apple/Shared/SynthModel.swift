@@ -46,6 +46,7 @@ final class SynthModel {
     var chordMode: Int?
     var octave = 4
     private(set) var notes: [String: Int] = [:]
+    @ObservationIgnored private var midiRevision: UInt32 = 0
     @ObservationIgnored private var adoptingParameters = false
     @ObservationIgnored private var token: AUParameterObserverToken?
     static let keys = Array("awsedftgyhujk")
@@ -71,6 +72,7 @@ final class SynthModel {
 
     func refreshFirmwareStatus() {
         guard !firmwareLoading else { return }
+        if midiRevision != unit.midiRevision { midiRevision = unit.midiRevision; unit.refreshMIDIParameters(); adopt() }
         resonanceAvailable = unit.firmwareHasResonance
         lfoAvailable = unit.firmwareHasLFO
         arpAvailable = unit.firmwareHasArp

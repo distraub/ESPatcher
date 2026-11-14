@@ -1,3 +1,4 @@
+import {MIDILearn} from './midi-router.mjs';
 const $ = id => document.getElementById(id);
 const bindings = ['a','w','s','e','d','f','t','g','y','h','u','j','k'];
 const noteNames = ['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'];
@@ -130,12 +131,12 @@ function chordNotes(index) {
   for(let i=0;i<v.inversion;i++)notes.push(notes.shift()+12);
   if(v.spread)notes[1]+=12;return notes.map(n=>n+index);
 }
-function noteOn(source,index) {
+function noteOn(source,index,velocity=100,absolute=false) {
   if(!node||context.state!=='running'||faulted){$('status').textContent='Enable audio before playing.';return;}
   if(held.has(source))return;
-  const notes=chordNotes(index).map(n=>12*(octave+1)+n).filter(n=>n<=127);
+  const notes=chordNotes(index).map(n=>(absolute?0:12*(octave+1))+n).filter(n=>n<=127);
   const existing=new Set([...held.values()].flat());
-  for(const note of notes)if(!existing.has(note))node.port.postMessage({type:'note',note,velocity:100});
+  for(const note of notes)if(!existing.has(note))node.port.postMessage({type:'note',note,velocity});
   held.set(source,notes);renderHeld();
 }
 function noteOff(source) {
@@ -216,3 +217,34 @@ function draw(){
   if(page===3){const x=(lfoStatus>>>16)/65536*w;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
 }
 selectChord(-1);go(0);draw();
+
+const midiLearn=new MIDILearn();let midiAccess;
+try{midiLearn.restore(JSON.parse(localStorage.getItem('espatcher.midi.v1')||'[]'));}catch{}
+titles.forEach((title,address)=>{const option=document.createElement('option');option.value=address;option.textContent=title+([6,10].includes(address)?" (Hz)":[15,17].includes(address)?" (sync)":"");$('midiTarget').append(option);});$('midiTarget').value=3;
+function showMIDI(){const address=Number($('midiTarget').value),map=midiLearn.maps.find(m=>m.address===address);$('midiMapping').textContent=midiLearn.target!==null?'Waiting for a controller CC…':map?`Channel ${map.channel+1} · CC ${map.cc}`:'No mapping for this parameter';}
+function saveMIDI(){try{localStorage.setItem('espatcher.midi.v1',JSON.stringify(midiLearn.maps));}catch{}showMIDI();}
+$('midiTarget').onchange=showMIDI;
+$('midiLearn').onclick=()=>{midiLearn.arm(Number($('midiTarget').value));showMIDI();};
+$('midiCancel').onclick=()=>{midiLearn.arm(null);showMIDI();};
+$('midiForget').onclick=()=>{midiLearn.forget(Number($('midiTarget').value));saveMIDI();};
+$('firmware').addEventListener('close',()=>{midiLearn.arm(null);showMIDI();});
+function receiveMIDI(event){
+ const data=event.data,status=data[0],type=status&240,channel=status&15,a=data[1],b=data[2];
+ const source='midi-'+event.target.id+'-'+channel+'-'+a;
+ if(type===144&&b)noteOn(source,a,b,true);
+ else if(type===128||(type===144&&!b))noteOff(source);
+ else if(type===176&&data.length>=3){
+  if(a===120||a===123){panic();return;}
+  const result=midiLearn.receive(channel,a,b);if(!result)return;
+  if(result.type==='parameter')parameter(result.address,denormal(result.address,result.fraction));
+  else if(result.type==='learned')saveMIDI();
+  else $('midiMapping').textContent='Mapping table full. Forget a mapping first.';
+ }else if(status===250||status===251)parameter(8,1);
+ else if(status===252)parameter(8,0);
+}
+function connectMIDI(){for(const input of midiAccess.inputs.values())input.onmidimessage=receiveMIDI;$('midiStatus').textContent=`${midiAccess.inputs.size} MIDI input(s) connected`;}
+$('midiConnect').onclick=async()=>{
+ if(!navigator.requestMIDIAccess){$('midiStatus').textContent='Web MIDI is unavailable in this browser. Try a browser with Web MIDI support.';return;}
+ try{midiAccess=await navigator.requestMIDIAccess({sysex:false});connectMIDI();midiAccess.onstatechange=()=>{panic();connectMIDI();};}
+ catch(error){$('midiStatus').textContent='MIDI access unavailable: '+error.message;}
+};showMIDI();

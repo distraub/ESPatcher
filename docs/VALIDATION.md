@@ -103,3 +103,24 @@ division and transport changes. AU tests check new state restoration, legacy
 shape/depth feedback, moving phase cursor during silence, sample/hold history,
 Sync/Free rate rebinding and page-specific knob numbering. Actual ADV performance
 and physical display behavior remain unmeasured.
+
+## ESPatcher / AMSynth platform pass — November 14, 2026
+
+- AMSynth modules 0.7.2 retain the previous engine IDs, ABI and addresses.
+- Full native/WASM/audio/AU/navigation/arp/LFO regression suite: pass.
+- Mac and iOS app/AUv3 compile: pass.
+- Native ADV 0.10.1 cross-build and merged-package verification: pass; not flashed.
+- Browser AudioWorklet renders the actual bundled modules: block parity with
+  direct WASM, four voices, isolated instances, panic and telemetry: pass.
+- Browser audio startup, Analog/FM switch, chord selection and LFO page: observed.
+- MIDI Learn tests: exact channel, reserved CC, first-message no jump, source/target
+  reassignment, capacity, range scaling and clear: pass.
+- AU tests inject scheduled and host render-event MIDI through the actual unit,
+  then verify learned values, UI synchronization and mapping state restore: pass.
+- Browser MIDI router: first-message capture, exact channels, reassignment,
+  reserved controls and validated mapping restore: pass.
+
+Physical MIDI routing/controllers and third-party AU host MIDI Learn remain to be
+validated. Browser Web MIDI permission/device behavior varies by browser and has
+not been verified with a physical controller here. Device MIDI input, runtime SD
+package loading, arbitrary UI ABI and the sequencer are not implemented.

@@ -5,6 +5,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)playNote:(uint8_t)note velocity:(uint8_t)velocity;
 - (void)releaseNote:(uint8_t)note;
 - (void)panic;
+- (void)beginMIDILearn:(uint32_t)address;
+- (void)cancelMIDILearn;
+- (void)refreshMIDIParameters;
+- (void)clearMIDIMapping:(uint32_t)address;
+- (uint32_t)midiMapping:(uint32_t)address;
+@property(nonatomic, readonly) NSInteger midiLearnTarget;
+@property(nonatomic, readonly) uint32_t midiRevision;
+@property(nonatomic, readonly) uint32_t midiMappingRevision;
+- (NSArray<NSNumber *> *)midiMappings;
+- (void)restoreMIDIMappings:(NSArray<NSNumber *> *)mappings;
 // UI-only allocation; audio capture is fixed-size and lock-free.
 - (NSArray<NSNumber *> *)scopeSnapshot;
 @property(nonatomic, readonly) NSArray<NSString *> *firmwareKnobLabels;

@@ -7,6 +7,7 @@ extension GSSynthAudioUnit: @unchecked Sendable {}
 final class AudioHost {
     private(set) var unit: GSSynthAudioUnit?
     private(set) var error: String?
+    @ObservationIgnored private var midi: HostMIDIInput?
     @ObservationIgnored private let engine = AVAudioEngine()
     @ObservationIgnored private var node: AVAudioUnit?
     @ObservationIgnored private var loading = false
@@ -32,6 +33,7 @@ final class AudioHost {
             engine.connect(audio, to: engine.mainMixerNode, format: audio.outputFormat(forBus: 0))
             try engine.start()
             node = audio; unit = synth; error = nil
+            do { midi = try HostMIDIInput(unit: synth) } catch { self.error = "MIDI input unavailable: \(error.localizedDescription)" }
         } catch { self.error = error.localizedDescription }
     }
     private enum HostError: Error { case wrongUnit }

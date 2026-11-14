@@ -33,7 +33,8 @@ struct FirmwarePicker: View {
                 importing = true
             }
         }) {
-            management
+            ScrollView { management }
+                .frame(idealWidth: 480, idealHeight: 620)
                 .foregroundStyle(theme.text).tint(theme.accent)
                 .preferredColorScheme(theme.isLight ? .light : .dark)
         }
@@ -96,6 +97,7 @@ struct FirmwarePicker: View {
             }
             .padding(16).frame(maxWidth: .infinity, alignment: .leading)
             .background(theme.surface).clipShape(.rect(cornerRadius: 12))
+            MIDILearnView(model: model)
             Text("ESPatcher runs portable .gsm5 instrument modules on this computer or device.")
                 .font(.callout)
             Text("MODULE FORMAT\n.gsm5 · ABI 1 · isolated 256 KiB memory")

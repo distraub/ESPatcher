@@ -120,6 +120,23 @@ int main(){@autoreleasepool{
     assert(unit.firmwareHasTempoSync&&!unit.firmwareHasLFOShapes);
     NSData *old=[NSData dataWithContentsOfFile:@"Tests/Fixtures/legacy_mono.gsm5"];
     assert([unit loadFirmwareData:old error:&error]);time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);assert(!unit.firmwareHasResonance);
+    auto schedule=unit.scheduleMIDIEventBlock;assert(schedule);
+    float before=[unit.parameterTree parameterWithAddress:3].value;
+    [unit beginMIDILearn:3];uint8_t cc[]={0xb0,74,0};schedule(AUEventSampleTimeImmediate,0,3,cc);
+    time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert([unit midiMapping:3]!=0&&[unit.parameterTree parameterWithAddress:3].value==before);
+    cc[2]=127;schedule(AUEventSampleTimeImmediate,0,3,cc);
+    time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    [unit refreshMIDIParameters];assert([unit.parameterTree parameterWithAddress:3].value==16000&&unit.midiRevision>0);
+    NSDictionary *midiSaved=unit.fullState;[unit clearMIDIMapping:3];assert([unit midiMapping:3]==0);
+    unit.fullState=midiSaved;assert([unit midiMapping:3]!=0);
+    [unit beginMIDILearn:5];event.MIDI.length=3;event.MIDI.data[0]=0xb1;event.MIDI.data[1]=71;event.MIDI.data[2]=0;
+    event.MIDI.eventSampleTime=time.mSampleTime+512;
+    time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,&event,nil)==0);
+    assert([unit midiMapping:5]!=0);event.MIDI.data[2]=127;event.MIDI.eventSampleTime+=512;
+    time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,&event,nil)==0);
+    [unit refreshMIDIParameters];assert([unit.parameterTree parameterWithAddress:5].value==1);
+    std::cout<<"PASS: scheduled/host MIDI CC Learn, first-message no jump, AU map state restore and render telemetry\n";
     [unit deallocateRenderResources];std::cout<<"PASS: AU parameter tree before editor, sample-offset MIDI, null output buffers, fullState restore, panic, oversized-block rejection\n";
     std::cout<<"PASS: module load, immediate note, switch, failed import rollback, repeated slot reclamation, embedded module state restore before/after allocation\n";
 }}

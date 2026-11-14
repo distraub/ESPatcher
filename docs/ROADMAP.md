@@ -4,6 +4,7 @@
 
 - Mac/iOS standalone and AUv3 targets with portable `.gsm5` WASM modules.
 - Cross-platform browser host using the same bundled modules in an AudioWorklet.
+- Standalone CoreMIDI, AU host MIDI, browser Web MIDI and parameter CC Learn.
 - Validated ABI 1 modules, isolated 256 KiB runtimes and execution fuel limits.
 - AMSynth Analog and FM reference engines with native/WASM audio parity tests.
 - Four voices, ladder filter, envelopes, tempo-synced LFO and arpeggiator.
@@ -35,3 +36,11 @@ ownership and tests rather than forcing both instruments to evolve together.
 
 See [FIRMWARE-AUTHORING.md](FIRMWARE-AUTHORING.md) for proposed versus implemented
 contracts. Design proposals in that document are not accepted loader APIs yet.
+
+## Persistent device runtime
+
+The desired normal operation is loading SD instrument packages without rewriting
+internal flash. Packages should be able to supply multiple engines and their own
+UI/workflow. See [DEVICE-RUNTIME.md](DEVICE-RUNTIME.md). This depends on device
+runtime memory, execution and UI scheduling benchmarks; it is not implemented.
+An SD-to-OTA installer is a distinct fallback and still flashes internally.

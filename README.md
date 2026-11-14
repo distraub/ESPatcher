@@ -10,6 +10,11 @@ The native host loads `.gsm5` WebAssembly instruments in isolated wasm3 runtimes
 AMSynth also compiles natively for Cardputer ADV; hardware timing remains untested.
 This is not an ESP32 emulator or a loader for arbitrary device firmware binaries.
 
+## Try it
+
+[Play ESPatcher in your browser](https://distraub.github.io/ESPatcher/) ·
+[Source on GitHub](https://github.com/distraub/ESPatcher)
+
 ## Play on Mac
 
 Open `build/ESPatcher.app`, or open `ESPatcher.xcodeproj`, choose
@@ -206,3 +211,15 @@ AMSynth Analog and FM share the readable reference engine in `Firmware/instrumen
 See [the platform roadmap](docs/ROADMAP.md) for implemented features and future APIs.
 Contributions: [CONTRIBUTING.md](CONTRIBUTING.md). Original code is
 [MIT licensed](LICENSE); dependency notices are in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+
+## MIDI and on-device runtime direction
+
+MIDI notes/velocity, transport Start/Stop/Continue and 16 parameter-based MIDI Learn
+mappings are implemented in the standalone app, AUv3 and supported browsers.
+See [MIDI.md](docs/MIDI.md) for setup, persistence, timing and current limits.
+
+The intended ADV architecture keeps ESPatcher installed as a runtime/launcher,
+with SD instrument packages providing sound engines and their own UI/workflow.
+Read [DEVICE-RUNTIME.md](docs/DEVICE-RUNTIME.md) for the design and hardware proof
+gates. Dynamic SD package loading and instrument-owned UI are not implemented
+yet; current ADV engines are compiled into the native image.

@@ -49,3 +49,6 @@ build/tests/arp_audio
 
 clang++ -std=c++20 -O2 Tests/lfo_shapes.cpp -o build/tests/lfo_shapes
 build/tests/lfo_shapes
+
+clang++ -std=c++20 -O2 Tests/midi.cpp -o build/tests/midi
+build/tests/midi

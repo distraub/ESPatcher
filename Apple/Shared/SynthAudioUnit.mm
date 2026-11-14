@@ -2,6 +2,7 @@
 #include "../../Core/Synth.hpp"
 #include "../../Core/Scope.hpp"
 #include "../../Core/WasmInstrument.hpp"
+#include "../../Core/MIDIMap.hpp"
 #include <mutex>
 #include <atomic>
 #include <memory>
@@ -16,6 +17,30 @@ struct Event { uint8_t note,velocity; };
 struct Kernel {
     gs::Synth core;
     gs::Scope scope;
+    gs::MIDIMap midi;
+    std::atomic<uint32_t> midiRevision{0};
+    struct MIDIEvent {uint8_t status,a,b;};
+    MIDIEvent midiQueue[256]{};
+    std::atomic<unsigned> midiRead{0},midiWrite{0};
+    std::atomic<bool> midiOverflow{false};
+    std::atomic<uint64_t> midiPanicCutoff{0};
+    std::mutex midiProducer; // Input callbacks only; render never takes this lock.
+    void enqueueMIDI(uint8_t status,uint8_t a,uint8_t b){
+        std::lock_guard<std::mutex> lock(midiProducer);
+        auto w=midiWrite.load();if(w-midiRead.load()>=256){midiOverflow.store(true);return;}
+        midiQueue[w%256]={status,a,b};midiWrite.store(w+1,std::memory_order_release);
+    }
+    void receiveMIDI(uint8_t status,uint8_t a,uint8_t b){
+        if(a>127||b>127)return;
+        if((status&0xf0)==0x90&&b)noteOn(a,b);
+        else if((status&0xf0)==0x80||((status&0xf0)==0x90&&!b))noteOff(a);
+        else if((status&0xf0)==0xb0){
+            if(a==120||a==123){panic();return;}
+            unsigned address;float value;
+            if(midi.receive(status&15,a,b,address,value)){parameter(address,value);midiRevision.fetch_add(1);}
+        }else if(status==0xfa||status==0xfb){parameter(8,1);midiRevision.fetch_add(1);}
+        else if(status==0xfc){parameter(8,0);midiRevision.fetch_add(1);}
+    }
     std::unique_ptr<gs::WasmInstrument> modules[2];
     std::atomic<int> active{-1}, pending{-1};
     unsigned discardBefore[2]{};
@@ -58,6 +83,13 @@ struct Kernel {
             panic();unsigned r=read.load(std::memory_order_relaxed),cutoff=unsigned(request);
             if(cutoff-r<=queueSize)read.store(cutoff,std::memory_order_release);
         }
+        auto mw=midiWrite.load(std::memory_order_acquire),mr=midiRead.load();
+        if(uint64_t cutoff=midiPanicCutoff.exchange(0)){
+            panic();if(unsigned(cutoff)-mr<=256)mr=unsigned(cutoff);
+        }
+        if(midiOverflow.exchange(false)){panic();mr=mw;}
+        while(mr!=mw){auto e=midiQueue[mr++%256];receiveMIDI(e.status,e.a,e.b);}
+        midiRead.store(mr,std::memory_order_release);
         unsigned r=read.load(std::memory_order_relaxed),w=write.load(std::memory_order_acquire);
         while(r!=w){auto e=queue[r++%queueSize];if(e.velocity)noteOn(e.note,e.velocity);else noteOff(e.note);}
         read.store(r,std::memory_order_release);
@@ -133,7 +165,7 @@ struct Kernel {
 }
 - (void)playNote:(uint8_t)note velocity:(uint8_t)velocity{_kernel->enqueue({note,velocity});}
 - (void)releaseNote:(uint8_t)note{_kernel->enqueue({note,0});}
-- (void)panic{_kernel->panicRequest.store((uint64_t(1)<<32)|_kernel->write.load(std::memory_order_acquire),std::memory_order_release);}
+- (void)panic{_kernel->midiPanicCutoff.store((uint64_t(1)<<32)|_kernel->midiWrite.load(std::memory_order_acquire));_kernel->panicRequest.store((uint64_t(1)<<32)|_kernel->write.load(std::memory_order_acquire),std::memory_order_release);}
 - (NSArray<NSNumber *> *)scopeSnapshot{
     auto samples=_kernel->scope.snapshot();
     NSMutableArray *values=[NSMutableArray arrayWithCapacity:128];
@@ -141,11 +173,50 @@ struct Kernel {
     return values;
 }
 - (NSArray<NSString *> *)firmwareKnobLabels{std::lock_guard<std::mutex> lock(_kernel->control);return _firmwareKnobLabels?:@[@"CUTOFF",@"RES",@"WAVE",@"ATTACK",@"RELEASE",@"LEVEL",@"RATE",@"DEPTH"];}
+- (AUScheduleMIDIEventBlock)scheduleMIDIEventBlock {
+    Kernel *k=_kernel.get();
+    return ^(AUEventSampleTime time,uint8_t cable,NSInteger length,const uint8_t *data){
+        if(length<1||!data)return;
+        uint8_t status=data[0];
+        if((status&0xf0)<0xf0&&length<3)return;
+        k->enqueueMIDI(status,length>1?data[1]:0,length>2?data[2]:0);
+    };
+}
+- (void)beginMIDILearn:(uint32_t)address{_kernel->midi.learning.store(address<19?int(address):-1);}
+- (void)refreshMIDIParameters{
+    for(unsigned address=0;address<parameterCount;address++){
+        AUParameter *p=[_parameterTree parameterWithAddress:address];float value=_kernel->values[address].load();
+        if(p.value!=value)p.value=value;
+    }
+}
+- (void)cancelMIDILearn{_kernel->midi.learning.store(-1);}
+- (NSInteger)midiLearnTarget{return _kernel->midi.learning.load();}
+- (uint32_t)midiRevision{return _kernel->midiRevision.load();}
+- (uint32_t)midiMappingRevision{return _kernel->midi.revision.load();}
+- (NSArray<NSNumber *> *)midiMappings{NSMutableArray *maps=[NSMutableArray array];for(auto &entry:_kernel->midi.entries)[maps addObject:@(entry.load())];return maps;}
+- (void)restoreMIDIMappings:(NSArray<NSNumber *> *)maps{
+    for(auto &entry:_kernel->midi.entries)entry.store(0);
+    if([maps isKindOfClass:NSArray.class]&&maps.count==gs::MIDIMap::count){
+        for(unsigned i=0;i<gs::MIDIMap::count;i++)if([maps[i] isKindOfClass:NSNumber.class]){
+            double number=[maps[i] doubleValue];
+            if(!std::isfinite(number)||number<0||number>65535||std::floor(number)!=number)continue;
+            uint32_t value=uint32_t(number);if(!value||!gs::MIDIMap::valid(value))continue;
+            bool duplicate=false;
+            for(auto &entry:_kernel->midi.entries){auto e=entry.load();if(e&&((e>>11)==(value>>11)||(e&2047)==(value&2047)))duplicate=true;}
+            if(!duplicate)_kernel->midi.entries[i].store(value);
+        }
+    }
+    _kernel->midi.learning.store(-1);_kernel->midi.revision.fetch_add(1);
+}
+- (uint32_t)midiMapping:(uint32_t)address{return address<19?_kernel->midi.mapping(address):0;}
+- (void)clearMIDIMapping:(uint32_t)address{if(address<19)_kernel->midi.clear(address);}
 - (void)reset{[super reset];[self panic];}
 - (NSDictionary *)fullState {
     NSMutableDictionary *state=[[super fullState] mutableCopy]?:[NSMutableDictionary dictionary];
     NSMutableArray *params=[NSMutableArray array];for(int i=0;i<parameterCount;i++)[params addObject:@(_kernel->values[i].load())];
     state[@"gs.parameters.v1"]=params;
+    NSMutableArray *maps=[NSMutableArray array];for(auto &entry:_kernel->midi.entries)[maps addObject:@(entry.load())];
+    state[@"espatcher.midi.v1"]=maps;
     std::lock_guard<std::mutex> lock(_kernel->control);
     if(_firmwareData)state[@"gs.firmware.v1"]=_firmwareData;
     return state;
@@ -155,6 +226,7 @@ struct Kernel {
     for(id value in values)if(![value isKindOfClass:NSNumber.class]||!std::isfinite([value floatValue]))return;
     id module=state[@"gs.firmware.v1"];
     if(module&&(![module isKindOfClass:NSData.class]||![self loadFirmwareData:module error:nil]))return;
+    [self restoreMIDIMappings:state[@"espatcher.midi.v1"]?:@[]];
     [super setFullState:state];for(unsigned i=0;i<parameterCount;i++)[_parameterTree parameterWithAddress:i].value=i<[values count]?[values[i] floatValue]:(i==6||i==12?1:i==10?4:i==11?.5f:i==14?120:i==15?3:i>=16?1:0);[self panic];
 }
 
@@ -228,7 +300,7 @@ struct Kernel {
             switch(e->head.eventType){
                 case AURenderEventParameter:k->parameter(unsigned(e->parameter.parameterAddress),e->parameter.value);break;
                 case AURenderEventParameterRamp:k->parameter(unsigned(e->parameter.parameterAddress),e->parameter.value);break; // v0: adopts ramp target at event time.
-                case AURenderEventMIDI:{auto m=e->MIDI.data;if(e->MIDI.length>=3){if((m[0]&0xf0)==0x90&&m[2])k->noteOn(m[1],m[2]);else if((m[0]&0xf0)==0x80||((m[0]&0xf0)==0x90&&!m[2]))k->noteOff(m[1]);else if((m[0]&0xf0)==0xb0&&(m[1]==120||m[1]==123))k->panic();}break;}
+                case AURenderEventMIDI:{auto m=e->MIDI.data;if(e->MIDI.length>=3||(e->MIDI.length>=1&&m[0]>=0xf8))k->receiveMIDI(m[0],e->MIDI.length>=2?m[1]:0,e->MIDI.length>=3?m[2]:0);break;}
                 default:break;
             }
         }
