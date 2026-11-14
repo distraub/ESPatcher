@@ -25,7 +25,10 @@ struct SynthView: View {
                 FirmwarePicker(model: model)
                 NavigationStrip(model: model)
                 HStack(alignment: .top, spacing: 16) {
-                    InstrumentScreen(model: model)
+                    Group {
+                        if model.packageInfo != nil { PackageInstrumentScreen(model: model) }
+                        else { InstrumentScreen(model: model) }
+                    }
                         .frame(maxWidth: .infinity)
                     PerformancePads(model: model, height: performanceHeight)
                 }
@@ -42,7 +45,7 @@ struct SynthView: View {
                 .font(.caption.monospaced())
                 Text("A W S E D F T G Y H U J K · Z / X octave · Space panic\nClick this panel to focus computer keys. \(model.voiceLimit) voices · oldest held note is stolen when full.")
                     .font(.caption.monospaced()).foregroundStyle(.secondary)
-                Text("Four-voice ladder synth · ADV hardware testing pending")
+                Text("Portable instrument runtime · ADV hardware testing pending")
                     .font(.caption2).foregroundStyle(.secondary)
             }.padding(16).frame(minWidth: 1024, maxWidth: 1120)
         }
@@ -67,8 +70,12 @@ struct SynthView: View {
                 }
                 return .handled
             }
+            if key == "l" {
+                if press.phase == .down { model.openLibrary() }
+                return .handled
+            }
             if let page = ["c", "v", "b", "n", "m"].firstIndex(of: key) {
-                if press.phase == .down { model.navigation.go(page, model: model) }
+                if press.phase == .down { model.navigation.go(model.packageInfo == nil || page == 0 ? page : page + 1, model: model) }
                 return .handled
             }
             if key == "-" || key == "_" {

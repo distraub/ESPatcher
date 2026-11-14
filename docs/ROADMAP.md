@@ -51,5 +51,6 @@ Implemented experimentally: bounded `.espkg` packages, multiple engines, default
 parameter sets, package-defined screen primitives/knob assignments/pad pitches,
 browser Library, package builder/SD staging, and a separate ADV SD/WASM launcher
 that cross-compiles. See [the prototype guide](SD-INSTRUMENT-PROTOTYPE.md).
-Physical heap/deadline/recovery testing, native Apple package UI and arbitrary
-parameter/UI contracts remain outstanding.
+Native Apple package loading/UI and AU package/engine restoration now work.
+Physical heap/deadline/recovery testing and arbitrary parameter/UI contracts
+remain outstanding.

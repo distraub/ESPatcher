@@ -8,11 +8,13 @@ struct FirmwarePicker: View {
     @State private var importing = false
     @State private var managing = false
     @State private var importAfterDismiss = false
+    @State private var importAfterLibrary = false
 
     var body: some View {
         HStack(spacing: 12) {
             Text("ESPatcher").font(.title3.bold()).fixedSize()
             instrumentPicker.frame(maxWidth: 300)
+            Button("Library") { model.openLibrary() }.keyboardShortcut("l", modifiers: .command)
             Spacer(minLength: 0)
             if model.firmwareLoading {
                 ProgressView().controlSize(.small).accessibilityLabel("Preparing instrument")
@@ -26,6 +28,15 @@ struct FirmwarePicker: View {
             }
         }
         .frame(minHeight: 36)
+        .sheet(isPresented: $model.libraryPresented, onDismiss: {
+            if importAfterLibrary { importAfterLibrary = false; importing = true }
+        }) {
+            ScrollView {
+                InstrumentLibraryView(model: model, openFile: {
+                    importAfterLibrary = true; model.libraryPresented = false
+                }, done: { model.libraryPresented = false })
+            }.frame(idealWidth: 480, idealHeight: 520)
+        }
         .sheet(isPresented: $managing, onDismiss: {
             // Present the file picker only after the management sheet has closed.
             if importAfterDismiss {
@@ -39,8 +50,12 @@ struct FirmwarePicker: View {
                 .preferredColorScheme(theme.isLight ? .light : .dark)
         }
         .onChange(of: model.firmwareChoice) { _, choice in
-            guard !model.firmwareLoading, model.unit.firmwareID != choice else { return }
+            guard model.packageInfo == nil, !model.firmwareLoading, model.unit.firmwareID != choice else { return }
             Task { await model.loadBundled(choice) }
+        }
+        .onChange(of: model.packageEngineChoice) { _, choice in
+            guard !model.firmwareLoading, let info = model.packageInfo, info.selectedEngine != choice else { return }
+            Task { await model.selectPackageEngine(choice) }
         }
         .task {
             if model.unit.firmwareID == "native" { await model.loadBundled("pocket_analog") }
@@ -59,17 +74,24 @@ struct FirmwarePicker: View {
         }
     }
 
-    private var instrumentPicker: some View {
-        Picker("Instrument", selection: $model.firmwareChoice) {
-            Text("AMSynth · Analog").tag("pocket_analog")
-            Text("AMSynth · FM").tag("fm_bell")
-            if !["pocket_analog", "fm_bell"].contains(model.firmwareChoice) {
-                Text(model.firmwareName).tag(model.firmwareChoice)
+    @ViewBuilder private var instrumentPicker: some View {
+        if let info = model.packageInfo {
+            Picker("Engine", selection: $model.packageEngineChoice) {
+                ForEach(info.engines.indices, id: \.self) { index in
+                    Text(info.name + " · " + info.engines[index].name).tag(index)
+                }
             }
+            .labelsHidden().disabled(model.firmwareLoading).accessibilityLabel("Engine")
+        } else {
+            Picker("Instrument", selection: $model.firmwareChoice) {
+                Text("AMSynth · Analog").tag("pocket_analog")
+                Text("AMSynth · FM").tag("fm_bell")
+                if !["pocket_analog", "fm_bell"].contains(model.firmwareChoice) {
+                    Text(model.firmwareName).tag(model.firmwareChoice)
+                }
+            }
+            .labelsHidden().disabled(model.firmwareLoading).accessibilityLabel("Instrument")
         }
-        .labelsHidden()
-        .disabled(model.firmwareLoading)
-        .accessibilityLabel("Instrument")
     }
 
     private var management: some View {
@@ -81,7 +103,7 @@ struct FirmwarePicker: View {
             }
             VStack(alignment: .leading, spacing: 12) {
                 Text(model.firmwareName).font(.headline)
-                Text("Switch instrument").font(.caption).foregroundStyle(.secondary)
+                Text(model.packageInfo == nil ? "Switch instrument" : "Switch engine").font(.caption).foregroundStyle(.secondary)
                 instrumentPicker
                 Button("Load custom firmware…", systemImage: "folder") {
                     model.panic()
@@ -100,7 +122,7 @@ struct FirmwarePicker: View {
             MIDILearnView(model: model)
             Text("ESPatcher runs portable .gsm5 instrument modules on this computer or device.")
                 .font(.callout)
-            Text("MODULE FORMAT\n.gsm5 · ABI 1 · isolated 256 KiB memory")
+            Text(".gsm5 modules · .espkg instrument packages · isolated WASM engines")
                 .font(.caption.monospaced()).foregroundStyle(.secondary)
             Text("ESPatcher · Alex Matheu / Instrument Lab")
                 .font(.caption).foregroundStyle(.secondary)

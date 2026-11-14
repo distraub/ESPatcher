@@ -3,6 +3,8 @@
 #include "../../Core/Scope.hpp"
 #include "../../Core/WasmInstrument.hpp"
 #include "../../Core/MIDIMap.hpp"
+#include "../../Core/InstrumentPackage.hpp"
+#import <CommonCrypto/CommonDigest.h>
 #include <mutex>
 #include <atomic>
 #include <memory>
@@ -110,12 +112,16 @@ struct Kernel {
 }
 @interface GSSynthAudioUnit ()
 @property(nonatomic,readwrite) AUParameterTree *parameterTree;
+- (BOOL)loadEngineData:(NSData *)data memory:(unsigned)memory defaults:(NSArray *)defaults package:(NSData *)package info:(NSDictionary *)info error:(NSError **)error;
 @end
 @implementation GSSynthAudioUnit {
     AUAudioUnitBusArray *_outputs;
     AUAudioUnitBus *_bus;
     std::unique_ptr<Kernel> _kernel;
     NSData *_firmwareData;
+    NSData *_packageData;
+    NSDictionary *_packageInfo;
+    uint32_t _instrumentRevision;
     NSString *_firmwareName;
     NSString *_firmwareID;
     NSInteger _firmwareVoiceLimit;
@@ -218,14 +224,18 @@ struct Kernel {
     NSMutableArray *maps=[NSMutableArray array];for(auto &entry:_kernel->midi.entries)[maps addObject:@(entry.load())];
     state[@"espatcher.midi.v1"]=maps;
     std::lock_guard<std::mutex> lock(_kernel->control);
-    if(_firmwareData)state[@"gs.firmware.v1"]=_firmwareData;
+    if(_packageData){state[@"espatcher.package.v1"]=_packageData;state[@"espatcher.package.engine.v1"]=_packageInfo[@"selectedEngine"];}
+    else if(_firmwareData)state[@"gs.firmware.v1"]=_firmwareData;
     return state;
 }
 - (void)setFullState:(NSDictionary *)state {
     id values=state[@"gs.parameters.v1"];if(![values isKindOfClass:NSArray.class]||([values count]!=5&&[values count]!=6&&[values count]!=8&&[values count]!=14&&[values count]!=16&&[values count]!=parameterCount))return;
     for(id value in values)if(![value isKindOfClass:NSNumber.class]||!std::isfinite([value floatValue]))return;
-    id module=state[@"gs.firmware.v1"];
-    if(module&&(![module isKindOfClass:NSData.class]||![self loadFirmwareData:module error:nil]))return;
+    id package=state[@"espatcher.package.v1"],module=state[@"gs.firmware.v1"];
+    if(package){
+        id index=state[@"espatcher.package.engine.v1"];
+        if(![package isKindOfClass:NSData.class]||![index isKindOfClass:NSNumber.class]||[index doubleValue]!=[index unsignedIntegerValue]||[index unsignedIntegerValue]>=4||![self loadInstrumentPackageData:package engineIndex:[index unsignedIntegerValue] error:nil])return;
+    }else if(module&&(![module isKindOfClass:NSData.class]||![self loadFirmwareData:module error:nil]))return;
     [self restoreMIDIMappings:state[@"espatcher.midi.v1"]?:@[]];
     [super setFullState:state];for(unsigned i=0;i<parameterCount;i++)[_parameterTree parameterWithAddress:i].value=i<[values count]?[values[i] floatValue]:(i==6||i==12?1:i==10?4:i==11?.5f:i==14?120:i==15?3:i>=16?1:0);[self panic];
 }
@@ -243,20 +253,58 @@ struct Kernel {
 - (NSInteger)firmwareVoiceLimit{std::lock_guard<std::mutex> lock(_kernel->control);return _firmwareVoiceLimit?:1;}
 - (NSInteger)firmwareActiveVoices{return _kernel->voicesActive.load();}
 - (BOOL)loadFirmwareData:(NSData *)data error:(NSError **)error {
+    return [self loadEngineData:data memory:262144 defaults:nil package:nil info:nil error:error];
+}
+- (NSDictionary *)instrumentPackageInfo{std::lock_guard<std::mutex> lock(_kernel->control);return _packageInfo;}
+- (uint32_t)instrumentRevision{std::lock_guard<std::mutex> lock(_kernel->control);return _instrumentRevision;}
+- (BOOL)loadInstrumentPackageData:(NSData *)data engineIndex:(NSUInteger)index error:(NSError **)error {
+    try{
+        if(data.length>gs::packageLimit)throw std::runtime_error("Package exceeds 4 MiB");
+        gs::InstrumentPackage package;
+        gs::readInstrumentPackage([&](uint32_t offset,void *target,uint32_t count){if(offset>data.length||count>data.length-offset)return false;memcpy(target,(const uint8_t*)data.bytes+offset,count);return true;},uint32_t(data.length),package);
+        if(index>=package.engineCount)throw std::runtime_error("Engine index out of range");
+        NSMutableArray *engines=[NSMutableArray array];
+        for(unsigned e=0;e<package.engineCount;e++){
+            const auto &engine=package.engines[e];uint8_t digest[32];
+            CC_SHA256((const uint8_t*)data.bytes+engine.moduleOffset,engine.moduleSize,digest);
+            if(memcmp(digest,engine.digest.data(),32))throw std::runtime_error("Engine checksum mismatch");
+            NSMutableArray *scenes=[NSMutableArray array],*defaults=[NSMutableArray array];
+            for(float value:engine.defaults)[defaults addObject:@(value)];
+            for(unsigned s=0;s<engine.sceneCount;s++){
+                const auto &scene=engine.scenes[s];NSMutableArray *bindings=[NSMutableArray array],*labels=[NSMutableArray array],*pads=[NSMutableArray array];
+                for(auto binding:scene.bindings)[bindings addObject:@(binding==255?-1:int(binding))];
+                for(const auto &label:scene.labels)[labels addObject:@(label.c_str())];
+                for(auto note:scene.pads)[pads addObject:@(note)];
+                [scenes addObject:@{@"title":@(scene.title.c_str()),@"subtitle":@(scene.subtitle.c_str()),@"layout":@(scene.layout),@"bindings":[bindings copy],@"labels":[labels copy],@"pads":[pads copy]}];
+            }
+            [engines addObject:@{@"id":@(engine.id.c_str()),@"name":@(engine.name.c_str()),@"defaults":[defaults copy],@"scenes":[scenes copy]}];
+        }
+        NSDictionary *info=@{@"id":@(package.id.c_str()),@"name":@(package.name.c_str()),@"version":@(package.version.c_str()),@"selectedEngine":@(index),@"engines":[engines copy]};
+        const auto &engine=package.engines[index];
+        NSData *module=[data subdataWithRange:NSMakeRange(engine.moduleOffset,engine.moduleSize)];
+        // Export identity is checked against the engine manifest by the normal loader.
+        auto text=gs::WasmInstrument::inspect(std::vector<uint8_t>((const uint8_t*)module.bytes,(const uint8_t*)module.bytes+module.length),engine.memory);
+        NSDictionary *manifest=[NSJSONSerialization JSONObjectWithData:[NSData dataWithBytes:text.data() length:text.size()] options:0 error:nil];
+        if(![manifest isKindOfClass:NSDictionary.class]||![manifest[@"id"] isEqual:@(engine.id.c_str())]||![manifest[@"parameter_profile"] isEqual:@"synth-v6"])throw std::runtime_error("Package and engine manifest disagree");
+        BOOL loaded=[self loadEngineData:module memory:engine.memory defaults:engines[index][@"defaults"] package:data info:info error:error];
+        if(loaded)[self refreshMIDIParameters];return loaded;
+    }catch(const std::exception& e){if(error)*error=[NSError errorWithDomain:@"ESPatcherPackage" code:1 userInfo:@{NSLocalizedDescriptionKey:@(e.what())}];return NO;}
+}
+- (BOOL)loadEngineData:(NSData *)data memory:(unsigned)memory defaults:(NSArray *)defaults package:(NSData *)package info:(NSDictionary *)info error:(NSError **)error {
     try {
         if(data.length>1024*1024)throw std::runtime_error("Firmware file exceeds 1 MiB");
         std::vector<uint8_t> bytes(data.length);if(data.length)memcpy(bytes.data(),data.bytes,data.length);
-        std::string text=gs::WasmInstrument::inspect(bytes);
+        std::string text=gs::WasmInstrument::inspect(bytes,memory);
         NSData *json=[NSData dataWithBytes:text.data() length:text.size()];
         id manifest=[NSJSONSerialization JSONObjectWithData:json options:0 error:nil];
         if(![manifest isKindOfClass:NSDictionary.class])throw std::runtime_error("Invalid firmware manifest JSON");
         auto integer=[](id v,int expected){return [v isKindOfClass:NSNumber.class]&&CFGetTypeID((__bridge CFTypeRef)v)!=CFBooleanGetTypeID()&&[v doubleValue]==expected;};
-        if(!integer(manifest[@"format"],1)||!integer(manifest[@"abi"],1)||!integer(manifest[@"memory_bytes"],262144)||![manifest[@"target"] isEqual:@"cardputer-adv"]||(![manifest[@"parameter_profile"] isEqual:@"mono-v1"]&&![manifest[@"parameter_profile"] isEqual:@"synth-v2"]&&![manifest[@"parameter_profile"] isEqual:@"synth-v3"]&&![manifest[@"parameter_profile"] isEqual:@"synth-v4"]&&![manifest[@"parameter_profile"] isEqual:@"synth-v5"]&&![manifest[@"parameter_profile"] isEqual:@"synth-v6"]))
+        if(!integer(manifest[@"format"],1)||!integer(manifest[@"abi"],1)||!integer(manifest[@"memory_bytes"],int(memory))||![manifest[@"target"] isEqual:@"cardputer-adv"]||(![manifest[@"parameter_profile"] isEqual:@"mono-v1"]&&![manifest[@"parameter_profile"] isEqual:@"synth-v2"]&&![manifest[@"parameter_profile"] isEqual:@"synth-v3"]&&![manifest[@"parameter_profile"] isEqual:@"synth-v4"]&&![manifest[@"parameter_profile"] isEqual:@"synth-v5"]&&![manifest[@"parameter_profile"] isEqual:@"synth-v6"]))
             throw std::runtime_error("Unsupported format, ABI, target, memory, or parameter profile");
         NSString *identifier=manifest[@"id"],*name=manifest[@"name"],*version=manifest[@"version"];
-        if(![identifier isKindOfClass:NSString.class]||identifier.length<1||identifier.length>31||![name isKindOfClass:NSString.class]||name.length<1||name.length>64||![version isKindOfClass:NSString.class]||version.length<1||version.length>32)
+        if(![identifier isKindOfClass:NSString.class]||identifier.length<1||identifier.length>(package?48:31)||![name isKindOfClass:NSString.class]||name.length<1||name.length>64||![version isKindOfClass:NSString.class]||version.length<1||version.length>32)
             throw std::runtime_error("Missing or invalid firmware identity");
-        NSCharacterSet *allowed=[NSCharacterSet characterSetWithCharactersInString:@"abcdefghijklmnopqrstuvwxyz0123456789_"];
+        NSCharacterSet *allowed=[NSCharacterSet characterSetWithCharactersInString:package?@"abcdefghijklmnopqrstuvwxyz0123456789_-":@"abcdefghijklmnopqrstuvwxyz0123456789_"];
         if([identifier rangeOfCharacterFromSet:allowed.invertedSet].location!=NSNotFound)throw std::runtime_error("Invalid firmware ID");
         id labels=manifest[@"knob_labels"];
         if(labels){
@@ -267,9 +315,14 @@ struct Kernel {
         std::lock_guard<std::mutex> lock(_kernel->control);
         if(_kernel->pending.load(std::memory_order_acquire)>=0)throw std::runtime_error("A firmware switch is still pending; try again");
         int active=_kernel->active.load(std::memory_order_acquire),slot=active==0?1:0;
-        auto candidate=std::make_unique<gs::WasmInstrument>(std::move(bytes),identifier.UTF8String,_bus.format.sampleRate,[manifest[@"parameter_profile"] isEqual:@"synth-v6"]?19:([manifest[@"parameter_profile"] isEqual:@"synth-v5"]?16:([manifest[@"parameter_profile"] isEqual:@"synth-v4"]?14:([manifest[@"parameter_profile"] isEqual:@"synth-v3"]?8:([manifest[@"parameter_profile"] isEqual:@"synth-v2"]?6:5)))));
+        auto candidate=std::make_unique<gs::WasmInstrument>(std::move(bytes),identifier.UTF8String,_bus.format.sampleRate,[manifest[@"parameter_profile"] isEqual:@"synth-v6"]?19:([manifest[@"parameter_profile"] isEqual:@"synth-v5"]?16:([manifest[@"parameter_profile"] isEqual:@"synth-v4"]?14:([manifest[@"parameter_profile"] isEqual:@"synth-v3"]?8:([manifest[@"parameter_profile"] isEqual:@"synth-v2"]?6:5)))),memory,memory<262144?16384:65536);
         id declared=manifest[@"polyphony"];
         if(declared&&!integer(declared,int(candidate->voiceLimit())))throw std::runtime_error("Manifest and firmware polyphony disagree");
+        if(defaults){
+            std::array<float,19> values;for(unsigned p=0;p<19;p++)values[p]=[defaults[p] floatValue];
+            candidate->parameters(values);
+            if(candidate->faulted())throw std::runtime_error("Engine rejected package defaults");
+        }
         _firmwareVoiceLimit=candidate->voiceLimit();
         _firmwareHasLFOShapes=[manifest[@"parameter_profile"] isEqual:@"synth-v6"];
         _firmwareHasTempoSync=_firmwareHasLFOShapes||[manifest[@"parameter_profile"] isEqual:@"synth-v5"];
@@ -280,6 +333,10 @@ struct Kernel {
         _firmwareKnobLabels=labels?[labels copy]:@[@"CUTOFF",@"RES",@"SHAPE",@"ATTACK",@"RELEASE",@"LEVEL",@"RATE",@"DEPTH"];
         _firmwareData=[data copy];_firmwareName=[name copy];_firmwareID=[identifier copy];
         _kernel->discardBefore[slot]=_kernel->write.load(std::memory_order_acquire);
+        if(defaults)for(unsigned p=0;p<19;p++){
+            _kernel->parameter(p,[defaults[p] floatValue]);
+        }
+        _packageData=[package copy];_packageInfo=[info copy];_instrumentRevision++;
         _kernel->pending.store(slot,std::memory_order_release);
         return YES;
     }catch(const std::exception& e){if(error)*error=[NSError errorWithDomain:@"GlitchSynthFirmware" code:1 userInfo:@{NSLocalizedDescriptionKey:@(e.what())}];return NO;}

@@ -33,9 +33,21 @@ limit. To preview your own DSP locally, build it and regenerate your *own truste
 catalog. Package UI text is data, never HTML or script. Checksum matching detects
 corruption; it is not a digital signature or proof of authorship.
 
-The Apple standalone/AUv3 editor still imports `.gsm5`, not `.espkg`; package
-import/UI adaptation there is a future pass. Its existing module memory contract
-and session restoration are unchanged.
+The native Mac/iOS editor now includes the same Library and sample packages.
+Choose **Library** beside the engine selector, or L/Command-L. **Open .espkg
+package…** imports a local package. Engine and page changes update its screen,
+knobs and pad pitches. Global settings and Library remain host-owned.
+
+Native package loading uses the shared C++ decoder, checks every engine checksum
+and validates the selected engine's manifest/exports before publication. It uses
+the fuel-limited wasm3 runtime, so it can import custom DSP rather than the
+browser's trusted-hash subset. This is not a hostile-code security audit.
+
+AU `fullState` embeds the entire package, selected engine and current parameter
+values; restoring a session does not depend on the original package file. The
+editor returns to the engine's first scene. Existing `.gsm5` sessions still load,
+and direct `.gsm5` import continues to require the original 256 KiB contract.
+Standalone sessions are not automatically saved on quit.
 
 ## Build the SD files
 
@@ -154,5 +166,5 @@ scene and cannot be removed by its UI data.
 
 These are bounded UI primitives, not arbitrary drawing code, new drivers or a
 complete operating-system replacement. Wider UI/input schemas, engine capability
-metadata, preset/state migration, package persistence in AU sessions, package
-signatures and native Apple package UI remain future work.
+metadata, preset/state migration, package signatures, arbitrary UI code and
+standalone session autosave remain future work.

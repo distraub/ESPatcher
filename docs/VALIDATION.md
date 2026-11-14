@@ -143,3 +143,18 @@ package loading, arbitrary UI ABI and the sequencer are not implemented.
 No ADV SD mounting, actual package loading, live heap, render deadlines, repeated
 switches or recovery behavior has been tested on physical hardware. Follow the
 [prototype checklist](SD-INSTRUMENT-PROTOTYPE.md) before calling it device-ready.
+
+## Native package editor follow-up — November 14, 2026
+
+- Mac/iOS app and AUv3 builds: pass with embedded package resources.
+- Actual native AU tests: package parsing/metadata, reduced-memory engine render,
+  defaults, engine selection, checksum failure rollback and legacy raw-module
+  compatibility: pass.
+- AU package restoration before allocation produces finite audible samples;
+  engine index and parameter values restore from embedded bytes: pass.
+- Mac UI: Library button, Orbit's scenes/scale pads, knob adjustment, AMSynth
+  Analog→FM switch, global settings and Command-L recovery: observed.
+- Scene rendering remains a leaf display-cadence reader. File I/O, validation and
+  VM compilation run off the audio callback, using the existing staged handoff.
+
+Physical ADV validation and third-party host/device testing remain pending.

@@ -9,10 +9,11 @@ struct SynthKnob: View {
     @Environment(\.isEnabled) private var enabled
     @Environment(\.scenePhase) private var scenePhase
     @ScaledMetric(relativeTo: .body) private var diameter = 72.0
+    @State private var dragGeneration: UInt32?
     @State private var dragStartValue: Double?
     @State private var dragValue: Double?
     private var value: Double { dragValue ?? model.value(parameter) }
-    private var title: String { parameter == .shape ? model.shapeTitle : parameter.title }
+    private var title: String { model.packageScene?.labels[slot] ?? (parameter == .shape ? model.shapeTitle : parameter.title) }
     private var readout: String { parameter.formatted(value, shapes: model.shapeLabels) }
     var body: some View {
         VStack(spacing: 4) {
@@ -48,7 +49,7 @@ struct SynthKnob: View {
     private var drag: some Gesture {
         DragGesture(minimumDistance: 0)
             .onChanged { gesture in
-                if dragStartValue == nil { dragStartValue = value }
+                if dragStartValue == nil { dragStartValue = value; dragGeneration = model.editorGeneration }
                 let fraction = parameter.normalized(dragStartValue ?? value) - Double(gesture.translation.height) / 180
                 let next = parameter.denormalized(fraction)
                 dragValue = next; model.preview(parameter, value: next)
@@ -56,12 +57,12 @@ struct SynthKnob: View {
             .onEnded { _ in finish() }
     }
     private func finish() {
-        if let dragValue { model.commit(parameter, value: dragValue) }
-        dragValue = nil; dragStartValue = nil
+        if let dragValue, dragGeneration == model.editorGeneration { model.commit(parameter, value: dragValue) }
+        dragValue = nil; dragStartValue = nil; dragGeneration = nil
     }
     private func reset() {
         guard enabled else { return }
-        dragValue = nil; dragStartValue = nil
+        dragValue = nil; dragStartValue = nil; dragGeneration = nil
         model.preview(parameter, value: parameter.defaultValue)
         model.commit(parameter, value: parameter.defaultValue)
     }

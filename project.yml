@@ -25,6 +25,9 @@ targets:
       - path: Apple/App
       - path: Apple/Shared
       - path: Core
+      - path: Library
+        type: folder
+        buildPhase: resources
       - path: Firmware/Modules
         type: folder
         buildPhase: resources
@@ -72,6 +75,9 @@ targets:
       - path: Apple/Extension
       - path: Apple/Shared
       - path: Core
+      - path: Library
+        type: folder
+        buildPhase: resources
       - path: Firmware/Modules
         type: folder
         buildPhase: resources
@@ -132,6 +138,9 @@ targets:
       - path: Apple/App
       - path: Apple/Shared
       - path: Core
+      - path: Library
+        type: folder
+        buildPhase: resources
       - path: Firmware/Modules
         type: folder
         buildPhase: resources
@@ -181,6 +190,9 @@ targets:
       - path: Apple/Extension
       - path: Apple/Shared
       - path: Core
+      - path: Library
+        type: folder
+        buildPhase: resources
       - path: Firmware/Modules
         type: folder
         buildPhase: resources

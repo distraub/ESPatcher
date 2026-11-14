@@ -10,7 +10,7 @@ struct SynthKnobPanel: View {
             ForEach(0..<8) { slot in
                 if let parameter = model.navigation.bindings[slot] {
                     SynthKnob(parameter: parameter, model: model, slot: slot)
-                        .id("\(model.navigation.page)-\(slot)-\(parameter.rawValue)")
+                        .id("\(model.editorGeneration)-\(model.navigation.page)-\(slot)-\(parameter.rawValue)")
                         .disabled(!model.supports(parameter))
                 } else {
                     VStack(spacing: 4) {
@@ -26,6 +26,7 @@ struct SynthKnobPanel: View {
                 }
             }
         }
+        .disabled(model.firmwareLoading)
         .padding(12).background(theme.surface).clipShape(.rect(cornerRadius: 10))
     }
 }

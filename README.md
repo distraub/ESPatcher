@@ -226,7 +226,7 @@ scenes; arbitrary engine-owned UI code remains future work.
 
 ## SD instrument package prototype
 
-Use **Library** in the browser to load AMSynth (Analog/FM), Orbit (a different
+Use **Library** in the browser or native Mac/iOS editor to load AMSynth (Analog/FM), Orbit (a different
 UI and pad layout), or Signal Check (minimal Tone/Pulse engines). Instruments
 carry their own engines, defaults and bounded screen/control definitions in one
 `.espkg` file. The header selects engines within the instrument; L returns to
@@ -241,4 +241,12 @@ hardware measurements. The normal native ADV candidate is unchanged.
 Start with the [prototype guide](docs/SD-INSTRUMENT-PROTOTYPE.md) for SD staging,
 build instructions, format limits, failure behavior and the first-device checklist.
 The browser prototype restricts DSP to the server's trusted module hashes.
-Apple `.espkg` import and arbitrary UI/parameter schemas are future work.
+Native Apple `.espkg` import and package scenes are implemented, including AU
+session restoration of the package and chosen engine. Arbitrary UI/parameter
+schemas remain future work.
+
+The Mac app now has a **Library** button beside its engine selector (L or
+Command-L). It includes the same three sample packages, accepts local `.espkg`
+files, and renders their screen layouts, knob labels/bindings and pad pitches.
+The native loader uses bounded wasm3 execution for imported engines; the browser
+still restricts DSP to its trusted catalog.

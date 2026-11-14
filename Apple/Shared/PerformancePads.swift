@@ -13,11 +13,11 @@ struct PerformancePads: View {
             Text("PADS · NOTES").font(.caption.monospaced().bold())
             LazyVGrid(columns: columns, spacing: 8) {
                 ForEach(0..<16) { position in
-                    let note = (3 - position / 4) * 4 + position % 4
-                    PerformancePad(index: note, model: model, height: (height - 91) / 4)
+                    let note = model.packagePadNotes?[position] ?? ((3 - position / 4) * 4 + position % 4)
+                    PerformancePad(index: note, slot: position, model: model, height: (height - 91) / 4)
                 }
             }
-            Text("Chromatic · lowest note at bottom left")
+            Text(model.packageInfo == nil ? "Chromatic · lowest note at bottom left" : "Package note layout · lowest note at bottom left")
                 .font(.caption2.monospaced()).foregroundStyle(.secondary)
         }
         .padding(14).frame(width: 344, height: height)
@@ -27,6 +27,7 @@ struct PerformancePads: View {
 
 private struct PerformancePad: View {
     let index: Int
+    let slot: Int
     let model: SynthModel
     let height: CGFloat
     @Environment(\.synthTheme) private var theme
@@ -34,7 +35,7 @@ private struct PerformancePad: View {
     @State private var held = false
     @State private var accessibleRelease: Task<Void, Never>?
     private static let names = ["C", "C♯", "D", "D♯", "E", "F", "F♯", "G", "G♯", "A", "A♯", "B"]
-    private var source: String { "pad\(index)" }
+    private var source: String { "pad\(slot)" }
     private var name: String { Self.names[index % 12] + "\(model.octave + index / 12)" }
     private var sounding: Bool { model.notes.values.contains(12 * (model.octave + 1) + index) }
     private var root: Bool { index % 12 == 0 }
@@ -69,6 +70,7 @@ private struct PerformancePad: View {
                 }
             }
             .onChange(of: scenePhase) { _, phase in if phase != .active { release() } }
+            .onChange(of: model.editorGeneration) { _, _ in release() }
             .onChange(of: model.octave) { _, _ in release() }
             .onChange(of: model.navigation.page) { _, _ in release() }
             .onDisappear(perform: release)

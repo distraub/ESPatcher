@@ -18,6 +18,9 @@ NS_ASSUME_NONNULL_BEGIN
 // UI-only allocation; audio capture is fixed-size and lock-free.
 - (NSArray<NSNumber *> *)scopeSnapshot;
 @property(nonatomic, readonly) NSArray<NSString *> *firmwareKnobLabels;
+@property(nonatomic, readonly, nullable) NSDictionary *instrumentPackageInfo;
+@property(nonatomic, readonly) uint32_t instrumentRevision;
+- (BOOL)loadInstrumentPackageData:(NSData *)data engineIndex:(NSUInteger)index error:(NSError **)error NS_SWIFT_NAME(loadInstrumentPackage(_:engine:));
 // Control-side load. Validation/compilation never runs in the audio callback.
 - (BOOL)loadFirmwareData:(NSData *)data error:(NSError **)error NS_SWIFT_NAME(loadFirmware(_:));
 @property(nonatomic, readonly) NSString *firmwareName;
