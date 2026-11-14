@@ -25,6 +25,13 @@ clang++ -std=c++20 -O2 Tests/polyphony.cpp build/tests/analog.o build/tests/bell
 build/tests/polyphony
 clang++ -std=c++20 -O2 -fobjc-arc -fblocks Tests/audio_unit.mm Apple/Shared/SynthAudioUnit.mm \
     build/tests/wasm3/*.o -framework AudioToolbox -framework AVFoundation -framework Foundation -o build/tests/audio_unit
+# Bundle the headless harness exactly like the app/extension resource layout.
+mkdir -p build/tests/DefaultAU.app/Contents/MacOS build/tests/DefaultAU.app/Contents/Resources/Modules
+cp Firmware/Modules/*.gsm5 build/tests/DefaultAU.app/Contents/Resources/Modules/
+printf '%s' '<?xml version="1.0"?><plist version="1.0"><dict><key>CFBundleExecutable</key><string>DefaultAU</string><key>CFBundleIdentifier</key><string>net.matheusound.default-au-test</string><key>CFBundlePackageType</key><string>APPL</string></dict></plist>' > build/tests/DefaultAU.app/Contents/Info.plist
+clang++ -std=c++20 -O2 -fobjc-arc -fblocks Tests/default_auv3.mm Apple/Shared/SynthAudioUnit.mm \
+    build/tests/wasm3/*.o -framework AudioToolbox -framework AVFoundation -framework Foundation -o build/tests/DefaultAU.app/Contents/MacOS/DefaultAU
+build/tests/DefaultAU.app/Contents/MacOS/DefaultAU
 build/tests/audio_unit
 
 clang++ -std=c++17 -O2 Device/ADV/tests/controls.cpp -o build/tests/adv_controls

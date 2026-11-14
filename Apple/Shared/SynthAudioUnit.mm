@@ -152,7 +152,16 @@ struct Kernel {
     Kernel *k=_kernel.get();
     _parameterTree.implementorValueObserver=^(AUParameter *p,AUValue value){k->parameter(unsigned(p.address),value);};
     _parameterTree.implementorValueProvider=^AUValue(AUParameter *p){return p.address<parameterCount?k->values[p.address].load():0;};
-    self.maximumFramesToRender=4096;return self;
+    self.maximumFramesToRender=4096;
+    // Hosts may render before ever requesting an editor. Bootstrap on the
+    // construction thread, then adopt while no render thread can be active.
+    NSURL *initialURL=[[NSBundle bundleForClass:self.class] URLForResource:@"pocket_analog" withExtension:@"gsm5" subdirectory:@"Modules"];
+    if(initialURL){
+        NSData *initial=[NSData dataWithContentsOfURL:initialURL options:0 error:error];
+        if(!initial||![self loadFirmwareData:initial error:error])return nil;
+        _kernel->begin();
+    }
+    return self;
 }
 - (AUAudioUnitBusArray *)outputBusses{return _outputs;}
 - (NSArray<NSNumber *> *)channelCapabilities{return @[@0,@2];}
