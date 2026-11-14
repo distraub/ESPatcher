@@ -8,3 +8,6 @@ xcuserdata/
 
 __pycache__/
 *.pyc
+
+# Per-developer Apple signing team
+Apple/Signing.local.xcconfig

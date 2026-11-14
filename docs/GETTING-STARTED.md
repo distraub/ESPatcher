@@ -28,7 +28,18 @@ open build/DerivedData/Build/Products/Debug/ESPatcher.app
 ```
 
 Bundled modules are checked in; the Apple build does not need a WASI SDK.
-For iOS, choose `ESPatcherIOS` in Xcode. Physical devices require signing.
+For iOS, choose `ESPatcherIOS` in Xcode. To run on your iPad or iPhone:
+
+1. Connect and unlock the device, trust the Mac, and enable Developer Mode if prompted.
+2. Add your Apple developer account in Xcode Settings → Accounts.
+3. Create `Apple/Signing.local.xcconfig` containing `DEVELOPMENT_TEAM = YOUR_TEAM_ID`.
+   This file is ignored by Git and applies to both the app and AUv3 extension.
+4. Select the device and run the `ESPatcherIOS` scheme. Automatic signing creates
+   the development provisioning profiles. Alternatively select the same team in
+   Signing & Capabilities for both `ESPatcherIOS` and `ESPatcherIOSAU`.
+
+`Apple/Signing.xcconfig` optionally includes the local file. Device builds use
+Apple Development signing; Mac and Simulator builds retain ad-hoc signing.
 Use Firmware… to switch engines or load a custom `.gsm5` module.
 
 ## 2. Follow one control through the source

@@ -4,6 +4,9 @@ options:
   deploymentTarget:
     macOS: '15.0'
     iOS: '26.0'
+configFiles:
+  Debug: Apple/Signing.xcconfig
+  Release: Apple/Signing.xcconfig
 settings:
   base:
     CLANG_CXX_LANGUAGE_STANDARD: c++20
@@ -14,7 +17,9 @@ settings:
     MARKETING_VERSION: 0.1.0
     CURRENT_PROJECT_VERSION: 11
     ENABLE_HARDENED_RUNTIME: NO
-    CODE_SIGN_IDENTITY: '-'
+    CODE_SIGN_IDENTITY[sdk=macosx*]: '-'
+    CODE_SIGN_IDENTITY[sdk=iphonesimulator*]: '-'
+    CODE_SIGN_IDENTITY[sdk=iphoneos*]: Apple Development
     GENERATE_INFOPLIST_FILE: YES
     INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.music
 targets:

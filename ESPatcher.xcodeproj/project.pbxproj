@@ -237,6 +237,7 @@
 		461551DFEE6ABBE727E599F3 /* m3_parse.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_parse.c; sourceTree = "<group>"; };
 		464250D71DCC9B0CCC66EDF8 /* AudioHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioHost.swift; sourceTree = "<group>"; };
 		46CE2A6E7C273CF274B811EE /* m3_info.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_info.c; sourceTree = "<group>"; };
+		49518A131B1FA2C0F874C432 /* Signing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Signing.xcconfig; sourceTree = "<group>"; };
 		4A683B305609F4A292D78849 /* m3_optimize.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_optimize.c; sourceTree = "<group>"; };
 		4DB394AAAD7C54C5326E8672 /* InstrumentLibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentLibraryView.swift; sourceTree = "<group>"; };
 		4FD3E4A40B495C3293F19445 /* LFOWaveform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFOWaveform.swift; sourceTree = "<group>"; };
@@ -338,12 +339,21 @@
 				90146FB52A55569EA7E4C55F /* Library */,
 				D4855DA8D023FA1B6C663A56 /* Modules */,
 				3C51260BA851B98490BAD4E6 /* App */,
+				68BF36E8A1101DF4E45870F0 /* Apple */,
 				4D664149C50B941CA566721F /* Core */,
 				3A9118B8C6CB9F1AE1B48D51 /* Extension */,
 				787C528E2ED8C402730C5FEB /* Shared */,
 				912F9D6CD68185DA156557A7 /* wasm3 */,
 				06DC4D25240D29AF1715E678 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		68BF36E8A1101DF4E45870F0 /* Apple */ = {
+			isa = PBXGroup;
+			children = (
+				49518A131B1FA2C0F874C432 /* Signing.xcconfig */,
+			);
+			path = Apple;
 			sourceTree = "<group>";
 		};
 		787C528E2ED8C402730C5FEB /* Shared */ = {
@@ -811,6 +821,7 @@
 		};
 		532DA781E6BD965564ECFFB2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49518A131B1FA2C0F874C432 /* Signing.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -842,7 +853,9 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphonesimulator*]" = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 11;
@@ -958,6 +971,7 @@
 		};
 		E09C8D84C8E9CBF1CFD4F959 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 49518A131B1FA2C0F874C432 /* Signing.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -989,7 +1003,9 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=iphonesimulator*]" = "-";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 11;
