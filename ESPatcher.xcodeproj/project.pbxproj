@@ -244,6 +244,7 @@
 		A25E2C90F5F40C727C87B704 /* ESPatcherMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ESPatcherMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2EC6BD796307227E2C06C54 /* GlitchSynthApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlitchSynthApp.swift; sourceTree = "<group>"; };
 		A8D7100A979EB3B964966FC8 /* FirmwarePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwarePicker.swift; sourceTree = "<group>"; };
+		ABEF587C33BAA6555F136E50 /* InstrumentPackage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InstrumentPackage.hpp; sourceTree = "<group>"; };
 		ADA81B11B5436F73A0AF9CFD /* SynthKnob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthKnob.swift; sourceTree = "<group>"; };
 		BF6F2DD692B00EFB43438DC8 /* MIDIMap.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MIDIMap.hpp; sourceTree = "<group>"; };
 		C00EA6D74337A2CF9FE3CFCA /* m3_exec.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_exec.c; sourceTree = "<group>"; };
@@ -301,6 +302,7 @@
 		4D664149C50B941CA566721F /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				ABEF587C33BAA6555F136E50 /* InstrumentPackage.hpp */,
 				BF6F2DD692B00EFB43438DC8 /* MIDIMap.hpp */,
 				C2CB8531E6AEE11EE9910851 /* Navigation.hpp */,
 				09F3872CA269AB22FDF8C985 /* Scope.hpp */,

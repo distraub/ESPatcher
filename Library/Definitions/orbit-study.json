@@ -1,0 +1,122 @@
+{
+  "id": "orbit-study",
+  "name": "Orbit / UI study",
+  "version": "0.1.0-proto",
+  "engines": [
+    {
+      "id": "fm_bell",
+      "name": "Orbit bells",
+      "memory_bytes": 65536,
+      "module": "../Modules/fm_bell.gsm5",
+      "defaults": [
+        1,
+        0.015,
+        1.2,
+        2200,
+        0.2,
+        0.35,
+        1,
+        0.6,
+        0,
+        0,
+        4,
+        0.5,
+        1,
+        0,
+        120,
+        3,
+        1,
+        3,
+        1
+      ],
+      "scenes": [
+        {
+          "title": "ORBIT",
+          "subtitle": "Scale pads / bell clouds",
+          "layout": "levels",
+          "bindings": [
+            17,
+            7,
+            3,
+            5,
+            0,
+            2,
+            4,
+            14
+          ],
+          "labels": [
+            "MOTION",
+            "DEPTH",
+            "COLOR",
+            "EDGE",
+            "RATIO",
+            "TAIL",
+            "LEVEL",
+            "TEMPO"
+          ],
+          "pads": [
+            21,
+            23,
+            24,
+            26,
+            14,
+            16,
+            17,
+            19,
+            7,
+            9,
+            11,
+            12,
+            0,
+            2,
+            4,
+            5
+          ]
+        },
+        {
+          "title": "DRIFT",
+          "subtitle": "Shape the movement",
+          "layout": "lfo",
+          "bindings": [
+            18,
+            17,
+            7,
+            16,
+            3,
+            5,
+            2,
+            4
+          ],
+          "labels": [
+            "SHAPE",
+            "SPEED",
+            "DEPTH",
+            "SYNC",
+            "COLOR",
+            "EDGE",
+            "TAIL",
+            "LEVEL"
+          ],
+          "pads": [
+            21,
+            23,
+            24,
+            26,
+            14,
+            16,
+            17,
+            19,
+            7,
+            9,
+            11,
+            12,
+            0,
+            2,
+            4,
+            5
+          ]
+        }
+      ]
+    }
+  ]
+}

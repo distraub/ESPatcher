@@ -44,3 +44,12 @@ internal flash. Packages should be able to supply multiple engines and their own
 UI/workflow. See [DEVICE-RUNTIME.md](DEVICE-RUNTIME.md). This depends on device
 runtime memory, execution and UI scheduling benchmarks; it is not implemented.
 An SD-to-OTA installer is a distinct fallback and still flashes internally.
+
+## SD prototype milestone
+
+Implemented experimentally: bounded `.espkg` packages, multiple engines, default
+parameter sets, package-defined screen primitives/knob assignments/pad pitches,
+browser Library, package builder/SD staging, and a separate ADV SD/WASM launcher
+that cross-compiles. See [the prototype guide](SD-INSTRUMENT-PROTOTYPE.md).
+Physical heap/deadline/recovery testing, native Apple package UI and arbitrary
+parameter/UI contracts remain outstanding.

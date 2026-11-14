@@ -124,3 +124,22 @@ Physical MIDI routing/controllers and third-party AU host MIDI Learn remain to b
 validated. Browser Web MIDI permission/device behavior varies by browser and has
 not been verified with a physical controller here. Device MIDI input, runtime SD
 package loading, arbitrary UI ABI and the sequencer are not implemented.
+
+## SD package prototype — November 14, 2026
+
+- C++/browser package decoders and authoring builder: pass, including truncated
+  data, invalid layout/binding/default, identity/manifest and checksum rejection.
+- Thirty sequential RAM-only engine constructions/renders across three packages
+  and five engine entries: pass on desktop. Not device timing.
+- Browser AudioWorklet parity/isolation/panic tests now include all four small
+  package modules as well as the original two 256 KiB modules: pass.
+- Browser Library, AMSynth Analog/FM engine switch, Orbit's custom scenes/pads,
+  Signal Check Tone/Pulse and L recovery navigation: observed locally.
+- Experimental ADV SD/WASM runtime cross-compiles. Static linker RAM/flash
+  numbers exclude guest memory, translated code, task stacks and most live heap.
+- Default Mac/iOS loader and native ADV candidate remain separate from this
+  experiment. The Apple editor does not yet load `.espkg` packages.
+
+No ADV SD mounting, actual package loading, live heap, render deadlines, repeated
+switches or recovery behavior has been tested on physical hardware. Follow the
+[prototype checklist](SD-INSTRUMENT-PROTOTYPE.md) before calling it device-ready.

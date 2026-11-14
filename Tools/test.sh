@@ -52,3 +52,6 @@ build/tests/lfo_shapes
 
 clang++ -std=c++20 -O2 Tests/midi.cpp -o build/tests/midi
 build/tests/midi
+
+clang++ -std=c++20 -O2 Tests/packages.cpp build/tests/wasm3/*.o -o build/tests/packages
+build/tests/packages

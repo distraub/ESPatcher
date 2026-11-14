@@ -1,0 +1,29 @@
+{
+  "format": 1,
+  "packages": [
+    {
+      "id": "amsynth",
+      "name": "AMSynth",
+      "file": "amsynth.espkg",
+      "sha256": "653ebc08e071b538b71b71c08868d33e30e0326bc6dc8cb8fae28eb6823b1a96"
+    },
+    {
+      "id": "orbit-study",
+      "name": "Orbit / UI study",
+      "file": "orbit-study.espkg",
+      "sha256": "863e255c9489de895eee752b3d04bdc4fb1925485cd84d774d71ab15552ca033"
+    },
+    {
+      "id": "signal-check",
+      "name": "Signal Check / start here",
+      "file": "signal-check.espkg",
+      "sha256": "b9e0b4b65fba4903e2d638fd922e8f349590798bca74d765ac288679700039c1"
+    }
+  ],
+  "trusted_module_sha256": [
+    "48b640f74697d1e18aaa7c4dfc6fad42a512c704cd44ed350e76d5dbcfd5e8b9",
+    "574586ffec5d0a7f4e0ce5cf814aa6dcc3210bb78e43a3100c8b905d3ac01d2e",
+    "775d0e460cc947933780973c75ed5d10e729dcf9b4ee2cc214fb24137695e1ac",
+    "f2475022307e48509e889d62b0a1573e4245ec5b5247b14e722e95ded839b35d"
+  ]
+}

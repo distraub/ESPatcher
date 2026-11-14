@@ -1,0 +1,151 @@
+{
+  "id": "signal-check",
+  "name": "Signal Check / start here",
+  "version": "0.1.0-proto",
+  "engines": [
+    {
+      "id": "hello_tone",
+      "name": "Tone",
+      "memory_bytes": 65536,
+      "module": "../Modules/hello_tone.gsm5",
+      "defaults": [
+        1,
+        0.015,
+        0.25,
+        5000,
+        0.2,
+        0,
+        1,
+        0,
+        0,
+        0,
+        4,
+        0.5,
+        1,
+        0,
+        120,
+        3,
+        1,
+        1,
+        1
+      ],
+      "scenes": [
+        {
+          "title": "TONE",
+          "subtitle": "Minimal RAM / CPU sanity engine",
+          "layout": "scope",
+          "bindings": [
+            4,
+            1,
+            2,
+            -1,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          "labels": [
+            "LEVEL",
+            "ATTACK",
+            "RELEASE",
+            "UNUSED",
+            "UNUSED",
+            "UNUSED",
+            "UNUSED",
+            "UNUSED"
+          ],
+          "pads": [
+            12,
+            13,
+            14,
+            15,
+            8,
+            9,
+            10,
+            11,
+            4,
+            5,
+            6,
+            7,
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hello_pulse",
+      "name": "Pulse",
+      "memory_bytes": 65536,
+      "module": "../Modules/hello_pulse.gsm5",
+      "defaults": [
+        1,
+        0.015,
+        0.25,
+        5000,
+        0.2,
+        0,
+        1,
+        0,
+        0,
+        0,
+        4,
+        0.5,
+        1,
+        0,
+        120,
+        3,
+        1,
+        1,
+        1
+      ],
+      "scenes": [
+        {
+          "title": "PULSE",
+          "subtitle": "Minimal RAM / CPU sanity engine",
+          "layout": "scope",
+          "bindings": [
+            4,
+            1,
+            2,
+            0,
+            -1,
+            -1,
+            -1,
+            -1
+          ],
+          "labels": [
+            "LEVEL",
+            "ATTACK",
+            "RELEASE",
+            "DUTY",
+            "UNUSED",
+            "UNUSED",
+            "UNUSED",
+            "UNUSED"
+          ],
+          "pads": [
+            12,
+            13,
+            14,
+            15,
+            8,
+            9,
+            10,
+            11,
+            4,
+            5,
+            6,
+            7,
+            0,
+            1,
+            2,
+            3
+          ]
+        }
+      ]
+    }
+  ]
+}

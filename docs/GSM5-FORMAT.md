@@ -196,3 +196,12 @@ fast polynomial approximation (maximum tested error <0.0012). Sample/hold is see
 per instance and updates only at phase wrap. ABI remains 1; old module profiles and
 state arrays through 16 parameters remain supported. Missing new state values
 restore synced half-note triangle defaults.
+
+## SD-package experiment
+
+The direct Apple `.gsm5` contract above remains fixed at 256 KiB. The separate
+`.espkg` experiment uses explicit guest-memory budgets and sample modules built
+with 64 KiB memory/16 KiB guest stack. Its shared interpreter can inspect an
+explicit 64/128 KiB budget, while default host validation remains 256 KiB.
+These experimental modules are not accepted by the existing Apple file importer.
+See [SD-INSTRUMENT-PROTOTYPE.md](SD-INSTRUMENT-PROTOTYPE.md).

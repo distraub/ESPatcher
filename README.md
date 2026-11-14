@@ -82,9 +82,9 @@ and the shared theme palettes. Chord mode and voicings work as in the Apple edit
 The arp and LFO clocks run in the module's DSP, not JavaScript timers.
 
 A modern browser with WebAssembly and AudioWorklet is required, served over HTTPS
-or localhost (not a `file://` URL). The browser loads the two trusted bundled
-modules only: custom importing is deliberately unavailable until a browser-side
-execution-budget strategy is established. The browser uses its native WebAssembly
+or localhost (not a `file://` URL). The browser starts with two trusted bundled modules. The Library also loads
+prototype packages, but executes only module hashes listed by its trusted server
+catalog; arbitrary DSP importing remains unavailable without an execution budget. The browser uses its native WebAssembly
 engine, not the native host's fuel-limited wasm3 interpreter. It is not an ESP32
 CPU emulator. External controllers, native session restoration and AUv3 hosting
 are not browser features. Browser audio latency/performance depends on the device.
@@ -220,5 +220,25 @@ See [MIDI.md](docs/MIDI.md) for setup, persistence, timing and current limits.
 The intended ADV architecture keeps ESPatcher installed as a runtime/launcher,
 with SD instrument packages providing sound engines and their own UI/workflow.
 Read [DEVICE-RUNTIME.md](docs/DEVICE-RUNTIME.md) for the design and hardware proof
-gates. Dynamic SD package loading and instrument-owned UI are not implemented
-yet; current ADV engines are compiled into the native image.
+gates. The default ADV candidate still compiles its engines into the image. The separate
+SD prototype below implements experimental RAM loading and bounded package UI
+scenes; arbitrary engine-owned UI code remains future work.
+
+## SD instrument package prototype
+
+Use **Library** in the browser to load AMSynth (Analog/FM), Orbit (a different
+UI and pad layout), or Signal Check (minimal Tone/Pulse engines). Instruments
+carry their own engines, defaults and bounded screen/control definitions in one
+`.espkg` file. The header selects engines within the instrument; L returns to
+ESPatcher's resident Library. Local packages can also be opened there.
+
+A separate [ADV SD runtime](Device/ADV/SDPrototype/platformio.ini) reads packages
+from `/ESPatcher/Instruments` and runs an engine in RAM without OTA/application
+flash writes during switches. It cross-compiles, but has **not run on a device**.
+Guest memory, interpreter overhead and the 8 ms audio deadline still need real
+hardware measurements. The normal native ADV candidate is unchanged.
+
+Start with the [prototype guide](docs/SD-INSTRUMENT-PROTOTYPE.md) for SD staging,
+build instructions, format limits, failure behavior and the first-device checklist.
+The browser prototype restricts DSP to the server's trusted module hashes.
+Apple `.espkg` import and arbitrary UI/parameter schemas are future work.

@@ -85,3 +85,9 @@ Option+1–4 select major/minor/seventh/minor-seventh chord mode, then any note 
 pad supplies its root. Repeating the selection turns chord mode off.
 Pads and chord mode are currently Apple editor features, not implemented device
 peripheral drivers or native ADV chord controls. A sequencer is not implemented.
+
+## Prototype SD packages
+
+Open Library in the browser to try multi-engine instruments with their own UI
+scenes. See [SD-INSTRUMENT-PROTOTYPE.md](SD-INSTRUMENT-PROTOTYPE.md) for package
+authoring, SD staging, the separate ADV runtime and its hardware proof checklist.

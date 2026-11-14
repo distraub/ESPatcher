@@ -38,7 +38,8 @@ class WasmInstrument {
     void destroy(){if(runtime)m3_FreeRuntime(runtime);if(environment)m3_FreeEnvironment(environment);runtime=nullptr;environment=nullptr;}
 public:
     std::string manifest,id;
-    static std::string inspect(const std::vector<uint8_t>& data){
+    static std::string inspect(const std::vector<uint8_t>& data,unsigned memoryBytes=262144){
+        if(memoryBytes!=65536&&memoryBytes!=131072&&memoryBytes!=262144)throw std::runtime_error("Unsupported WASM memory budget");
         if(data.size()<8||data.size()>1024*1024||std::memcmp(data.data(),"\0asm\1\0\0\0",8))throw std::runtime_error("Not a supported .gsm5 WebAssembly module");
         auto p=data.data()+8,end=data.data()+data.size();std::string manifest;unsigned memories=0,manifests=0;
         while(p<end){uint8_t section=*p++;uint32_t length=integer(p,end);if(length>uint32_t(end-p))throw std::runtime_error("Truncated WASM section");auto limit=p+length;
@@ -53,16 +54,17 @@ public:
                 if(count){if(cursor==limit||*cursor++!=0x70)throw std::runtime_error("Unsupported table type");auto flags=integer(cursor,limit);auto initial=integer(cursor,limit);auto max=flags==1?integer(cursor,limit):initial;if(flags>1||initial>64||max>64)throw std::runtime_error("Firmware table too large");}
             }
             if(section==2){if(integer(p,limit)!=0)throw std::runtime_error("Firmware imports are not allowed");}
-            if(section==5){if(++memories!=1||integer(p,limit)!=1||integer(p,limit)!=1||integer(p,limit)!=4||integer(p,limit)!=4||p!=limit)throw std::runtime_error("Firmware requires fixed 256 KiB memory");}
+            if(section==5){if(++memories!=1||integer(p,limit)!=1||integer(p,limit)!=1||integer(p,limit)!=memoryBytes/65536||integer(p,limit)!=memoryBytes/65536||p!=limit)throw std::runtime_error("Firmware memory does not match the selected budget");}
             if(section==8)throw std::runtime_error("WASM start functions are not allowed");p=limit;
         }
         if(manifest.empty()||memories!=1)throw std::runtime_error("Missing gs5 manifest or memory");return manifest;
     }
-    WasmInstrument(std::vector<uint8_t> data,const std::string& expectedId,double sampleRate,unsigned parameters=19):bytes(std::move(data)),parameterCount(parameters){
+    WasmInstrument(std::vector<uint8_t> data,const std::string& expectedId,double sampleRate,unsigned parameters=19,unsigned memoryBytes=262144,unsigned stackBytes=65536):bytes(std::move(data)),parameterCount(parameters){
         try{
             if(parameterCount!=5&&parameterCount!=6&&parameterCount!=8&&parameterCount!=14&&parameterCount!=16&&parameterCount!=19)throw std::runtime_error("Unsupported parameter count");
-            manifest=inspect(bytes);environment=m3_NewEnvironment();if(!environment)throw std::runtime_error("Cannot allocate WASM environment");
-            runtime=m3_NewRuntime(environment,65536,nullptr);if(!runtime)throw std::runtime_error("Cannot allocate WASM runtime");gs_m3_limit(runtime,262144);budget();
+            if(stackBytes<16384||stackBytes>65536)throw std::runtime_error("Unsupported interpreter stack budget");
+            manifest=inspect(bytes,memoryBytes);environment=m3_NewEnvironment();if(!environment)throw std::runtime_error("Cannot allocate WASM environment");
+            runtime=m3_NewRuntime(environment,stackBytes,nullptr);if(!runtime)throw std::runtime_error("Cannot allocate WASM runtime");gs_m3_limit(runtime,memoryBytes);budget();
             IM3Module module=nullptr;check(m3_ParseModule(environment,&module,bytes.data(),uint32_t(bytes.size())));
             auto loaded=m3_LoadModule(runtime,module);if(loaded){m3_FreeModule(module);check(loaded);}check(m3_CompileModule(module));
             IM3Function initialize=nullptr;if(!m3_FindFunction(&initialize,runtime,"_initialize")){initialize=function("_initialize",{});budget();check(m3_CallV(initialize));}

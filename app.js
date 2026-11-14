@@ -1,3 +1,4 @@
+import {readInstrumentPackage,compilePackageEngine,sha256} from './instrument-package.mjs';
 import {MIDILearn} from './midi-router.mjs';
 const $ = id => document.getElementById(id);
 const bindings = ['a','w','s','e','d','f','t','g','y','h','u','j','k'];
@@ -16,6 +17,11 @@ const held = new Map(), moduleCache = new Map();
 let octave=4, page=0, chord=-1, selectedKnob=0, heldKnob=null, activeVoices=0, lfoStatus=0;
 let context, node, analyser, starting, switching=false, faulted=false, instrument='pocket_analog';
 let themes=[];
+let activePackage=null,packageEngine=0,libraryCatalog=null;
+const scene=()=>activePackage&&page>=0?activePackage.engines[packageEngine].scenes[page]:null;
+const isGlobal=()=>activePackage?page===-1:page===1;
+const pageBindings=()=>scene()?.bindings??maps[isGlobal()?1:page];
+const sceneLayout=()=>scene()?.layout??(page===3?1:0);
 const waveData = new Float32Array(512);
 function normal(address, value=parameters[address]) {
   const [lo,hi]=limits[address];
@@ -28,6 +34,7 @@ function denormal(address, fraction) {
 }
 function format(address) {
   const v=parameters[address];
+  if(address===0&&activePackage&&!['pocket_analog','fm_bell'].includes(instrument))return String(v);
   if(address===0)return (instrument==='fm_bell'?['1:1','2:1','3:1']:['SINE','SAW','SQUARE'])[v];
   if([1,2].includes(address))return Math.round(v*1000)+' ms';
   if([3,6,10].includes(address))return v>=1000?(v/1000).toFixed(2)+' kHz':v.toFixed(address===3?0:2)+' Hz';
@@ -39,7 +46,7 @@ function format(address) {
   if([8,13,16].includes(address))return v?'ON':'OFF';
   return String(Math.round(v*10)/10);
 }
-function addressFor(slot) {const a=maps[page][slot];return a===17&&!parameters[16]?6:a;}
+function addressFor(slot) {const a=pageBindings()[slot];return a===17&&!parameters[16]?6:a;}
 function parameter(address,value) {
   parameters[address]=Math.max(limits[address][0],Math.min(limits[address][1],value));
   node?.port.postMessage({type:'parameter',address,value:parameters[address]});
@@ -54,7 +61,7 @@ function renderControls() {
   document.querySelectorAll('.knob').forEach((el,slot)=>{
     const address=addressFor(slot), inactive=address<0;
     el.classList.toggle('unused',inactive);
-    el.querySelector('label').textContent=`${slot+1} ${inactive?'UNUSED':titles[address].toUpperCase()}`;
+    el.querySelector('label').textContent=`${slot+1} ${inactive?'UNUSED':scene()?.labels[slot]??titles[address].toUpperCase()}`;
     const input=el.querySelector('input');input.disabled=inactive;
     input.step=inactive?0.002:discrete.has(address)?1/(limits[address][1]-limits[address][0]):0.002;
     if(!inactive){
@@ -66,17 +73,34 @@ function renderControls() {
     el.querySelector('output').textContent=inactive?'—':format(address);
   });
   $('screenLabels').replaceChildren();
-  maps[page].forEach((_,slot)=>{
+  pageBindings().forEach((_,slot)=>{
     const address=addressFor(slot);if(address<0)return;
-    const el=document.createElement('div');el.textContent=`${slot+1} ${titles[address].toUpperCase()}`;
+    const el=document.createElement('div');el.textContent=`${slot+1} ${scene()?.labels[slot]??titles[address].toUpperCase()}`;
     const value=document.createElement('b');value.textContent=format(address);el.append(value);$('screenLabels').append(el);
   });
   $('play').textContent=parameters[8]?'− Stop':'− Play';
 }
 function go(next) {
-  page=next;document.querySelectorAll('#pages button').forEach((button,i)=>{button.classList.toggle('selected',i===page);button.setAttribute('aria-pressed',i===page);});
-  $('screenTitle').textContent=pages[page].toUpperCase()+' / AMSYNTH '+(instrument==='fm_bell'?'FM':'ANALOG');
-  $('global').hidden=page!==1;$('scope').hidden=page===1;$('screenLabels').hidden=page===1;renderControls();
+  if(activePackage&&next>=activePackage.engines[packageEngine].scenes.length)return;
+  page=next;document.querySelectorAll('#pages button[data-scene]').forEach(button=>{const selected=Number(button.dataset.scene)===page;button.classList.toggle('selected',selected);button.setAttribute('aria-pressed',selected);});
+  const current=scene();
+  $('screenTitle').textContent=isGlobal()?'GLOBAL / ESPATCHER':current?current.title+' / '+activePackage.engines[packageEngine].name:pages[page].toUpperCase()+' / AMSYNTH '+(instrument==='fm_bell'?'FM':'ANALOG');
+  $('scope').setAttribute('aria-label',['Audio oscilloscope','LFO shape and phase','Parameter values','Parameter levels'][sceneLayout()]);
+  $('global').hidden=!isGlobal();$('scope').hidden=isGlobal()||sceneLayout()===2;$('screenLabels').hidden=isGlobal();
+  $('packageSubtitle').textContent=current?.subtitle??'';
+  renderControls();updatePads();
+}
+function rebuildPages(){
+  $('pages').replaceChildren();
+  const entries=activePackage?activePackage.engines[packageEngine].scenes.map(s=>s.title):pages;
+  entries.forEach((title,i)=>{const button=document.createElement('button');button.dataset.scene=i;button.textContent=['C','V','B','N','M'][i]+' · '+title;button.onclick=()=>go(i);$('pages').append(button);});
+  if(activePackage){const button=document.createElement('button');button.textContent='Global';button.dataset.scene=-1;button.onclick=()=>go(-1);$('pages').append(button);}
+}
+function updatePads(){
+  document.querySelectorAll('#pads .pad').forEach((el,position)=>{
+    const note=scene()?.pads[position]??activePackage?.engines[packageEngine].scenes[0].pads[position]??((3-Math.floor(position/4))*4+position%4);
+    el.dataset.note=note;el.textContent=noteNames[note%12];el.classList.toggle('root',note%12===0);el.setAttribute('aria-label',`Play ${noteNames[note%12]}`);
+  });$('padHint').textContent=activePackage?'Package note layout · lowest note at bottom left':'Chromatic · lowest note at bottom left';renderHeld();
 }
 async function bundledModule(id) {
   if(moduleCache.has(id))return moduleCache.get(id);
@@ -91,9 +115,9 @@ async function bundledModule(id) {
   if(manifest.abi!==1||manifest.id!==id||manifest.memory_bytes!==262144||manifest.parameter_profile!=='synth-v6')throw new Error('Incompatible reference module');
   moduleCache.set(id,module);return module;
 }
-async function makeNode(id) {
-  const module=await bundledModule(id);
-  const next=new AudioWorkletNode(context,'amsynth',{numberOfInputs:0,numberOfOutputs:1,outputChannelCount:[1],processorOptions:{module,parameters}});
+async function makeNode(id, override=null, values=parameters) {
+  const module=override??await bundledModule(id);
+  const next=new AudioWorkletNode(context,'amsynth',{numberOfInputs:0,numberOfOutputs:1,outputChannelCount:[1],processorOptions:{module,parameters:values}});
   next.port.onmessage=({data})=>{
     if(node!==next)return;
     if(data.type==='fault'){faulted=true;panic();$('status').textContent='Firmware halted: '+data.message;}
@@ -111,8 +135,8 @@ async function start() {
       analyser=context.createAnalyser();analyser.fftSize=1024;analyser.connect(context.destination);
     }
     if(faulted&&node){node.disconnect();node.port.close();node=null;faulted=false;}
-    if(!node){node=await makeNode(instrument);node.connect(analyser);}
-    await context.resume();$('start').textContent='Audio enabled';$('status').textContent='AMSynth ready · same DSP as the native app';
+    if(!node){node=await makeNode(instrument,activePackage?.engines[packageEngine].compiled??null);node.connect(analyser);}
+    await context.resume();$('start').textContent='Audio enabled';$('status').textContent=activePackage?'Package engine ready · L opens Library':'AMSynth ready · same DSP as the native app';
   })().catch(error=>{$('status').textContent=error.message;throw error;}).finally(()=>starting=null);
   return starting;
 }
@@ -153,9 +177,9 @@ function selectChord(next){panic();chord=chord===next?-1:next;document.querySele
 function changeOctave(delta){panic();octave=Math.max(1,Math.min(7,octave+delta));$('octave').textContent=octave;$('voices').textContent=`${activeVoices}/4 · OCT ${octave}`;renderHeld();}
 function playable(el,index) {
   el.dataset.note=index;el.setAttribute('aria-label',`Play ${noteNames[index%12]}`);
-  el.onpointerdown=e=>{e.preventDefault();el.setPointerCapture(e.pointerId);noteOn('pointer'+e.pointerId,index);};
+  el.onpointerdown=e=>{e.preventDefault();el.setPointerCapture(e.pointerId);noteOn('pointer'+e.pointerId,Number(el.dataset.note));};
   for(const event of ['pointerup','pointercancel','lostpointercapture'])el.addEventListener(event,e=>noteOff('pointer'+e.pointerId));
-  el.onkeydown=e=>{if(['Enter',' '].includes(e.key)){e.preventDefault();e.stopPropagation();if(!e.repeat)noteOn('button'+index,index);}};
+  el.onkeydown=e=>{if(['Enter',' '].includes(e.key)){e.preventDefault();e.stopPropagation();if(!e.repeat)noteOn('button'+index,Number(el.dataset.note));}};
   el.onkeyup=e=>{if(['Enter',' '].includes(e.key)){e.preventDefault();e.stopPropagation();noteOff('button'+index);}};
   el.onblur=()=>noteOff('button'+index);
 }
@@ -164,7 +188,6 @@ for(let position=0;position<16;position++){
   el.className='pad'+(index%12===0?' root':'');el.textContent=noteNames[index%12];playable(el,index);$('pads').append(el);
 }
 bindings.forEach((key,index)=>{const el=document.createElement('button');el.className='key'+([1,3,6,8,10].includes(index)?' black':'');el.textContent=noteNames[index%12];playable(el,index);$('keys').append(el);});
-pages.forEach((title,i)=>{const button=document.createElement('button');button.textContent=['C','V','B','N','M'][i]+' · '+title;button.onclick=()=>go(i);$('pages').append(button);});
 for(let slot=0;slot<8;slot++){
   const el=document.createElement('div');el.className='knob';el.innerHTML='<label></label><div class="dial"><input type="range" min="0" max="1" step="0.002"></div><output></output>';
   const input=el.querySelector('input'),dial=el.querySelector('.dial');let drag;
@@ -176,10 +199,11 @@ for(let slot=0;slot<8;slot++){
   $('knobs').append(el);
 }
 window.addEventListener('keydown',e=>{
-  if($('firmware').open||e.target.matches('input,select,textarea')||e.metaKey||e.ctrlKey)return;
+  if($('firmware').open||$('library').open||e.target.matches('input,select,textarea')||e.metaKey||e.ctrlKey)return;
   if(e.altKey&&/^Digit[1-4]$/.test(e.code)){e.preventDefault();if(!e.repeat)selectChord(Number(e.code.slice(-1))-1);return;}
   const key=e.key.toLowerCase(),index=bindings.indexOf(key);
   if(index>=0){e.preventDefault();if(!e.repeat)noteOn('key'+e.code,index);return;}
+  if(key==='l'){e.preventDefault();if(!e.repeat)openLibrary();return;}
   const screen=['c','v','b','n','m'].indexOf(key);if(screen>=0){e.preventDefault();if(!e.repeat)go(screen);return;}
   if(/^[1-8]$/.test(key)){heldKnob=Number(key)-1;selectedKnob=heldKnob;e.preventDefault();return;}
   if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key)){
@@ -191,7 +215,7 @@ window.addEventListener('keydown',e=>{
 window.addEventListener('keyup',e=>{noteOff('key'+e.code);if(/^Digit[1-8]$/.test(e.code))heldKnob=null;});
 window.addEventListener('blur',()=>{heldKnob=null;panic();});
 document.addEventListener('visibilitychange',()=>{if(document.hidden)panic();});
-$('start').onclick=()=>start().catch(()=>{});$('instrument').onchange=()=>switchInstrument($('instrument').value);
+$('start').onclick=()=>start().catch(()=>{});$('instrument').onchange=()=>activePackage?selectPackageEngine(Number($('instrument').value)):switchInstrument($('instrument').value);
 $('panic').onclick=panic;$('down').onclick=()=>changeOctave(-1);$('up').onclick=()=>changeOctave(1);
 $('play').onclick=()=>parameter(8,1-parameters[8]);$('tempo').onchange=()=>{const value=Number($('tempo').value);if(Number.isFinite(value))parameter(14,value);};
 $('manage').onclick=()=>{panic();$('firmware').showModal();};$('done').onclick=()=>$('firmware').close();
@@ -204,19 +228,25 @@ function setTheme(index){const theme=themes[index];if(!theme)return;for(const ro
 fetch('Assets/themes.json').then(r=>r.json()).then(data=>{themes=data.themes;themes.forEach((theme,i)=>{const option=document.createElement('option');option.value=i;option.textContent=theme.name;$('theme').append(option);});setTheme(data.default);}).catch(()=>{});
 $('theme').onchange=()=>setTheme(Number($('theme').value));
 function draw(){
-  requestAnimationFrame(draw);if(document.hidden||page===1)return;
+  requestAnimationFrame(draw);if(document.hidden||isGlobal())return;
   const canvas=$('scope'),ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height;
   ctx.clearRect(0,0,w,h);const style=getComputedStyle(document.documentElement);ctx.strokeStyle=style.getPropertyValue('--chrome').trim();ctx.globalAlpha=.3;ctx.beginPath();ctx.moveTo(0,h/2);ctx.lineTo(w,h/2);ctx.stroke();ctx.globalAlpha=1;
   if(analyser)analyser.getFloatTimeDomainData(waveData);
-  ctx.strokeStyle=style.getPropertyValue('--accent').trim();ctx.lineWidth=2;ctx.beginPath();
+  ctx.strokeStyle=style.getPropertyValue('--accent').trim();ctx.lineWidth=2;
+  if(sceneLayout()===3){
+    ctx.fillStyle=style.getPropertyValue('--accent').trim();
+    for(let i=0;i<8;i++){const address=addressFor(i);if(address<0)continue;const height=Math.max(2,normal(address)*(h-20));ctx.fillRect(i*w/8+5,h-10-height,w/8-10,height);}
+    return;
+  }
+  ctx.beginPath();
   for(let i=0;i<256;i++){
     let value=waveData[i]||0;
-    if(page===3){const p=i/255,shape=parameters[18];value=shape===0?Math.sin(p*Math.PI*2):shape===1?1-4*Math.abs(p-.5):shape===2?(p<.5?1:-1):shape===3?2*p-1:((lfoStatus&65535)<<16>>16)/32767;value*=parameters[7];}
+    if(sceneLayout()===1){const p=i/255,shape=parameters[18];value=shape===0?Math.sin(p*Math.PI*2):shape===1?1-4*Math.abs(p-.5):shape===2?(p<.5?1:-1):shape===3?2*p-1:((lfoStatus&65535)<<16>>16)/32767;value*=parameters[7];}
     const x=i/255*w,y=h/2-value*h*.42;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
   }ctx.stroke();
-  if(page===3){const x=(lfoStatus>>>16)/65536*w;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
+  if(sceneLayout()===1){const x=(lfoStatus>>>16)/65536*w;ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke();}
 }
-selectChord(-1);go(0);draw();
+selectChord(-1);rebuildPages();go(0);draw();
 
 const midiLearn=new MIDILearn();let midiAccess;
 try{midiLearn.restore(JSON.parse(localStorage.getItem('espatcher.midi.v1')||'[]'));}catch{}
@@ -248,3 +278,48 @@ $('midiConnect').onclick=async()=>{
  try{midiAccess=await navigator.requestMIDIAccess({sysex:false});connectMIDI();midiAccess.onstatechange=()=>{panic();connectMIDI();};}
  catch(error){$('midiStatus').textContent='MIDI access unavailable: '+error.message;}
 };showMIDI();
+
+async function catalog(){
+ if(!libraryCatalog){const response=await fetch('Library/catalog.json');if(!response.ok)throw new Error('Instrument catalog unavailable');libraryCatalog=await response.json();}
+ return libraryCatalog;
+}
+async function openLibrary(){
+ panic();$('library').showModal();$('libraryStatus').textContent='Select an instrument package.';
+ try{const data=await catalog();$('libraryItems').replaceChildren();for(const entry of data.packages){
+  const button=document.createElement('button');button.textContent=entry.name;
+  button.onclick=async()=>{try{const response=await fetch('Library/'+entry.file);if(!response.ok)throw new Error('Package download failed');const bytes=await response.arrayBuffer();if(await sha256(bytes)!==entry.sha256)throw new Error('Package checksum mismatch');await openPackage(bytes);}catch(error){$('libraryStatus').textContent=error.message;}};
+  $('libraryItems').append(button);
+ }}catch(error){$('libraryStatus').textContent=error.message;}
+}
+async function openPackage(bytes){
+ if(switching)throw new Error('A switch is already in progress');switching=true;$('instrument').disabled=true;$('start').disabled=true;
+ try{
+  const data=await catalog(),candidate=readInstrumentPackage(bytes);
+  $('libraryStatus').textContent='Checking engines…';
+  for(const engine of candidate.engines)engine.compiled=await compilePackageEngine(engine,data.trusted_module_sha256);
+  const engine=candidate.engines[0];
+  const next=context&&node?await makeNode(engine.id,engine.compiled,engine.defaults):null;
+  panic();if(next){node.disconnect();node.port.close();node=next;node.connect(analyser);}
+  activePackage=candidate;$('instrument').setAttribute('aria-label','Engine');packageEngine=0;parameters.splice(0,19,...engine.defaults);instrument=engine.id;faulted=false;
+  $('instrument').replaceChildren();candidate.engines.forEach((engine,i)=>{const option=document.createElement('option');option.value=i;option.textContent=candidate.name+' · '+engine.name;$('instrument').append(option);});
+  rebuildPages();go(0);$('tempo').value=parameters[14];$('library').close();$('status').textContent='Loaded '+candidate.name+' from package · L returns to Library';
+ }finally{switching=false;$('instrument').disabled=false;$('start').disabled=false;}
+}
+async function selectPackageEngine(index){
+ if(switching||!activePackage||!Number.isInteger(index)||!activePackage.engines[index])return;
+ switching=true;$('instrument').disabled=true;
+ try{
+  const engine=activePackage.engines[index],next=context&&node?await makeNode(engine.id,engine.compiled,engine.defaults):null;
+  panic();if(next){node.disconnect();node.port.close();node=next;node.connect(analyser);}
+  packageEngine=index;instrument=engine.id;parameters.splice(0,19,...engine.defaults);faulted=false;
+  rebuildPages();go(0);$('tempo').value=parameters[14];$('status').textContent='Engine: '+engine.name;
+ }catch(error){$('instrument').value=packageEngine;$('status').textContent=error.message;}
+ finally{switching=false;$('instrument').disabled=false;}
+}
+$('openLibrary').onclick=openLibrary;$('libraryDone').onclick=()=>$('library').close();
+$('packageFile').onchange=async()=>{
+ const file=$('packageFile').files[0];if(!file)return;
+ try{if(file.size>4194304)throw new Error('Package larger than 4 MiB');await openPackage(await file.arrayBuffer());}
+ catch(error){$('libraryStatus').textContent=error.message;}
+ finally{$('packageFile').value='';}
+};

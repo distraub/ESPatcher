@@ -166,3 +166,12 @@ is loaded; preserving session audio takes precedence over rewriting its metadata
 Start with [GETTING-STARTED.md](GETTING-STARTED.md). The current reference includes
 more features than a minimal tutorial; an independently buildable small starter
 template is a planned next step, not an existing SDK feature.
+
+## Experimental SD packages
+
+The browser and separate ADV SD runtime now implement a bounded `.espkg`
+prototype with multiple engines and declarative scenes. See
+[SD-INSTRUMENT-PROTOTYPE.md](SD-INSTRUMENT-PROTOTYPE.md) for the implemented format
+and limits. The Apple editor's `.gsm5` importer is unchanged. This prototype does
+not implement the arbitrary parameter/page/preset contracts proposed above.
+ADV cross-compilation does not prove interpreter RAM or audio performance.

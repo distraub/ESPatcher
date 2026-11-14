@@ -1,6 +1,10 @@
 # Proposed on-device instrument library
 
-**Design direction, not an implemented package loader.**
+**A first experimental implementation now exists:** see
+[SD-INSTRUMENT-PROTOTYPE.md](SD-INSTRUMENT-PROTOTYPE.md). It provides a browser
+package workflow and a separate ADV SD/WASM runtime that cross-compiles but has
+not been tested on hardware. The broader UI/API goals below remain a roadmap;
+only the bounded prototype scene contract is implemented.
 
 ESPatcher should be the persistent Cardputer ADV runtime and launcher. Its role
 is above the ESP32 bootloader: initialize hardware, mount SD, present the library,
@@ -34,12 +38,12 @@ surface remains available even when an instrument replaces every ordinary page.
 ## Package and UI contract to design
 
 The current `.gsm5` ABI exports DSP and telemetry, not arbitrary screens or input
-handlers. Current Analog and FM are separate `.gsm5` modules; the ADV application
+handlers. The prototype layers declarative scenes around this DSP ABI. Current Analog and FM are separate `.gsm5` modules; the ADV application
 compiles both engines in. They are not yet a dynamically loaded multi-engine
 package. The existing Apple/browser page model is an AMSynth reference interface,
 not the final universal interface.
 
-A future package needs a manifest declaring its identity, version, engine list,
+A stable future package needs a manifest declaring its identity, version, engine list,
 ABI requirements, optional controller capabilities and state-schema versions.
 The package format, extension, signatures and migration policy are not settled.
 Do not author against guessed fields or undocumented UI exports.
