@@ -5,7 +5,6 @@ By Alex Matheu.
 ESPatcher is an instrument firmware loader for Mac, iPhone/iPad and AUv3.
 **AMSynth** is the custom synthesizer firmware family, with Analog and FM instruments.
 AMSynth is the default reference firmware for learning to build instruments.
-GlitchSynth is reserved for a future experimental instrument derived from AMSynth.
 The native host loads `.gsm5` WebAssembly instruments in isolated wasm3 runtimes.
 AMSynth also compiles natively for Cardputer ADV; hardware timing remains untested.
 This is not an ESP32 emulator or a loader for arbitrary device firmware binaries.
@@ -193,7 +192,7 @@ ESPatcher names the native loader application and AUv3. AMSynth names our
 instrument firmware, including AMSynth Analog (`pocket_analog`) and AMSynth FM
 (`fm_bell`). Existing bundle identifiers, AU component codes, parameter addresses,
 state keys, `.gsm5` format and module IDs stay unchanged for compatibility.
-The checkout folder remains `glitchsynth-m5`; use `ESPatcher.xcodeproj` and the
+Use `ESPatcher.xcodeproj` and the
 `ESPatcherMac` / `ESPatcherIOS` schemes. See docs/NAME-CHECK.md for the public-name search.
 
 ### Designing a custom engine
