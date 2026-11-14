@@ -63,12 +63,31 @@ held notes/tails; standalone sessions are not automatically saved yet. The
 256 KiB WASM budget is for host previews, not an established ADV interpreter
 budget. The native ADV target is now in `Device/ADV`; physical boot, audio, latency and CPU performance remain untested.
 
-## Original browser study
+## Play in a browser (Windows, Linux or Mac)
 
-The separate Web Audio sketch remains available: run
-`python3 -m http.server 8765 --bind 127.0.0.1` and open http://127.0.0.1:8765.
-It does not use the module runtime and is retained as an early sound/UI study.
+The browser host now runs the **same AMSynth `.gsm5` DSP modules** as the native
+app, on an AudioWorklet thread. No Apple SDK is required to play it.
 
+```sh
+python3 -m http.server 8765 --bind 127.0.0.1
+```
+
+Open http://127.0.0.1:8765, click **Enable audio**, then use the pads, note keys,
+chord mode, eight knobs and Home/Global/OSC/LFO/Arp pages. Global contains tempo
+and the shared theme palettes. Chord mode and voicings work as in the Apple editor.
+The arp and LFO clocks run in the module's DSP, not JavaScript timers.
+
+A modern browser with WebAssembly and AudioWorklet is required, served over HTTPS
+or localhost (not a `file://` URL). The browser loads the two trusted bundled
+modules only: custom importing is deliberately unavailable until a browser-side
+execution-budget strategy is established. The browser uses its native WebAssembly
+engine, not the native host's fuel-limited wasm3 interpreter. It is not an ESP32
+CPU emulator. External controllers, native session restoration and AUv3 hosting
+are not browser features. Browser audio latency/performance depends on the device.
+
+Run browser audio regression tests with `node Tests/web-runtime.cjs`. They compare
+actual worklet output against direct WASM rendering and check isolated instances,
+polyphony, panic and telemetry for both instruments.
 
 ## Cardputer ADV firmware
 

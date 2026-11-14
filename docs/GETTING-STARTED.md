@@ -5,6 +5,16 @@ AMSynth Analog (`pocket_analog`) and FM (`fm_bell`) are separate portable engine
 built from the same C source. GlitchSynth is a future instrument, not a current
 module. Existing IDs remain stable through the AMSynth rename.
 
+## Browser route (no Mac required)
+
+Serve the repository with `python3 -m http.server 8765 --bind 127.0.0.1`, then
+open http://127.0.0.1:8765 and enable audio. Windows and Linux users can play the
+same bundled WASM engines without Xcode. The browser host has the pad grid,
+inline knobs, chord mode, screen navigation, tempo and themes. Custom module
+importing is not enabled; see the browser section in the root README for limits.
+AudioWorklet requires HTTPS or localhost. Run `node Tests/web-runtime.cjs` to
+verify the browser audio path without a browser UI.
+
 ## 1. Run the reference instrument
 
 On macOS, install Xcode with its command-line tools and XcodeGen. From the repo:

@@ -178,7 +178,7 @@ static void draw(){
             int x=5+int(i)*230/127,y=43-int(samples[i]/amplitude*17);
             lcd.drawLine(px,py,x,y,theme.accent);px=x;py=y;
         }
-        
+
         }
         static const char* labels[]={"SHAPE","ATTACK","RELEASE","CUTOFF","LEVEL","RES","RATE","DEPTH","PLAY","PATTERN","RATE","GATE","OCTAVES","LATCH","TEMPO","RATE","SYNC","RATE","SHAPE"};
         for(unsigned slot=0;slot<8;slot++){

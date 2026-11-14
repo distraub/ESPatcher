@@ -3,12 +3,13 @@
 ## Implemented
 
 - Mac/iOS standalone and AUv3 targets with portable `.gsm5` WASM modules.
+- Cross-platform browser host using the same bundled modules in an AudioWorklet.
 - Validated ABI 1 modules, isolated 256 KiB runtimes and execution fuel limits.
 - AMSynth Analog and FM reference engines with native/WASM audio parity tests.
 - Four voices, ladder filter, envelopes, tempo-synced LFO and arpeggiator.
 - Shared Home/Global/OSC/LFO/Arp screen model, scope and LFO visualization.
 - Eight encoder slots with page assignments and keyboard-based editing.
-- Apple editor pad grid and selectable chord mode.
+- Apple and browser editor pad grids and selectable chord mode.
 - Native Cardputer ADV build and offline-verified flash packaging.
 
 Hardware boot/audio/latency/CPU are still untested. The current module profiles
