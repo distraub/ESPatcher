@@ -1,0 +1,385 @@
+{
+  "default": 24,
+  "themes": [
+    {
+      "name": "GlitchBreaks",
+      "accent": 1823,
+      "alternate": 50843,
+      "surface": 8518,
+      "text": 50811,
+      "inverse": 65,
+      "background": 2146,
+      "chrome": 29714
+    },
+    {
+      "name": "BreaksGlitch",
+      "accent": 50843,
+      "alternate": 1823,
+      "surface": 8518,
+      "text": 50811,
+      "inverse": 65,
+      "background": 2146,
+      "chrome": 29714
+    },
+    {
+      "name": "GlitchStep",
+      "accent": 6047,
+      "alternate": 63611,
+      "surface": 8518,
+      "text": 50811,
+      "inverse": 65,
+      "background": 2146,
+      "chrome": 29714
+    },
+    {
+      "name": "StepGlitch",
+      "accent": 63611,
+      "alternate": 6047,
+      "surface": 8518,
+      "text": 50811,
+      "inverse": 65,
+      "background": 2146,
+      "chrome": 29714
+    },
+    {
+      "name": "Pine Wine",
+      "accent": 714,
+      "alternate": 22726,
+      "surface": 52954,
+      "text": 6468,
+      "inverse": 65535,
+      "background": 61374,
+      "chrome": 25582
+    },
+    {
+      "name": "Wine Pine",
+      "accent": 22726,
+      "alternate": 714,
+      "surface": 52954,
+      "text": 6468,
+      "inverse": 65535,
+      "background": 61374,
+      "chrome": 25582
+    },
+    {
+      "name": "Lemon Lime",
+      "accent": 1734,
+      "alternate": 56577,
+      "surface": 8518,
+      "text": 50811,
+      "inverse": 65,
+      "background": 2146,
+      "chrome": 29714
+    },
+    {
+      "name": "Lime Lemon",
+      "accent": 56577,
+      "alternate": 1734,
+      "surface": 8518,
+      "text": 50811,
+      "inverse": 65,
+      "background": 2146,
+      "chrome": 29714
+    },
+    {
+      "name": "Plum Cherry",
+      "accent": 49823,
+      "alternate": 64044,
+      "surface": 8518,
+      "text": 50811,
+      "inverse": 65,
+      "background": 2146,
+      "chrome": 29714
+    },
+    {
+      "name": "Cherry Plum",
+      "accent": 64044,
+      "alternate": 49823,
+      "surface": 8518,
+      "text": 50811,
+      "inverse": 65,
+      "background": 2146,
+      "chrome": 29714
+    },
+    {
+      "name": "Ember Flow",
+      "accent": 64224,
+      "alternate": 1247,
+      "surface": 8518,
+      "text": 50811,
+      "inverse": 65,
+      "background": 2146,
+      "chrome": 29714
+    },
+    {
+      "name": "Flow Ember",
+      "accent": 1247,
+      "alternate": 64224,
+      "surface": 8518,
+      "text": 50811,
+      "inverse": 65,
+      "background": 2146,
+      "chrome": 29714
+    },
+    {
+      "name": "Joker Rogue",
+      "accent": 49823,
+      "alternate": 3840,
+      "surface": 8518,
+      "text": 50811,
+      "inverse": 65,
+      "background": 2146,
+      "chrome": 29714
+    },
+    {
+      "name": "Rogue Joker",
+      "accent": 3840,
+      "alternate": 49823,
+      "surface": 8518,
+      "text": 50811,
+      "inverse": 65,
+      "background": 2146,
+      "chrome": 29714
+    },
+    {
+      "name": "Sun Harvest",
+      "accent": 64864,
+      "alternate": 64267,
+      "surface": 8518,
+      "text": 50811,
+      "inverse": 65,
+      "background": 2146,
+      "chrome": 29714
+    },
+    {
+      "name": "Harvest Sun",
+      "accent": 64267,
+      "alternate": 64864,
+      "surface": 8518,
+      "text": 50811,
+      "inverse": 65,
+      "background": 2146,
+      "chrome": 29714
+    },
+    {
+      "name": "Pale Ice",
+      "accent": 30399,
+      "alternate": 54846,
+      "surface": 8518,
+      "text": 50811,
+      "inverse": 65,
+      "background": 2146,
+      "chrome": 29714
+    },
+    {
+      "name": "Ice Pale",
+      "accent": 54846,
+      "alternate": 30399,
+      "surface": 8518,
+      "text": 50811,
+      "inverse": 65,
+      "background": 2146,
+      "chrome": 29714
+    },
+    {
+      "name": "Night Drive",
+      "accent": 64739,
+      "alternate": 17983,
+      "surface": 10600,
+      "text": 52924,
+      "inverse": 66,
+      "background": 2179,
+      "chrome": 29683
+    },
+    {
+      "name": "Drive Night",
+      "accent": 17983,
+      "alternate": 64739,
+      "surface": 10600,
+      "text": 52924,
+      "inverse": 66,
+      "background": 2179,
+      "chrome": 29683
+    },
+    {
+      "name": "Vapor Wave",
+      "accent": 64119,
+      "alternate": 18331,
+      "surface": 14664,
+      "text": 59037,
+      "inverse": 4131,
+      "background": 6276,
+      "chrome": 35731
+    },
+    {
+      "name": "Wave Vapor",
+      "accent": 18331,
+      "alternate": 64119,
+      "surface": 14664,
+      "text": 59037,
+      "inverse": 4131,
+      "background": 6276,
+      "chrome": 35731
+    },
+    {
+      "name": "Terminal Phosphor",
+      "accent": 14316,
+      "alternate": 30076,
+      "surface": 8581,
+      "text": 50937,
+      "inverse": 96,
+      "background": 2209,
+      "chrome": 27758
+    },
+    {
+      "name": "Phosphor Terminal",
+      "accent": 30076,
+      "alternate": 14316,
+      "surface": 8581,
+      "text": 50937,
+      "inverse": 96,
+      "background": 2209,
+      "chrome": 27758
+    },
+    {
+      "name": "Desert Dusk",
+      "accent": 62957,
+      "alternate": 7702,
+      "surface": 14627,
+      "text": 58999,
+      "inverse": 4193,
+      "background": 6241,
+      "chrome": 29417
+    },
+    {
+      "name": "Dusk Desert",
+      "accent": 7702,
+      "alternate": 62957,
+      "surface": 14627,
+      "text": 58999,
+      "inverse": 4193,
+      "background": 6241,
+      "chrome": 29417
+    },
+    {
+      "name": "Voltage Spark",
+      "accent": 65216,
+      "alternate": 48031,
+      "surface": 12678,
+      "text": 54970,
+      "inverse": 2145,
+      "background": 4259,
+      "chrome": 33808
+    },
+    {
+      "name": "Spark Voltage",
+      "accent": 48031,
+      "alternate": 65216,
+      "surface": 12678,
+      "text": 54970,
+      "inverse": 2145,
+      "background": 4259,
+      "chrome": 33808
+    },
+    {
+      "name": "Ghost Static",
+      "accent": 63390,
+      "alternate": 44375,
+      "surface": 10598,
+      "text": 54939,
+      "inverse": 2113,
+      "background": 4226,
+      "chrome": 31697
+    },
+    {
+      "name": "Static Ghost",
+      "accent": 44375,
+      "alternate": 63390,
+      "surface": 10598,
+      "text": 54939,
+      "inverse": 2113,
+      "background": 4226,
+      "chrome": 31697
+    },
+    {
+      "name": "Candy Land",
+      "accent": 65438,
+      "alternate": 64149,
+      "surface": 14695,
+      "text": 59100,
+      "inverse": 4162,
+      "background": 6308,
+      "chrome": 35793
+    },
+    {
+      "name": "Land Candy",
+      "accent": 64149,
+      "alternate": 65438,
+      "surface": 14695,
+      "text": 59100,
+      "inverse": 4162,
+      "background": 6308,
+      "chrome": 35793
+    },
+    {
+      "name": "Dark Knight",
+      "accent": 23741,
+      "alternate": 40279,
+      "surface": 10599,
+      "text": 55004,
+      "inverse": 65,
+      "background": 2179,
+      "chrome": 29714
+    },
+    {
+      "name": "Knight Dark",
+      "accent": 40279,
+      "alternate": 23741,
+      "surface": 10599,
+      "text": 55004,
+      "inverse": 65,
+      "background": 2179,
+      "chrome": 29714
+    },
+    {
+      "name": "Bubblegum",
+      "accent": 47308,
+      "alternate": 24982,
+      "surface": 59003,
+      "text": 12485,
+      "inverse": 65503,
+      "background": 63358,
+      "chrome": 35695
+    },
+    {
+      "name": "Gum Bubble",
+      "accent": 24982,
+      "alternate": 47308,
+      "surface": 59003,
+      "text": 12485,
+      "inverse": 65503,
+      "background": 63358,
+      "chrome": 35695
+    },
+    {
+      "name": "Seafoam",
+      "accent": 908,
+      "alternate": 43461,
+      "surface": 52986,
+      "text": 4420,
+      "inverse": 65535,
+      "background": 61374,
+      "chrome": 25614
+    },
+    {
+      "name": "Foam Sea",
+      "accent": 43461,
+      "alternate": 908,
+      "surface": 52986,
+      "text": 4420,
+      "inverse": 65535,
+      "background": 61374,
+      "chrome": 25614
+    }
+  ]
+}

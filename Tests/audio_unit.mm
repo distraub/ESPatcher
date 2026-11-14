@@ -1,0 +1,125 @@
+#import "../Apple/Shared/SynthAudioUnit.h"
+#include <cassert>
+#include <cmath>
+#include <iostream>
+int main(){@autoreleasepool{
+    AudioComponentDescription d={kAudioUnitType_MusicDevice,'gsm5','MSND',0,0};
+    NSError *error=nil;GSSynthAudioUnit *unit=[[GSSynthAudioUnit alloc] initWithComponentDescription:d options:0 error:&error];
+    assert(unit&&!error);assert(unit.parameterTree.allParameters.count==19);
+    assert([unit allocateRenderResourcesAndReturnError:&error]);
+    auto render=unit.internalRenderBlock;
+    struct Stereo { UInt32 count;AudioBuffer b[2]; } output={2,{{1,512*sizeof(float),nullptr},{1,512*sizeof(float),nullptr}}};
+    AudioTimeStamp time={};time.mFlags=kAudioTimeStampSampleTimeValid;time.mSampleTime=0;
+    AURenderEvent event={};event.MIDI.eventType=AURenderEventMIDI;event.MIDI.eventSampleTime=128;event.MIDI.length=3;event.MIDI.data[0]=0x90;event.MIDI.data[1]=69;event.MIDI.data[2]=127;
+    AudioUnitRenderActionFlags flags=0;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,&event,nil)==0);
+    auto l=(float *)output.b[0].mData;double energy=0;for(int i=0;i<512;i++){assert(std::isfinite(l[i]));if(i<128)assert(l[i]==0);else energy+=l[i]*l[i];}assert(energy>0);
+    NSDictionary *saved=unit.fullState;[unit.parameterTree parameterWithAddress:3].value=1000;unit.fullState=saved;assert([unit.parameterTree parameterWithAddress:3].value==5000);
+    [unit panic];time.mSampleTime=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);for(int i=0;i<512;i++)assert(l[i]==0);
+    assert(render(&flags,&time,5000,0,(AudioBufferList *)&output,nullptr,nil)==kAudioUnitErr_TooManyFramesToProcess);
+    NSData *analog=[NSData dataWithContentsOfFile:@"Firmware/Modules/pocket_analog.gsm5"];
+    NSData *bell=[NSData dataWithContentsOfFile:@"Firmware/Modules/fm_bell.gsm5"];
+    assert([unit loadFirmwareData:analog error:&error]);
+    [unit playNote:60 velocity:100];time.mSampleTime+=512;
+    assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert([unit.firmwareID isEqual:@"pocket_analog"]&&!unit.firmwareFaulted);
+    assert(unit.firmwareVoiceLimit==4);
+    assert(unit.firmwareKnobLabels.count==8&&[unit.firmwareKnobLabels[2] isEqual:@"WAVE"]);
+    [unit panic];for(uint8_t note:{60,64,67,71})[unit playNote:note velocity:100];
+    time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert(unit.firmwareActiveVoices==4); // New chord survives the preceding panic request.
+
+    energy=0;for(int i=0;i<512;i++)energy+=l[i]*l[i];assert(energy>0);
+    NSArray<NSNumber *> *scope=unit.scopeSnapshot;assert(scope.count==128);
+    double scopeEnergy=0;for(NSNumber *sample in scope){assert(std::isfinite(sample.floatValue));scopeEnergy+=sample.doubleValue*sample.doubleValue;}assert(scopeEnergy>0);
+    NSMutableData *invalidLabels=[analog mutableCopy];
+    NSRange labelRange=[invalidLabels rangeOfData:[@"WAVE" dataUsingEncoding:NSUTF8StringEncoding] options:0 range:NSMakeRange(0,invalidLabels.length)];
+    assert(labelRange.location!=NSNotFound);[invalidLabels replaceBytesInRange:labelRange withBytes:"wave"];
+    NSError *labelError=nil;assert(![unit loadFirmwareData:invalidLabels error:&labelError]&&labelError);
+    assert([unit.firmwareID isEqual:@"pocket_analog"]&&[unit.firmwareKnobLabels[2] isEqual:@"WAVE"]);
+    assert([unit loadFirmwareData:bell error:&error]);time.mSampleTime+=512;
+    assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert([unit.firmwareID isEqual:@"fm_bell"]&&!unit.firmwareFaulted);
+    assert([unit.firmwareKnobLabels[2] isEqual:@"RATIO"]);
+    saved=unit.fullState;
+    NSData *bad=[@"invalid" dataUsingEncoding:NSUTF8StringEncoding];error=nil;
+    assert(![unit loadFirmwareData:bad error:&error]);assert(error);assert([unit.firmwareID isEqual:@"fm_bell"]);
+    for(int i=0;i<20;i++){
+        error=nil;assert([unit loadFirmwareData:(i%2?analog:bell) error:&error]);
+        time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    }
+    unit.fullState=saved;time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert([unit.firmwareID isEqual:@"fm_bell"]);
+    GSSynthAudioUnit *restored=[[GSSynthAudioUnit alloc] initWithComponentDescription:d options:0 error:nil];
+    restored.fullState=saved;assert([restored allocateRenderResourcesAndReturnError:&error]);
+    assert([restored.firmwareID isEqual:@"fm_bell"]);[restored deallocateRenderResources];
+    [unit.parameterTree parameterWithAddress:5].value=.8f;
+    [unit.parameterTree parameterWithAddress:6].value=3;
+    [unit.parameterTree parameterWithAddress:7].value=.6f;
+    NSDictionary *resonantState=unit.fullState;
+    [unit.parameterTree parameterWithAddress:5].value=0;
+    [unit.parameterTree parameterWithAddress:6].value=10;
+    [unit.parameterTree parameterWithAddress:7].value=0;
+    unit.fullState=resonantState;time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert([unit.parameterTree parameterWithAddress:5].value==.8f&&unit.firmwareHasResonance&&unit.firmwareHasLFO);
+    assert([unit.parameterTree parameterWithAddress:6].value==3&&[unit.parameterTree parameterWithAddress:7].value==.6f);
+    NSMutableDictionary *legacy=[resonantState mutableCopy];legacy[@"gs.parameters.v1"]=@[@1,@.015,@.25,@5000,@.2];
+    unit.fullState=legacy;time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert([unit.parameterTree parameterWithAddress:5].value==0);
+    assert([unit.parameterTree parameterWithAddress:6].value==1&&[unit.parameterTree parameterWithAddress:7].value==0);
+    NSMutableDictionary *six=[resonantState mutableCopy];six[@"gs.parameters.v1"]=@[@1,@.015,@.25,@5000,@.2,@.5];
+    unit.fullState=six;time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert([unit.parameterTree parameterWithAddress:6].value==1&&[unit.parameterTree parameterWithAddress:7].value==0);
+    NSData *v2=[NSData dataWithContentsOfFile:@"Tests/Fixtures/legacy_synth_v2.gsm5"];
+    assert([unit loadFirmwareData:v2 error:&error]);time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert(unit.firmwareHasResonance&&!unit.firmwareHasLFO&&!unit.firmwareFaulted);
+    NSData *v3=[NSData dataWithContentsOfFile:@"Tests/Fixtures/legacy_synth_v3.gsm5"];
+    assert([unit loadFirmwareData:v3 error:&error]);time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert(unit.firmwareHasLFO&&!unit.firmwareHasArp);
+    assert([unit loadFirmwareData:analog error:&error]);
+    [unit.parameterTree parameterWithAddress:8].value=1;
+    [unit.parameterTree parameterWithAddress:13].value=1;
+    for(uint8_t note:{60,64,67})[unit playNote:note velocity:100];
+    for(unsigned i=0;i<40;i++){time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);}
+    assert(unit.firmwareHasArp&&(unit.firmwareArpStatus&0x80000000)&&((unit.firmwareArpStatus>>8&0x7fffff)>=2));
+    [unit.parameterTree parameterWithAddress:9].value=3;
+    [unit.parameterTree parameterWithAddress:10].value=7;
+    [unit.parameterTree parameterWithAddress:11].value=.3f;
+    [unit.parameterTree parameterWithAddress:12].value=2;
+    NSDictionary *arpState=unit.fullState;
+    [unit.parameterTree parameterWithAddress:8].value=0;
+    unit.fullState=arpState;time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert([unit.parameterTree parameterWithAddress:8].value==1&&[unit.parameterTree parameterWithAddress:9].value==3&&[unit.parameterTree parameterWithAddress:10].value==7&&[unit.parameterTree parameterWithAddress:11].value==.3f&&[unit.parameterTree parameterWithAddress:12].value==2&&[unit.parameterTree parameterWithAddress:13].value==1);
+    NSMutableDictionary *eight=[arpState mutableCopy];eight[@"gs.parameters.v1"]=@[@1,@.015,@.25,@5000,@.2,@0,@1,@0];
+    unit.fullState=eight;time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert([unit.parameterTree parameterWithAddress:8].value==0&&[unit.parameterTree parameterWithAddress:10].value==4&&[unit.parameterTree parameterWithAddress:11].value==.5f&&[unit.parameterTree parameterWithAddress:12].value==1);
+    [unit.parameterTree parameterWithAddress:14].value=137;
+    [unit.parameterTree parameterWithAddress:15].value=4;
+    NSDictionary *tempoState=unit.fullState;
+    [unit.parameterTree parameterWithAddress:14].value=90;[unit.parameterTree parameterWithAddress:15].value=0;
+    unit.fullState=tempoState;time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert(unit.firmwareHasTempoSync&&[unit.parameterTree parameterWithAddress:14].value==137&&[unit.parameterTree parameterWithAddress:15].value==4);
+    NSMutableDictionary *fourteen=[tempoState mutableCopy];fourteen[@"gs.parameters.v1"]=[tempoState[@"gs.parameters.v1"] subarrayWithRange:NSMakeRange(0,14)];
+    unit.fullState=fourteen;time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert([unit.parameterTree parameterWithAddress:14].value==120&&[unit.parameterTree parameterWithAddress:15].value==3);
+    NSData *v4=[NSData dataWithContentsOfFile:@"Tests/Fixtures/legacy_synth_v4.gsm5"];
+    assert([unit loadFirmwareData:v4 error:&error]);time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert(unit.firmwareHasArp&&!unit.firmwareHasTempoSync);
+    assert([unit loadFirmwareData:analog error:&error]);
+    [unit.parameterTree parameterWithAddress:16].value=1;[unit.parameterTree parameterWithAddress:17].value=3;[unit.parameterTree parameterWithAddress:18].value=4;
+    time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert(unit.firmwareHasLFOShapes);uint32_t phase=unit.firmwareLFOStatus>>16;
+    time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);assert((unit.firmwareLFOStatus>>16)!=phase);
+    NSDictionary *lfoState=unit.fullState;[unit.parameterTree parameterWithAddress:16].value=0;[unit.parameterTree parameterWithAddress:18].value=0;
+    unit.fullState=lfoState;time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert([unit.parameterTree parameterWithAddress:16].value==1&&[unit.parameterTree parameterWithAddress:17].value==3&&[unit.parameterTree parameterWithAddress:18].value==4);
+    NSMutableDictionary *sixteen=[lfoState mutableCopy];sixteen[@"gs.parameters.v1"]=[lfoState[@"gs.parameters.v1"] subarrayWithRange:NSMakeRange(0,16)];
+    unit.fullState=sixteen;time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert([unit.parameterTree parameterWithAddress:16].value==1&&[unit.parameterTree parameterWithAddress:17].value==1&&[unit.parameterTree parameterWithAddress:18].value==1);
+    NSData *v5=[NSData dataWithContentsOfFile:@"Tests/Fixtures/legacy_synth_v5.gsm5"];
+    assert([unit loadFirmwareData:v5 error:&error]);time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);
+    assert(unit.firmwareHasTempoSync&&!unit.firmwareHasLFOShapes);
+    NSData *old=[NSData dataWithContentsOfFile:@"Tests/Fixtures/legacy_mono.gsm5"];
+    assert([unit loadFirmwareData:old error:&error]);time.mSampleTime+=512;assert(render(&flags,&time,512,0,(AudioBufferList *)&output,nullptr,nil)==0);assert(!unit.firmwareHasResonance);
+    [unit deallocateRenderResources];std::cout<<"PASS: AU parameter tree before editor, sample-offset MIDI, null output buffers, fullState restore, panic, oversized-block rejection\n";
+    std::cout<<"PASS: module load, immediate note, switch, failed import rollback, repeated slot reclamation, embedded module state restore before/after allocation\n";
+}}

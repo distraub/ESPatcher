@@ -1,0 +1,1038 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0022D1AE48E8EF7557808952 /* m3_optimize.c in Sources */ = {isa = PBXBuildFile; fileRef = 4A683B305609F4A292D78849 /* m3_optimize.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		011F9FB1CE0DF8E7B030AB19 /* m3_module.c in Sources */ = {isa = PBXBuildFile; fileRef = 770315505A0F5BDB0CD7F09A /* m3_module.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		01697CE4F1F1D95A6E858167 /* Mac-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 19AE880D927AEF9A83EAFC98 /* Mac-Info.plist */; };
+		0169EA4E60D0FB72D522D471 /* m3_emit.c in Sources */ = {isa = PBXBuildFile; fileRef = 416DF35699DACF93FF93AB80 /* m3_emit.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		018FB87F75CB10FCF1F7FCB5 /* SynthKnobPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C7062E24829E2FFCC6337C /* SynthKnobPanel.swift */; };
+		01D099A75A5918ED0C002CBA /* GlitchSynthApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EC6BD796307227E2C06C54 /* GlitchSynthApp.swift */; };
+		0251327152EEEB39ECF3F690 /* SynthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26661BAFBC13BB50FD81E16 /* SynthModel.swift */; };
+		035DEC6C05E9BFE791BC7EE0 /* ChordLaunchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3E8D04987BF4B425F0C12B /* ChordLaunchers.swift */; };
+		0DF9C144945030BA17A6F5C4 /* m3_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 461551DFEE6ABBE727E599F3 /* m3_parse.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		0E021D7B7AFBD086411B7A59 /* SynthParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4187B3B39490D7744EFB583 /* SynthParameter.swift */; };
+		0F58E9AD45D789BAA9813CAD /* iOS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E78A40268F6EDA4713F45A3 /* iOS-Info.plist */; };
+		109C20FACFDC8B18D7E03649 /* m3_info.c in Sources */ = {isa = PBXBuildFile; fileRef = 46CE2A6E7C273CF274B811EE /* m3_info.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		1155B349B86753A80FC4B461 /* FirmwarePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D7100A979EB3B964966FC8 /* FirmwarePicker.swift */; };
+		1254040FC9E835A61E20C11A /* m3_function.c in Sources */ = {isa = PBXBuildFile; fileRef = 92D758BEBF7AD59344ABF692 /* m3_function.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		1600090260526641E63B5BB5 /* SynthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26661BAFBC13BB50FD81E16 /* SynthModel.swift */; };
+		1617DF16EA0C67774341C65A /* m3_exec.c in Sources */ = {isa = PBXBuildFile; fileRef = C00EA6D74337A2CF9FE3CFCA /* m3_exec.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		1639D8D1E5BC0F0155AD1461 /* FirmwarePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D7100A979EB3B964966FC8 /* FirmwarePicker.swift */; };
+		16728892069F219A4A8A24FE /* ChordLaunchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3E8D04987BF4B425F0C12B /* ChordLaunchers.swift */; };
+		17ABA802A2F6B5AB9ED06078 /* NavigationBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 822BAD6086F84FD5A7646B9A /* NavigationBridge.mm */; };
+		17C5F1C0DCAF24A303F5F54A /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7EC4A301ADB7D9A536CBA833 /* LICENSE */; };
+		191885E4F985FE6228AB8BA8 /* SynthAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 783DF7388356D2AAFF626CC6 /* SynthAudioUnit.mm */; };
+		19A39D53AF4BC8F7D20BB323 /* m3_info.c in Sources */ = {isa = PBXBuildFile; fileRef = 46CE2A6E7C273CF274B811EE /* m3_info.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		1A3F801039DA48646A0EB746 /* SynthKnobPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C7062E24829E2FFCC6337C /* SynthKnobPanel.swift */; };
+		1C0ACBEBB0274EAB7FE98A9C /* SynthTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EBD50D3B295EB11650C6D2 /* SynthTheme.swift */; };
+		1C3EDAC29BE55DCF698FC451 /* NoteKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794B1C16D111FD95CE692F5 /* NoteKey.swift */; };
+		1D29F2BA1830AFA5858D149C /* m3_code.c in Sources */ = {isa = PBXBuildFile; fileRef = C13477DCAC8483632404FD66 /* m3_code.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		1DF4FBC2A7BC0CB5E216C5D3 /* InstrumentControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ACCD1BEC3378093C449C2D /* InstrumentControls.swift */; };
+		1F67C0FE3F5FB47DE4587F22 /* m3_exec.c in Sources */ = {isa = PBXBuildFile; fileRef = C00EA6D74337A2CF9FE3CFCA /* m3_exec.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		208B8DE75CAF544772B02E61 /* StudioKnobFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7138D5C9A0596467DDEA3D /* StudioKnobFace.swift */; };
+		20908F33B413AD11874063B9 /* InstrumentScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D8A1FCC2111D64F46B507F /* InstrumentScreen.swift */; };
+		21CFF37BFBBD3664E799D8F7 /* InstrumentScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D8A1FCC2111D64F46B507F /* InstrumentScreen.swift */; };
+		244C817A78C6C756F99716D4 /* m3_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 461551DFEE6ABBE727E599F3 /* m3_parse.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		2713F1EB36D998D17B37076F /* m3_emit.c in Sources */ = {isa = PBXBuildFile; fileRef = 416DF35699DACF93FF93AB80 /* m3_emit.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		27F1911BB9DC119FAEBFF5DB /* SynthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26661BAFBC13BB50FD81E16 /* SynthModel.swift */; };
+		2845D0EA83C61AB969D433C8 /* m3_compile.c in Sources */ = {isa = PBXBuildFile; fileRef = 6447919CC616596A80FF8C3D /* m3_compile.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		293C0A8578B5D40685468220 /* StudioKnobFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7138D5C9A0596467DDEA3D /* StudioKnobFace.swift */; };
+		2B51260B95A4C5DED8A28E0D /* SynthKnob.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA81B11B5436F73A0AF9CFD /* SynthKnob.swift */; };
+		2B8C61849C257FDA5D11D6D4 /* InstrumentControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ACCD1BEC3378093C449C2D /* InstrumentControls.swift */; };
+		2D0D1F5D95FA4386EDC4B403 /* Modules in Resources */ = {isa = PBXBuildFile; fileRef = D4855DA8D023FA1B6C663A56 /* Modules */; };
+		2DE7192E19E3149B3752C238 /* AudioHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464250D71DCC9B0CCC66EDF8 /* AudioHost.swift */; };
+		31AF3A0816A56B07F3589C1B /* m3_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 461551DFEE6ABBE727E599F3 /* m3_parse.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		31D7B7C5B2DA8FE8BCD27A0C /* m3_function.c in Sources */ = {isa = PBXBuildFile; fileRef = 92D758BEBF7AD59344ABF692 /* m3_function.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		32C95B7022013629E6BE1CDE /* gs_sandbox.c in Sources */ = {isa = PBXBuildFile; fileRef = 80E044C154B540967F02FC36 /* gs_sandbox.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG"; }; };
+		338EB099EDFE704FE7F33422 /* m3_core.c in Sources */ = {isa = PBXBuildFile; fileRef = D68A05AC79D62A2A21332645 /* m3_core.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		33A769247CD5126938DA048E /* ParameterSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAA57A07955CC3F3F34B19F /* ParameterSlider.swift */; };
+		36AF6A07F8160314DD6CEEBC /* SynthKnob.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA81B11B5436F73A0AF9CFD /* SynthKnob.swift */; };
+		39679CA48FDED2F358250468 /* Modules in Resources */ = {isa = PBXBuildFile; fileRef = D4855DA8D023FA1B6C663A56 /* Modules */; };
+		40E0CFBC04D239844D889E1B /* FirmwarePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D7100A979EB3B964966FC8 /* FirmwarePicker.swift */; };
+		423BF4C81589AACC83400013 /* SynthKnobPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C7062E24829E2FFCC6337C /* SynthKnobPanel.swift */; };
+		461B5B83737F7FB659F1DE84 /* gs_sandbox.c in Sources */ = {isa = PBXBuildFile; fileRef = 80E044C154B540967F02FC36 /* gs_sandbox.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG"; }; };
+		46A76C9ECAAAF1054C4EE5FF /* StudioKnobFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7138D5C9A0596467DDEA3D /* StudioKnobFace.swift */; };
+		4778767519AE87021CD407CE /* InstrumentControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ACCD1BEC3378093C449C2D /* InstrumentControls.swift */; };
+		4E29D0C2CB93D85033F6F018 /* StudioKnobIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF31D85527FF736FE3E4AA7 /* StudioKnobIndicator.swift */; };
+		50E40659551B78BD411375D4 /* m3_emit.c in Sources */ = {isa = PBXBuildFile; fileRef = 416DF35699DACF93FF93AB80 /* m3_emit.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		54D976753537A1F5E6A21D05 /* gs_sandbox.c in Sources */ = {isa = PBXBuildFile; fileRef = 80E044C154B540967F02FC36 /* gs_sandbox.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG"; }; };
+		54EB99AC4A8471AA9C3704CB /* ESPatcherMacAU.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = F670D4352DC26758110A992E /* ESPatcherMacAU.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		55A68D7A0C8B3C9C20667E45 /* StudioKnobIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF31D85527FF736FE3E4AA7 /* StudioKnobIndicator.swift */; };
+		565CC3599BB6F764825F4E5F /* AudioUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5E210B8CF01C3B63B2725 /* AudioUnitViewController.swift */; };
+		5915A03709825BC935E1B01A /* m3_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 461551DFEE6ABBE727E599F3 /* m3_parse.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		5AD8D7FF87CD3FF5C58D1141 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7EC4A301ADB7D9A536CBA833 /* LICENSE */; };
+		5BF487024F4CA92E348F423E /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7201BAAC13B8F5B41C495EC5 /* NavigationModel.swift */; };
+		5F23A4CF843705C15C299C40 /* SynthAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 783DF7388356D2AAFF626CC6 /* SynthAudioUnit.mm */; };
+		5FC21ADA140CED9DB8ABF814 /* SynthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FAB8C9E2546987C4C966F7 /* SynthView.swift */; };
+		60E4500AFDAE89141C720D03 /* m3_exec.c in Sources */ = {isa = PBXBuildFile; fileRef = C00EA6D74337A2CF9FE3CFCA /* m3_exec.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		620AC8BD67E34685C06307CA /* m3_module.c in Sources */ = {isa = PBXBuildFile; fileRef = 770315505A0F5BDB0CD7F09A /* m3_module.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		623B0B4855075D2EE974B20E /* m3_code.c in Sources */ = {isa = PBXBuildFile; fileRef = C13477DCAC8483632404FD66 /* m3_code.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		6323E67095D88D13DB993744 /* ESPatcherIOSAU.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 21D7DF6A24655A26B8E61F96 /* ESPatcherIOSAU.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		63D6EA53AFAC0BEBC7BFC8DC /* LFOWaveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3E4A40B495C3293F19445 /* LFOWaveform.swift */; };
+		64FEBED0A529890A1EBBEE57 /* m3_code.c in Sources */ = {isa = PBXBuildFile; fileRef = C13477DCAC8483632404FD66 /* m3_code.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		65DC8DED7612ECA8A4099241 /* NavigationBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 822BAD6086F84FD5A7646B9A /* NavigationBridge.mm */; };
+		6638AB3340667D934D9C44A3 /* m3_module.c in Sources */ = {isa = PBXBuildFile; fileRef = 770315505A0F5BDB0CD7F09A /* m3_module.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		69EEBCEA6FFC493F49410DEF /* SynthKnob.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA81B11B5436F73A0AF9CFD /* SynthKnob.swift */; };
+		6A4E21BDD17DCBE353C18953 /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7201BAAC13B8F5B41C495EC5 /* NavigationModel.swift */; };
+		6D1B02827AE87EA88A02EE71 /* m3_code.c in Sources */ = {isa = PBXBuildFile; fileRef = C13477DCAC8483632404FD66 /* m3_code.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		6D6E832BA72EA80818FD16DC /* StudioKnobIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF31D85527FF736FE3E4AA7 /* StudioKnobIndicator.swift */; };
+		6EEE8A01085B6929AE92E2B9 /* FirmwarePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D7100A979EB3B964966FC8 /* FirmwarePicker.swift */; };
+		718CA5BE1620607B4FE3677E /* m3_compile.c in Sources */ = {isa = PBXBuildFile; fileRef = 6447919CC616596A80FF8C3D /* m3_compile.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		756441C66BE6C69217CE8FDF /* SynthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FAB8C9E2546987C4C966F7 /* SynthView.swift */; };
+		76819C276966EB4FB9B9B2B9 /* m3_bind.c in Sources */ = {isa = PBXBuildFile; fileRef = 8DB22A17BAF3531D50651431 /* m3_bind.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		7C462113D0095F63110A9A7D /* m3_module.c in Sources */ = {isa = PBXBuildFile; fileRef = 770315505A0F5BDB0CD7F09A /* m3_module.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		7DD6D5FD1922FA9C7C322D4E /* m3_core.c in Sources */ = {isa = PBXBuildFile; fileRef = D68A05AC79D62A2A21332645 /* m3_core.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		80CFF76BA4C2A9247D26754A /* Modules in Resources */ = {isa = PBXBuildFile; fileRef = D4855DA8D023FA1B6C663A56 /* Modules */; };
+		80E49E7DE2B9F82A0260E252 /* PerformancePads.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F39EBEA44121DD9F5A0305 /* PerformancePads.swift */; };
+		83922238F7FB3F631A7D0493 /* m3_core.c in Sources */ = {isa = PBXBuildFile; fileRef = D68A05AC79D62A2A21332645 /* m3_core.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		83D2ACC4F88745E745A3A94C /* m3_env.c in Sources */ = {isa = PBXBuildFile; fileRef = 3ED012F59D60A92F54902DDD /* m3_env.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		8433B26537911B81FA14B91B /* SynthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FAB8C9E2546987C4C966F7 /* SynthView.swift */; };
+		851EF2E57B409813F76EE63B /* SynthTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EBD50D3B295EB11650C6D2 /* SynthTheme.swift */; };
+		862F6AAA604995708836219D /* Modules in Resources */ = {isa = PBXBuildFile; fileRef = D4855DA8D023FA1B6C663A56 /* Modules */; };
+		86F0CCAF4D8BC087183312F2 /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7201BAAC13B8F5B41C495EC5 /* NavigationModel.swift */; };
+		870F67D66AD9932485D75867 /* m3_env.c in Sources */ = {isa = PBXBuildFile; fileRef = 3ED012F59D60A92F54902DDD /* m3_env.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		89200DB482B6DABE8AF5EF20 /* ChordLaunchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3E8D04987BF4B425F0C12B /* ChordLaunchers.swift */; };
+		896C99936E46E008D656A905 /* ParameterSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAA57A07955CC3F3F34B19F /* ParameterSlider.swift */; };
+		89EA07B6395B8236DED6C2BA /* LFOWaveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3E4A40B495C3293F19445 /* LFOWaveform.swift */; };
+		8A99AD45BCA6854326E5E06E /* NoteKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794B1C16D111FD95CE692F5 /* NoteKey.swift */; };
+		9C83108322889C5BF404CD26 /* PerformancePads.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F39EBEA44121DD9F5A0305 /* PerformancePads.swift */; };
+		9DBAA5E6913DF280470536FA /* m3_emit.c in Sources */ = {isa = PBXBuildFile; fileRef = 416DF35699DACF93FF93AB80 /* m3_emit.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		9E1ED9A5A5E7D9CFC9079F0C /* SynthTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EBD50D3B295EB11650C6D2 /* SynthTheme.swift */; };
+		A43ADCD84B93C4BA62162CE3 /* SynthKnobPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C7062E24829E2FFCC6337C /* SynthKnobPanel.swift */; };
+		A747BA596A4E834C340F9C76 /* m3_bind.c in Sources */ = {isa = PBXBuildFile; fileRef = 8DB22A17BAF3531D50651431 /* m3_bind.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		A749D03B40BC278E0A6D1B2C /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7EC4A301ADB7D9A536CBA833 /* LICENSE */; };
+		A79FF8BF5D8AC736EEC6D7F3 /* m3_bind.c in Sources */ = {isa = PBXBuildFile; fileRef = 8DB22A17BAF3531D50651431 /* m3_bind.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		A892421315BD2BC2E32B4149 /* SynthParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4187B3B39490D7744EFB583 /* SynthParameter.swift */; };
+		ACC2397A0A4FC87C2B4507AC /* SynthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FAB8C9E2546987C4C966F7 /* SynthView.swift */; };
+		B025BEDCBA4C9D12C10B1685 /* m3_compile.c in Sources */ = {isa = PBXBuildFile; fileRef = 6447919CC616596A80FF8C3D /* m3_compile.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		B25D32CC0F28F6DF0B1B6DAF /* ParameterSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAA57A07955CC3F3F34B19F /* ParameterSlider.swift */; };
+		B31C2D4EB9A15C87CA7610B7 /* NavigationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7201BAAC13B8F5B41C495EC5 /* NavigationModel.swift */; };
+		B58F7D2372381F332F354854 /* SynthAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 783DF7388356D2AAFF626CC6 /* SynthAudioUnit.mm */; };
+		B708F8D5528BA920B3251EA3 /* NavigationBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 822BAD6086F84FD5A7646B9A /* NavigationBridge.mm */; };
+		BA92BAC5CDEC0D3D4A40A149 /* StudioKnobIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF31D85527FF736FE3E4AA7 /* StudioKnobIndicator.swift */; };
+		BB1AE91BBCBB90C1CDF4AF8F /* m3_optimize.c in Sources */ = {isa = PBXBuildFile; fileRef = 4A683B305609F4A292D78849 /* m3_optimize.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		BCD495A90098BF58007BC450 /* ChordLaunchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3E8D04987BF4B425F0C12B /* ChordLaunchers.swift */; };
+		BCEDB4E86CFD1DE0E68BB5D1 /* m3_bind.c in Sources */ = {isa = PBXBuildFile; fileRef = 8DB22A17BAF3531D50651431 /* m3_bind.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		BECCFACDF4F3A77DB9ACD61C /* NavigationStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375FD475D7B006F81961628 /* NavigationStrip.swift */; };
+		C3563D4F8788BED3DE7B0B41 /* PerformancePads.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F39EBEA44121DD9F5A0305 /* PerformancePads.swift */; };
+		C6B9944D20E6C221C209916B /* SynthKnob.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA81B11B5436F73A0AF9CFD /* SynthKnob.swift */; };
+		C9D29213B7AF5835FF9AF179 /* SynthAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 783DF7388356D2AAFF626CC6 /* SynthAudioUnit.mm */; };
+		CA3C8923DAABEC7D3E78378A /* NavigationStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375FD475D7B006F81961628 /* NavigationStrip.swift */; };
+		CA8A7431E7B7725F4D038A9D /* PerformancePads.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F39EBEA44121DD9F5A0305 /* PerformancePads.swift */; };
+		CDD3C2C70F7934A168C3EF8F /* InstrumentScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D8A1FCC2111D64F46B507F /* InstrumentScreen.swift */; };
+		CEFB17F088F19F53506345C7 /* m3_env.c in Sources */ = {isa = PBXBuildFile; fileRef = 3ED012F59D60A92F54902DDD /* m3_env.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		D02E89F7BD9C209D21DC7B81 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7EC4A301ADB7D9A536CBA833 /* LICENSE */; };
+		D89A42AAF096A718AA2BC455 /* NoteKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794B1C16D111FD95CE692F5 /* NoteKey.swift */; };
+		DB4320436C7581E98F65D5A5 /* m3_env.c in Sources */ = {isa = PBXBuildFile; fileRef = 3ED012F59D60A92F54902DDD /* m3_env.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		DBDCE11DB6E264E5407F4F7A /* AudioUnitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F5E210B8CF01C3B63B2725 /* AudioUnitViewController.swift */; };
+		DC19974B3076ADE0E0253F48 /* AudioHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 464250D71DCC9B0CCC66EDF8 /* AudioHost.swift */; };
+		E07FD462CDAE86E7B7E0942A /* SynthParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4187B3B39490D7744EFB583 /* SynthParameter.swift */; };
+		E147DB133805222BA0E97B89 /* ParameterSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAA57A07955CC3F3F34B19F /* ParameterSlider.swift */; };
+		E15765640B4DC0F46F6390CE /* m3_exec.c in Sources */ = {isa = PBXBuildFile; fileRef = C00EA6D74337A2CF9FE3CFCA /* m3_exec.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		E214EBD3982ADB4D63AF36DE /* gs_sandbox.c in Sources */ = {isa = PBXBuildFile; fileRef = 80E044C154B540967F02FC36 /* gs_sandbox.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG"; }; };
+		E27D8356B93682225BFB9F1F /* SynthParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4187B3B39490D7744EFB583 /* SynthParameter.swift */; };
+		E397B940094608F5F36C6EDE /* NavigationStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375FD475D7B006F81961628 /* NavigationStrip.swift */; };
+		E44C5B520094B181F076D61D /* NavigationBridge.mm in Sources */ = {isa = PBXBuildFile; fileRef = 822BAD6086F84FD5A7646B9A /* NavigationBridge.mm */; };
+		E53123F23FE50CA786A5A99E /* m3_function.c in Sources */ = {isa = PBXBuildFile; fileRef = 92D758BEBF7AD59344ABF692 /* m3_function.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		E78EED01D615F9394211708E /* m3_function.c in Sources */ = {isa = PBXBuildFile; fileRef = 92D758BEBF7AD59344ABF692 /* m3_function.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		E80F49498B0129F4AB078EA2 /* NoteKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794B1C16D111FD95CE692F5 /* NoteKey.swift */; };
+		E875D0AB92B3D286FF586A78 /* InstrumentControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1ACCD1BEC3378093C449C2D /* InstrumentControls.swift */; };
+		E8BC6CB277AB4762AD61D679 /* NavigationStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375FD475D7B006F81961628 /* NavigationStrip.swift */; };
+		F24C6234F755B71BE1EC0683 /* GlitchSynthApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2EC6BD796307227E2C06C54 /* GlitchSynthApp.swift */; };
+		F2D30A8630374D0BAA4F76B2 /* m3_info.c in Sources */ = {isa = PBXBuildFile; fileRef = 46CE2A6E7C273CF274B811EE /* m3_info.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		F2F6D151E038BA349F4AA523 /* m3_optimize.c in Sources */ = {isa = PBXBuildFile; fileRef = 4A683B305609F4A292D78849 /* m3_optimize.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		F3904EFF124081FDD8442FBB /* m3_info.c in Sources */ = {isa = PBXBuildFile; fileRef = 46CE2A6E7C273CF274B811EE /* m3_info.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		F5C2E159788916E645FB965E /* m3_optimize.c in Sources */ = {isa = PBXBuildFile; fileRef = 4A683B305609F4A292D78849 /* m3_optimize.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		F6D57DEAA743181466FE67A6 /* SynthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26661BAFBC13BB50FD81E16 /* SynthModel.swift */; };
+		F9C2FE702FBAA7DFF6478E0B /* LFOWaveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3E4A40B495C3293F19445 /* LFOWaveform.swift */; };
+		FA3E32245C4DF00E3B261CD8 /* LFOWaveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FD3E4A40B495C3293F19445 /* LFOWaveform.swift */; };
+		FB382D0635ED740C2FE0985B /* m3_core.c in Sources */ = {isa = PBXBuildFile; fileRef = D68A05AC79D62A2A21332645 /* m3_core.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		FB9843A063D1C7B6359505E8 /* InstrumentScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D8A1FCC2111D64F46B507F /* InstrumentScreen.swift */; };
+		FDB061DCFDAE9D3262B7FB25 /* SynthTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EBD50D3B295EB11650C6D2 /* SynthTheme.swift */; };
+		FF4969DC5DDDFFAB128E6B3D /* StudioKnobFace.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7138D5C9A0596467DDEA3D /* StudioKnobFace.swift */; };
+		FF9B9889CDCD89B47BB688ED /* m3_compile.c in Sources */ = {isa = PBXBuildFile; fileRef = 6447919CC616596A80FF8C3D /* m3_compile.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2414DEBB0F908F1977226DE2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 625CB5826AE933398C1728DF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 51294707E0FBE41B4B8B38BA;
+			remoteInfo = ESPatcherIOSAU;
+		};
+		EB7BBCBA93FA4D01A18DC6A6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 625CB5826AE933398C1728DF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C72660774438586F1C309F43;
+			remoteInfo = ESPatcherMacAU;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D26AD43A7E5B3C69038BD4BF /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				54EB99AC4A8471AA9C3704CB /* ESPatcherMacAU.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC25AF0526DEE40028D980A4 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				6323E67095D88D13DB993744 /* ESPatcherIOSAU.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0794B1C16D111FD95CE692F5 /* NoteKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteKey.swift; sourceTree = "<group>"; };
+		0977E6D1960F3D97484542D9 /* SynthAudioUnit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SynthAudioUnit.h; sourceTree = "<group>"; };
+		09F3872CA269AB22FDF8C985 /* Scope.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Scope.hpp; sourceTree = "<group>"; };
+		19AE880D927AEF9A83EAFC98 /* Mac-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Mac-Info.plist"; sourceTree = "<group>"; };
+		21D7DF6A24655A26B8E61F96 /* ESPatcherIOSAU.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = ESPatcherIOSAU.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		24D44C0209C96BF9F83C6EE2 /* WasmInstrument.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = WasmInstrument.hpp; sourceTree = "<group>"; };
+		38FAB8C9E2546987C4C966F7 /* SynthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthView.swift; sourceTree = "<group>"; };
+		3ED012F59D60A92F54902DDD /* m3_env.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_env.c; sourceTree = "<group>"; };
+		416DF35699DACF93FF93AB80 /* m3_emit.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_emit.c; sourceTree = "<group>"; };
+		461551DFEE6ABBE727E599F3 /* m3_parse.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_parse.c; sourceTree = "<group>"; };
+		464250D71DCC9B0CCC66EDF8 /* AudioHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioHost.swift; sourceTree = "<group>"; };
+		46CE2A6E7C273CF274B811EE /* m3_info.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_info.c; sourceTree = "<group>"; };
+		4A683B305609F4A292D78849 /* m3_optimize.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_optimize.c; sourceTree = "<group>"; };
+		4FD3E4A40B495C3293F19445 /* LFOWaveform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LFOWaveform.swift; sourceTree = "<group>"; };
+		6375FD475D7B006F81961628 /* NavigationStrip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationStrip.swift; sourceTree = "<group>"; };
+		63C7062E24829E2FFCC6337C /* SynthKnobPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthKnobPanel.swift; sourceTree = "<group>"; };
+		6447919CC616596A80FF8C3D /* m3_compile.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_compile.c; sourceTree = "<group>"; };
+		7201BAAC13B8F5B41C495EC5 /* NavigationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationModel.swift; sourceTree = "<group>"; };
+		770315505A0F5BDB0CD7F09A /* m3_module.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_module.c; sourceTree = "<group>"; };
+		77B6863E337A479CE2CD7F77 /* Synth.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Synth.hpp; sourceTree = "<group>"; };
+		783DF7388356D2AAFF626CC6 /* SynthAudioUnit.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = SynthAudioUnit.mm; sourceTree = "<group>"; };
+		7CAA57A07955CC3F3F34B19F /* ParameterSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterSlider.swift; sourceTree = "<group>"; };
+		7EC4A301ADB7D9A536CBA833 /* LICENSE */ = {isa = PBXFileReference; path = LICENSE; sourceTree = "<group>"; };
+		80E044C154B540967F02FC36 /* gs_sandbox.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gs_sandbox.c; sourceTree = "<group>"; };
+		822BAD6086F84FD5A7646B9A /* NavigationBridge.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NavigationBridge.mm; sourceTree = "<group>"; };
+		83DE5C793AE0DFC08943B023 /* ESPatcherIOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = ESPatcherIOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DB22A17BAF3531D50651431 /* m3_bind.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_bind.c; sourceTree = "<group>"; };
+		92D758BEBF7AD59344ABF692 /* m3_function.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_function.c; sourceTree = "<group>"; };
+		9AF31D85527FF736FE3E4AA7 /* StudioKnobIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioKnobIndicator.swift; sourceTree = "<group>"; };
+		9E78A40268F6EDA4713F45A3 /* iOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "iOS-Info.plist"; sourceTree = "<group>"; };
+		A0F5E210B8CF01C3B63B2725 /* AudioUnitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioUnitViewController.swift; sourceTree = "<group>"; };
+		A1ACCD1BEC3378093C449C2D /* InstrumentControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentControls.swift; sourceTree = "<group>"; };
+		A25E2C90F5F40C727C87B704 /* ESPatcherMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ESPatcherMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2EC6BD796307227E2C06C54 /* GlitchSynthApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlitchSynthApp.swift; sourceTree = "<group>"; };
+		A8D7100A979EB3B964966FC8 /* FirmwarePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwarePicker.swift; sourceTree = "<group>"; };
+		ADA81B11B5436F73A0AF9CFD /* SynthKnob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthKnob.swift; sourceTree = "<group>"; };
+		C00EA6D74337A2CF9FE3CFCA /* m3_exec.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_exec.c; sourceTree = "<group>"; };
+		C13477DCAC8483632404FD66 /* m3_code.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_code.c; sourceTree = "<group>"; };
+		C26661BAFBC13BB50FD81E16 /* SynthModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthModel.swift; sourceTree = "<group>"; };
+		C2CB8531E6AEE11EE9910851 /* Navigation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Navigation.hpp; sourceTree = "<group>"; };
+		C4187B3B39490D7744EFB583 /* SynthParameter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthParameter.swift; sourceTree = "<group>"; };
+		C6D8A1FCC2111D64F46B507F /* InstrumentScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstrumentScreen.swift; sourceTree = "<group>"; };
+		C7F39EBEA44121DD9F5A0305 /* PerformancePads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformancePads.swift; sourceTree = "<group>"; };
+		CB6C6575DF874323C704A076 /* NavigationBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationBridge.h; sourceTree = "<group>"; };
+		CF7138D5C9A0596467DDEA3D /* StudioKnobFace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudioKnobFace.swift; sourceTree = "<group>"; };
+		D3EBD50D3B295EB11650C6D2 /* SynthTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthTheme.swift; sourceTree = "<group>"; };
+		D4855DA8D023FA1B6C663A56 /* Modules */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Modules; path = Firmware/Modules; sourceTree = SOURCE_ROOT; };
+		D68A05AC79D62A2A21332645 /* m3_core.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_core.c; sourceTree = "<group>"; };
+		EA3AB3652D56EF3AA02D528E /* Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
+		F670D4352DC26758110A992E /* ESPatcherMacAU.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ESPatcherMacAU.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		FD3E8D04987BF4B425F0C12B /* ChordLaunchers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChordLaunchers.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		06DC4D25240D29AF1715E678 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				83DE5C793AE0DFC08943B023 /* ESPatcherIOS.app */,
+				21D7DF6A24655A26B8E61F96 /* ESPatcherIOSAU.appex */,
+				A25E2C90F5F40C727C87B704 /* ESPatcherMac.app */,
+				F670D4352DC26758110A992E /* ESPatcherMacAU.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3A9118B8C6CB9F1AE1B48D51 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				A0F5E210B8CF01C3B63B2725 /* AudioUnitViewController.swift */,
+				9E78A40268F6EDA4713F45A3 /* iOS-Info.plist */,
+				19AE880D927AEF9A83EAFC98 /* Mac-Info.plist */,
+			);
+			name = Extension;
+			path = Apple/Extension;
+			sourceTree = "<group>";
+		};
+		3C51260BA851B98490BAD4E6 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				464250D71DCC9B0CCC66EDF8 /* AudioHost.swift */,
+				A2EC6BD796307227E2C06C54 /* GlitchSynthApp.swift */,
+			);
+			name = App;
+			path = Apple/App;
+			sourceTree = "<group>";
+		};
+		4D664149C50B941CA566721F /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				C2CB8531E6AEE11EE9910851 /* Navigation.hpp */,
+				09F3872CA269AB22FDF8C985 /* Scope.hpp */,
+				77B6863E337A479CE2CD7F77 /* Synth.hpp */,
+				24D44C0209C96BF9F83C6EE2 /* WasmInstrument.hpp */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		5054B576CFA9713071BE3300 = {
+			isa = PBXGroup;
+			children = (
+				D4855DA8D023FA1B6C663A56 /* Modules */,
+				3C51260BA851B98490BAD4E6 /* App */,
+				4D664149C50B941CA566721F /* Core */,
+				3A9118B8C6CB9F1AE1B48D51 /* Extension */,
+				787C528E2ED8C402730C5FEB /* Shared */,
+				912F9D6CD68185DA156557A7 /* wasm3 */,
+				06DC4D25240D29AF1715E678 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		787C528E2ED8C402730C5FEB /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				EA3AB3652D56EF3AA02D528E /* Bridge.h */,
+				FD3E8D04987BF4B425F0C12B /* ChordLaunchers.swift */,
+				A8D7100A979EB3B964966FC8 /* FirmwarePicker.swift */,
+				A1ACCD1BEC3378093C449C2D /* InstrumentControls.swift */,
+				C6D8A1FCC2111D64F46B507F /* InstrumentScreen.swift */,
+				4FD3E4A40B495C3293F19445 /* LFOWaveform.swift */,
+				CB6C6575DF874323C704A076 /* NavigationBridge.h */,
+				822BAD6086F84FD5A7646B9A /* NavigationBridge.mm */,
+				7201BAAC13B8F5B41C495EC5 /* NavigationModel.swift */,
+				6375FD475D7B006F81961628 /* NavigationStrip.swift */,
+				0794B1C16D111FD95CE692F5 /* NoteKey.swift */,
+				7CAA57A07955CC3F3F34B19F /* ParameterSlider.swift */,
+				C7F39EBEA44121DD9F5A0305 /* PerformancePads.swift */,
+				CF7138D5C9A0596467DDEA3D /* StudioKnobFace.swift */,
+				9AF31D85527FF736FE3E4AA7 /* StudioKnobIndicator.swift */,
+				0977E6D1960F3D97484542D9 /* SynthAudioUnit.h */,
+				783DF7388356D2AAFF626CC6 /* SynthAudioUnit.mm */,
+				ADA81B11B5436F73A0AF9CFD /* SynthKnob.swift */,
+				63C7062E24829E2FFCC6337C /* SynthKnobPanel.swift */,
+				C26661BAFBC13BB50FD81E16 /* SynthModel.swift */,
+				C4187B3B39490D7744EFB583 /* SynthParameter.swift */,
+				D3EBD50D3B295EB11650C6D2 /* SynthTheme.swift */,
+				38FAB8C9E2546987C4C966F7 /* SynthView.swift */,
+			);
+			name = Shared;
+			path = Apple/Shared;
+			sourceTree = "<group>";
+		};
+		912F9D6CD68185DA156557A7 /* wasm3 */ = {
+			isa = PBXGroup;
+			children = (
+				80E044C154B540967F02FC36 /* gs_sandbox.c */,
+				7EC4A301ADB7D9A536CBA833 /* LICENSE */,
+				8DB22A17BAF3531D50651431 /* m3_bind.c */,
+				C13477DCAC8483632404FD66 /* m3_code.c */,
+				6447919CC616596A80FF8C3D /* m3_compile.c */,
+				D68A05AC79D62A2A21332645 /* m3_core.c */,
+				416DF35699DACF93FF93AB80 /* m3_emit.c */,
+				3ED012F59D60A92F54902DDD /* m3_env.c */,
+				C00EA6D74337A2CF9FE3CFCA /* m3_exec.c */,
+				92D758BEBF7AD59344ABF692 /* m3_function.c */,
+				46CE2A6E7C273CF274B811EE /* m3_info.c */,
+				770315505A0F5BDB0CD7F09A /* m3_module.c */,
+				4A683B305609F4A292D78849 /* m3_optimize.c */,
+				461551DFEE6ABBE727E599F3 /* m3_parse.c */,
+			);
+			name = wasm3;
+			path = Vendor/wasm3;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		51294707E0FBE41B4B8B38BA /* ESPatcherIOSAU */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49C50B78AB18630B8D1CA0DD /* Build configuration list for PBXNativeTarget "ESPatcherIOSAU" */;
+			buildPhases = (
+				B09BB6BAD30B79B8589B60CC /* Sources */,
+				0B8B5ED5618F96CBF1BD14DC /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ESPatcherIOSAU;
+			packageProductDependencies = (
+			);
+			productName = ESPatcherIOSAU;
+			productReference = 21D7DF6A24655A26B8E61F96 /* ESPatcherIOSAU.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		7DF383A2BC0E34E0FB605862 /* ESPatcherIOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A227608B9AC07F3C98CB91E /* Build configuration list for PBXNativeTarget "ESPatcherIOS" */;
+			buildPhases = (
+				AD5F3C86BE66A6EB7D81DE51 /* Sources */,
+				AF5559DA31F3FFED690CE795 /* Resources */,
+				EC25AF0526DEE40028D980A4 /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				27D476A817A154C4DB2A1D81 /* PBXTargetDependency */,
+			);
+			name = ESPatcherIOS;
+			packageProductDependencies = (
+			);
+			productName = ESPatcherIOS;
+			productReference = 83DE5C793AE0DFC08943B023 /* ESPatcherIOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		914203C74BDBEE253D220CF3 /* ESPatcherMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5110EF85D4FFD2D03F12088F /* Build configuration list for PBXNativeTarget "ESPatcherMac" */;
+			buildPhases = (
+				6D366C436F1A26E5F6A649DE /* Sources */,
+				C858AEF94B17BD78267BA319 /* Resources */,
+				D26AD43A7E5B3C69038BD4BF /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				60F77A8379A24DAC005A8841 /* PBXTargetDependency */,
+			);
+			name = ESPatcherMac;
+			packageProductDependencies = (
+			);
+			productName = ESPatcherMac;
+			productReference = A25E2C90F5F40C727C87B704 /* ESPatcherMac.app */;
+			productType = "com.apple.product-type.application";
+		};
+		C72660774438586F1C309F43 /* ESPatcherMacAU */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2D0BEB0B335EEEE72013D78F /* Build configuration list for PBXNativeTarget "ESPatcherMacAU" */;
+			buildPhases = (
+				08DF386BE1CB4D7E80008654 /* Sources */,
+				AAFCDD0D6E1DF00616013CE9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ESPatcherMacAU;
+			packageProductDependencies = (
+			);
+			productName = ESPatcherMacAU;
+			productReference = F670D4352DC26758110A992E /* ESPatcherMacAU.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		625CB5826AE933398C1728DF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					51294707E0FBE41B4B8B38BA = {
+						ProvisioningStyle = Automatic;
+					};
+					7DF383A2BC0E34E0FB605862 = {
+						ProvisioningStyle = Automatic;
+					};
+					914203C74BDBEE253D220CF3 = {
+						ProvisioningStyle = Automatic;
+					};
+					C72660774438586F1C309F43 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 2372D2652A7FC518B5E48D46 /* Build configuration list for PBXProject "ESPatcher" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 5054B576CFA9713071BE3300;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 06DC4D25240D29AF1715E678 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7DF383A2BC0E34E0FB605862 /* ESPatcherIOS */,
+				51294707E0FBE41B4B8B38BA /* ESPatcherIOSAU */,
+				914203C74BDBEE253D220CF3 /* ESPatcherMac */,
+				C72660774438586F1C309F43 /* ESPatcherMacAU */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0B8B5ED5618F96CBF1BD14DC /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5AD8D7FF87CD3FF5C58D1141 /* LICENSE in Resources */,
+				01697CE4F1F1D95A6E858167 /* Mac-Info.plist in Resources */,
+				862F6AAA604995708836219D /* Modules in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAFCDD0D6E1DF00616013CE9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A749D03B40BC278E0A6D1B2C /* LICENSE in Resources */,
+				2D0D1F5D95FA4386EDC4B403 /* Modules in Resources */,
+				0F58E9AD45D789BAA9813CAD /* iOS-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF5559DA31F3FFED690CE795 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D02E89F7BD9C209D21DC7B81 /* LICENSE in Resources */,
+				80CFF76BA4C2A9247D26754A /* Modules in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C858AEF94B17BD78267BA319 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17C5F1C0DCAF24A303F5F54A /* LICENSE in Resources */,
+				39679CA48FDED2F358250468 /* Modules in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		08DF386BE1CB4D7E80008654 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DBDCE11DB6E264E5407F4F7A /* AudioUnitViewController.swift in Sources */,
+				89200DB482B6DABE8AF5EF20 /* ChordLaunchers.swift in Sources */,
+				1639D8D1E5BC0F0155AD1461 /* FirmwarePicker.swift in Sources */,
+				2B8C61849C257FDA5D11D6D4 /* InstrumentControls.swift in Sources */,
+				21CFF37BFBBD3664E799D8F7 /* InstrumentScreen.swift in Sources */,
+				63D6EA53AFAC0BEBC7BFC8DC /* LFOWaveform.swift in Sources */,
+				17ABA802A2F6B5AB9ED06078 /* NavigationBridge.mm in Sources */,
+				86F0CCAF4D8BC087183312F2 /* NavigationModel.swift in Sources */,
+				E8BC6CB277AB4762AD61D679 /* NavigationStrip.swift in Sources */,
+				1C3EDAC29BE55DCF698FC451 /* NoteKey.swift in Sources */,
+				B25D32CC0F28F6DF0B1B6DAF /* ParameterSlider.swift in Sources */,
+				C3563D4F8788BED3DE7B0B41 /* PerformancePads.swift in Sources */,
+				46A76C9ECAAAF1054C4EE5FF /* StudioKnobFace.swift in Sources */,
+				4E29D0C2CB93D85033F6F018 /* StudioKnobIndicator.swift in Sources */,
+				5F23A4CF843705C15C299C40 /* SynthAudioUnit.mm in Sources */,
+				2B51260B95A4C5DED8A28E0D /* SynthKnob.swift in Sources */,
+				1A3F801039DA48646A0EB746 /* SynthKnobPanel.swift in Sources */,
+				27F1911BB9DC119FAEBFF5DB /* SynthModel.swift in Sources */,
+				A892421315BD2BC2E32B4149 /* SynthParameter.swift in Sources */,
+				1C0ACBEBB0274EAB7FE98A9C /* SynthTheme.swift in Sources */,
+				5FC21ADA140CED9DB8ABF814 /* SynthView.swift in Sources */,
+				54D976753537A1F5E6A21D05 /* gs_sandbox.c in Sources */,
+				A747BA596A4E834C340F9C76 /* m3_bind.c in Sources */,
+				6D1B02827AE87EA88A02EE71 /* m3_code.c in Sources */,
+				2845D0EA83C61AB969D433C8 /* m3_compile.c in Sources */,
+				83922238F7FB3F631A7D0493 /* m3_core.c in Sources */,
+				2713F1EB36D998D17B37076F /* m3_emit.c in Sources */,
+				870F67D66AD9932485D75867 /* m3_env.c in Sources */,
+				1617DF16EA0C67774341C65A /* m3_exec.c in Sources */,
+				E78EED01D615F9394211708E /* m3_function.c in Sources */,
+				109C20FACFDC8B18D7E03649 /* m3_info.c in Sources */,
+				620AC8BD67E34685C06307CA /* m3_module.c in Sources */,
+				F2F6D151E038BA349F4AA523 /* m3_optimize.c in Sources */,
+				0DF9C144945030BA17A6F5C4 /* m3_parse.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6D366C436F1A26E5F6A649DE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC19974B3076ADE0E0253F48 /* AudioHost.swift in Sources */,
+				BCD495A90098BF58007BC450 /* ChordLaunchers.swift in Sources */,
+				1155B349B86753A80FC4B461 /* FirmwarePicker.swift in Sources */,
+				01D099A75A5918ED0C002CBA /* GlitchSynthApp.swift in Sources */,
+				4778767519AE87021CD407CE /* InstrumentControls.swift in Sources */,
+				FB9843A063D1C7B6359505E8 /* InstrumentScreen.swift in Sources */,
+				FA3E32245C4DF00E3B261CD8 /* LFOWaveform.swift in Sources */,
+				E44C5B520094B181F076D61D /* NavigationBridge.mm in Sources */,
+				5BF487024F4CA92E348F423E /* NavigationModel.swift in Sources */,
+				E397B940094608F5F36C6EDE /* NavigationStrip.swift in Sources */,
+				8A99AD45BCA6854326E5E06E /* NoteKey.swift in Sources */,
+				E147DB133805222BA0E97B89 /* ParameterSlider.swift in Sources */,
+				9C83108322889C5BF404CD26 /* PerformancePads.swift in Sources */,
+				293C0A8578B5D40685468220 /* StudioKnobFace.swift in Sources */,
+				BA92BAC5CDEC0D3D4A40A149 /* StudioKnobIndicator.swift in Sources */,
+				191885E4F985FE6228AB8BA8 /* SynthAudioUnit.mm in Sources */,
+				C6B9944D20E6C221C209916B /* SynthKnob.swift in Sources */,
+				018FB87F75CB10FCF1F7FCB5 /* SynthKnobPanel.swift in Sources */,
+				1600090260526641E63B5BB5 /* SynthModel.swift in Sources */,
+				0E021D7B7AFBD086411B7A59 /* SynthParameter.swift in Sources */,
+				851EF2E57B409813F76EE63B /* SynthTheme.swift in Sources */,
+				8433B26537911B81FA14B91B /* SynthView.swift in Sources */,
+				32C95B7022013629E6BE1CDE /* gs_sandbox.c in Sources */,
+				A79FF8BF5D8AC736EEC6D7F3 /* m3_bind.c in Sources */,
+				1D29F2BA1830AFA5858D149C /* m3_code.c in Sources */,
+				FF9B9889CDCD89B47BB688ED /* m3_compile.c in Sources */,
+				FB382D0635ED740C2FE0985B /* m3_core.c in Sources */,
+				0169EA4E60D0FB72D522D471 /* m3_emit.c in Sources */,
+				DB4320436C7581E98F65D5A5 /* m3_env.c in Sources */,
+				1F67C0FE3F5FB47DE4587F22 /* m3_exec.c in Sources */,
+				E53123F23FE50CA786A5A99E /* m3_function.c in Sources */,
+				19A39D53AF4BC8F7D20BB323 /* m3_info.c in Sources */,
+				7C462113D0095F63110A9A7D /* m3_module.c in Sources */,
+				F5C2E159788916E645FB965E /* m3_optimize.c in Sources */,
+				5915A03709825BC935E1B01A /* m3_parse.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AD5F3C86BE66A6EB7D81DE51 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2DE7192E19E3149B3752C238 /* AudioHost.swift in Sources */,
+				16728892069F219A4A8A24FE /* ChordLaunchers.swift in Sources */,
+				40E0CFBC04D239844D889E1B /* FirmwarePicker.swift in Sources */,
+				F24C6234F755B71BE1EC0683 /* GlitchSynthApp.swift in Sources */,
+				E875D0AB92B3D286FF586A78 /* InstrumentControls.swift in Sources */,
+				20908F33B413AD11874063B9 /* InstrumentScreen.swift in Sources */,
+				F9C2FE702FBAA7DFF6478E0B /* LFOWaveform.swift in Sources */,
+				65DC8DED7612ECA8A4099241 /* NavigationBridge.mm in Sources */,
+				6A4E21BDD17DCBE353C18953 /* NavigationModel.swift in Sources */,
+				CA3C8923DAABEC7D3E78378A /* NavigationStrip.swift in Sources */,
+				E80F49498B0129F4AB078EA2 /* NoteKey.swift in Sources */,
+				896C99936E46E008D656A905 /* ParameterSlider.swift in Sources */,
+				CA8A7431E7B7725F4D038A9D /* PerformancePads.swift in Sources */,
+				FF4969DC5DDDFFAB128E6B3D /* StudioKnobFace.swift in Sources */,
+				55A68D7A0C8B3C9C20667E45 /* StudioKnobIndicator.swift in Sources */,
+				C9D29213B7AF5835FF9AF179 /* SynthAudioUnit.mm in Sources */,
+				36AF6A07F8160314DD6CEEBC /* SynthKnob.swift in Sources */,
+				A43ADCD84B93C4BA62162CE3 /* SynthKnobPanel.swift in Sources */,
+				F6D57DEAA743181466FE67A6 /* SynthModel.swift in Sources */,
+				E07FD462CDAE86E7B7E0942A /* SynthParameter.swift in Sources */,
+				FDB061DCFDAE9D3262B7FB25 /* SynthTheme.swift in Sources */,
+				ACC2397A0A4FC87C2B4507AC /* SynthView.swift in Sources */,
+				E214EBD3982ADB4D63AF36DE /* gs_sandbox.c in Sources */,
+				BCEDB4E86CFD1DE0E68BB5D1 /* m3_bind.c in Sources */,
+				64FEBED0A529890A1EBBEE57 /* m3_code.c in Sources */,
+				B025BEDCBA4C9D12C10B1685 /* m3_compile.c in Sources */,
+				338EB099EDFE704FE7F33422 /* m3_core.c in Sources */,
+				9DBAA5E6913DF280470536FA /* m3_emit.c in Sources */,
+				CEFB17F088F19F53506345C7 /* m3_env.c in Sources */,
+				E15765640B4DC0F46F6390CE /* m3_exec.c in Sources */,
+				1254040FC9E835A61E20C11A /* m3_function.c in Sources */,
+				F2D30A8630374D0BAA4F76B2 /* m3_info.c in Sources */,
+				6638AB3340667D934D9C44A3 /* m3_module.c in Sources */,
+				BB1AE91BBCBB90C1CDF4AF8F /* m3_optimize.c in Sources */,
+				244C817A78C6C756F99716D4 /* m3_parse.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B09BB6BAD30B79B8589B60CC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				565CC3599BB6F764825F4E5F /* AudioUnitViewController.swift in Sources */,
+				035DEC6C05E9BFE791BC7EE0 /* ChordLaunchers.swift in Sources */,
+				6EEE8A01085B6929AE92E2B9 /* FirmwarePicker.swift in Sources */,
+				1DF4FBC2A7BC0CB5E216C5D3 /* InstrumentControls.swift in Sources */,
+				CDD3C2C70F7934A168C3EF8F /* InstrumentScreen.swift in Sources */,
+				89EA07B6395B8236DED6C2BA /* LFOWaveform.swift in Sources */,
+				B708F8D5528BA920B3251EA3 /* NavigationBridge.mm in Sources */,
+				B31C2D4EB9A15C87CA7610B7 /* NavigationModel.swift in Sources */,
+				BECCFACDF4F3A77DB9ACD61C /* NavigationStrip.swift in Sources */,
+				D89A42AAF096A718AA2BC455 /* NoteKey.swift in Sources */,
+				33A769247CD5126938DA048E /* ParameterSlider.swift in Sources */,
+				80E49E7DE2B9F82A0260E252 /* PerformancePads.swift in Sources */,
+				208B8DE75CAF544772B02E61 /* StudioKnobFace.swift in Sources */,
+				6D6E832BA72EA80818FD16DC /* StudioKnobIndicator.swift in Sources */,
+				B58F7D2372381F332F354854 /* SynthAudioUnit.mm in Sources */,
+				69EEBCEA6FFC493F49410DEF /* SynthKnob.swift in Sources */,
+				423BF4C81589AACC83400013 /* SynthKnobPanel.swift in Sources */,
+				0251327152EEEB39ECF3F690 /* SynthModel.swift in Sources */,
+				E27D8356B93682225BFB9F1F /* SynthParameter.swift in Sources */,
+				9E1ED9A5A5E7D9CFC9079F0C /* SynthTheme.swift in Sources */,
+				756441C66BE6C69217CE8FDF /* SynthView.swift in Sources */,
+				461B5B83737F7FB659F1DE84 /* gs_sandbox.c in Sources */,
+				76819C276966EB4FB9B9B2B9 /* m3_bind.c in Sources */,
+				623B0B4855075D2EE974B20E /* m3_code.c in Sources */,
+				718CA5BE1620607B4FE3677E /* m3_compile.c in Sources */,
+				7DD6D5FD1922FA9C7C322D4E /* m3_core.c in Sources */,
+				50E40659551B78BD411375D4 /* m3_emit.c in Sources */,
+				83D2ACC4F88745E745A3A94C /* m3_env.c in Sources */,
+				60E4500AFDAE89141C720D03 /* m3_exec.c in Sources */,
+				31D7B7C5B2DA8FE8BCD27A0C /* m3_function.c in Sources */,
+				F3904EFF124081FDD8442FBB /* m3_info.c in Sources */,
+				011F9FB1CE0DF8E7B030AB19 /* m3_module.c in Sources */,
+				0022D1AE48E8EF7557808952 /* m3_optimize.c in Sources */,
+				31AF3A0816A56B07F3589C1B /* m3_parse.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		27D476A817A154C4DB2A1D81 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 51294707E0FBE41B4B8B38BA /* ESPatcherIOSAU */;
+			targetProxy = 2414DEBB0F908F1977226DE2 /* PBXContainerItemProxy */;
+		};
+		60F77A8379A24DAC005A8841 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C72660774438586F1C309F43 /* ESPatcherMacAU */;
+			targetProxy = EB7BBCBA93FA4D01A18DC6A6 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		09D0D21458429156A41EFB53 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_KEY_CFBundleDisplayName = ESPatcher;
+				INFOPLIST_KEY_CFBundleName = ESPatcher;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.matheusound.glitchsynthm5.ios;
+				PRODUCT_NAME = ESPatcher;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		1DD34745D37274FD1A7121DF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ESPatcher;
+				INFOPLIST_KEY_CFBundleName = ESPatcher;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.matheusound.glitchsynthm5;
+				PRODUCT_NAME = ESPatcher;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		532DA781E6BD965564ECFFB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 11;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = Apple/Shared/Bridge.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		9EB14568FCA3EF7B6D14BB9F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Apple/Extension/iOS-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.matheusound.glitchsynthm5.ios.au;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AD231704ABFC3F8A8ABCAE77 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "Apple/Extension/iOS-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.matheusound.glitchsynthm5.ios.au;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B92EF0262E0FDA8745BB07D6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				INFOPLIST_KEY_CFBundleDisplayName = ESPatcher;
+				INFOPLIST_KEY_CFBundleName = ESPatcher;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.matheusound.glitchsynthm5.ios;
+				PRODUCT_NAME = ESPatcher;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		C598E95D2EBAB76201CF80A6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = YES;
+				INFOPLIST_FILE = "Apple/Extension/Mac-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.matheusound.glitchsynthm5.au;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		CEE9F80C21D54A11BF814059 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = ESPatcher;
+				INFOPLIST_KEY_CFBundleName = ESPatcher;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.matheusound.glitchsynthm5;
+				PRODUCT_NAME = ESPatcher;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		E09C8D84C8E9CBF1CFD4F959 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 11;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.music";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.0;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 0.1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = Apple/Shared/Bridge.h;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		FC843289B15783405E0FD467 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_APP_SANDBOX = YES;
+				INFOPLIST_FILE = "Apple/Extension/Mac-Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = net.matheusound.glitchsynthm5.au;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2372D2652A7FC518B5E48D46 /* Build configuration list for PBXProject "ESPatcher" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E09C8D84C8E9CBF1CFD4F959 /* Debug */,
+				532DA781E6BD965564ECFFB2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		2D0BEB0B335EEEE72013D78F /* Build configuration list for PBXNativeTarget "ESPatcherMacAU" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FC843289B15783405E0FD467 /* Debug */,
+				C598E95D2EBAB76201CF80A6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		49C50B78AB18630B8D1CA0DD /* Build configuration list for PBXNativeTarget "ESPatcherIOSAU" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD231704ABFC3F8A8ABCAE77 /* Debug */,
+				9EB14568FCA3EF7B6D14BB9F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4A227608B9AC07F3C98CB91E /* Build configuration list for PBXNativeTarget "ESPatcherIOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B92EF0262E0FDA8745BB07D6 /* Debug */,
+				09D0D21458429156A41EFB53 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		5110EF85D4FFD2D03F12088F /* Build configuration list for PBXNativeTarget "ESPatcherMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEE9F80C21D54A11BF814059 /* Debug */,
+				1DD34745D37274FD1A7121DF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 625CB5826AE933398C1728DF /* Project object */;
+}
