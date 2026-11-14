@@ -2,6 +2,7 @@ import SwiftUI
 
 struct SynthView: View {
     @AppStorage("glitchSynth.themeIndex") private var themeIndex = SynthTheme.defaultIndex
+    @AppStorage("espatcher.showPiano") private var showPiano = false
     @State private var heldChordKeys: Set<Int> = []
     @State private var performanceWidth: CGFloat = 1088
     @State private var model: SynthModel
@@ -39,14 +40,9 @@ struct SynthView: View {
                 SynthKnobPanel(model: model)
                 InstrumentControls(model: model)
                 ChordLaunchers(model: model)
-                DisclosureGroup("On-screen piano keyboard") {
+                if showPiano {
                     HStack(spacing: 3) { ForEach(0..<13) { index in NoteKey(index: index, model: model) } }
                 }
-                .font(.caption.monospaced())
-                Text("A W S E D F T G Y H U J K · Z / X octave · Space panic\nClick this panel to focus computer keys. \(model.voiceLimit) voices · oldest held note is stolen when full.")
-                    .font(.caption.monospaced()).foregroundStyle(.secondary)
-                Text("Portable instrument runtime · ADV hardware testing pending")
-                    .font(.caption2).foregroundStyle(.secondary)
             }.padding(16).frame(minWidth: 1024, maxWidth: 1120)
         }
         .background {

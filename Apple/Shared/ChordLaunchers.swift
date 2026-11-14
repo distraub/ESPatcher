@@ -21,6 +21,7 @@ struct ChordLaunchers: View {
     let model: SynthModel
     @Environment(\.synthTheme) private var theme
     @State private var editing = 0
+    @State private var showingVoicing = false
     var body: some View {
         @Bindable var model = model
         VStack(alignment: .leading, spacing: 8) {
@@ -40,19 +41,41 @@ struct ChordLaunchers: View {
                     .tint(model.chordMode == slot ? theme.accent : theme.chrome)
                     .accessibilityValue(model.chordMode == slot ? "Selected" : "Off")
                 }
+                Button("Voicing…") {
+                    editing = model.chordMode ?? 0
+                    model.panic()
+                    showingVoicing = true
+                }
+                .popover(isPresented: $showingVoicing) { voicingEditor }
             }
-            DisclosureGroup("Chord voicing · play any note or pad to set the root") {
-                HStack {
-                    Picker("Chord", selection: $editing) {
-                        ForEach(0..<4) { slot in Text(ChordAssignment.qualities[slot]).tag(slot) }
-                    }
-                    Picker("Inversion", selection: $model.chords[editing].inversion) {
-                        Text("Root").tag(0); Text("First").tag(1); Text("Second").tag(2)
-                    }
-                    Toggle("Spread", isOn: $model.chords[editing].spread)
-                }.padding(.top, 6)
-            }.font(.caption)
         }.padding(12).background(theme.surface).clipShape(.rect(cornerRadius: 10))
         .onChange(of: model.chords.map { $0.notes }) { _, _ in model.panic() }
     }
+
+    private var voicingEditor: some View {
+        @Bindable var model = model
+        return VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Text("Chord voicing").font(.headline)
+                Spacer()
+                Button("Done") { showingVoicing = false }
+            }
+            Picker("Chord", selection: $editing) {
+                ForEach(0..<4) { slot in Text(ChordAssignment.qualities[slot]).tag(slot) }
+            }
+            Picker("Inversion", selection: $model.chords[editing].inversion) {
+                Text("Root").tag(0)
+                Text("First").tag(1)
+                Text("Second").tag(2)
+            }
+            Toggle("Spread", isOn: $model.chords[editing].spread)
+            Text("Choose a chord mode, then play any note or pad to set its root. Option + 1–4 selects a mode.")
+                .font(.callout).foregroundStyle(.secondary)
+        }
+        .padding(20).frame(width: 320)
+        .foregroundStyle(theme.text).tint(theme.accent)
+        .background(theme.background)
+        .preferredColorScheme(theme.isLight ? .light : .dark)
+    }
+
 }

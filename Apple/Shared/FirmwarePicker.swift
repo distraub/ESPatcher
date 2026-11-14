@@ -5,6 +5,7 @@ import UniformTypeIdentifiers
 struct FirmwarePicker: View {
     @Bindable var model: SynthModel
     @Environment(\.synthTheme) private var theme
+    @AppStorage("espatcher.showPiano") private var showPiano = false
     @State private var importing = false
     @State private var managing = false
     @State private var importAfterDismiss = false
@@ -119,11 +120,24 @@ struct FirmwarePicker: View {
             }
             .padding(16).frame(maxWidth: .infinity, alignment: .leading)
             .background(theme.surface).clipShape(.rect(cornerRadius: 12))
+            VStack(alignment: .leading, spacing: 12) {
+                Text("Playing & controls").font(.headline)
+                Toggle("Show piano keyboard", isOn: $showPiano)
+                Text("Computer keys play notes even when the piano is hidden. Click the instrument background to focus the keyboard.")
+                Text("A W S E D F T G Y H U J K · Notes\nZ / X · Octave down / up\nSpace · Panic\nOption + 1–4 · Chord modes\nL · Instrument library")
+                    .font(.caption.monospaced())
+                Text("\(model.voiceLimit) voices. When full, the oldest held note is stolen.")
+            }
+            .font(.callout)
+            .padding(16).frame(maxWidth: .infinity, alignment: .leading)
+            .background(theme.surface).clipShape(.rect(cornerRadius: 12))
             MIDILearnView(model: model)
             Text("ESPatcher runs portable .gsm5 instrument modules on this computer or device.")
                 .font(.callout)
             Text(".gsm5 modules · .espkg instrument packages · isolated WASM engines")
                 .font(.caption.monospaced()).foregroundStyle(.secondary)
+            Text("Cardputer ADV hardware testing pending")
+                .font(.caption).foregroundStyle(.secondary)
             Text("ESPatcher · Alex Matheu / Instrument Lab")
                 .font(.caption).foregroundStyle(.secondary)
         }
