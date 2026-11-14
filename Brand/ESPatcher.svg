@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+<title>ESPatcher Signal Router</title>
+<defs><mask id="holes"><rect width="1024" height="1024" fill="white"/><g fill="black"><circle cx="300" cy="350" r="43"/><circle cx="710" cy="350" r="43"/><circle cx="300" cy="512" r="43"/><circle cx="710" cy="675" r="43"/></g></mask></defs>
+<g fill="none" stroke="white" mask="url(#holes)">
+<circle cx="512" cy="512" r="423" stroke-width="28"/>
+<g stroke-width="72" stroke-linejoin="round"><polyline points="300,350 455,350 455,675 710,675"/><polyline points="710,350 565,350 565,512 300,512"/></g>
+<g stroke-width="24" fill="white"><circle cx="300" cy="350" r="55"/><circle cx="710" cy="350" r="55"/><circle cx="300" cy="512" r="55"/><circle cx="710" cy="675" r="55"/></g>
+</g></svg>

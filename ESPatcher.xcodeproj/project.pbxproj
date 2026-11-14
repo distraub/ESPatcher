@@ -16,6 +16,7 @@
 		0251327152EEEB39ECF3F690 /* SynthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26661BAFBC13BB50FD81E16 /* SynthModel.swift */; };
 		035DEC6C05E9BFE791BC7EE0 /* ChordLaunchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3E8D04987BF4B425F0C12B /* ChordLaunchers.swift */; };
 		05CE367B8B0F0DB44292647C /* InstrumentPackageInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FC58EDC95D571682C02468D /* InstrumentPackageInfo.swift */; };
+		09733CA7CD709BACE2F28A4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACBD9D8B478C50C8BD006802 /* Assets.xcassets */; };
 		0DF9C144945030BA17A6F5C4 /* m3_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 461551DFEE6ABBE727E599F3 /* m3_parse.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
 		0E021D7B7AFBD086411B7A59 /* SynthParameter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4187B3B39490D7744EFB583 /* SynthParameter.swift */; };
 		0F58E9AD45D789BAA9813CAD /* iOS-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E78A40268F6EDA4713F45A3 /* iOS-Info.plist */; };
@@ -43,6 +44,7 @@
 		20908F33B413AD11874063B9 /* InstrumentScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D8A1FCC2111D64F46B507F /* InstrumentScreen.swift */; };
 		21CFF37BFBBD3664E799D8F7 /* InstrumentScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D8A1FCC2111D64F46B507F /* InstrumentScreen.swift */; };
 		244C817A78C6C756F99716D4 /* m3_parse.c in Sources */ = {isa = PBXBuildFile; fileRef = 461551DFEE6ABBE727E599F3 /* m3_parse.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		2505FB16BCB270C116259863 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACBD9D8B478C50C8BD006802 /* Assets.xcassets */; };
 		2713F1EB36D998D17B37076F /* m3_emit.c in Sources */ = {isa = PBXBuildFile; fileRef = 416DF35699DACF93FF93AB80 /* m3_emit.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
 		27F1911BB9DC119FAEBFF5DB /* SynthModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C26661BAFBC13BB50FD81E16 /* SynthModel.swift */; };
 		2845D0EA83C61AB969D433C8 /* m3_compile.c in Sources */ = {isa = PBXBuildFile; fileRef = 6447919CC616596A80FF8C3D /* m3_compile.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
@@ -95,6 +97,7 @@
 		718CA5BE1620607B4FE3677E /* m3_compile.c in Sources */ = {isa = PBXBuildFile; fileRef = 6447919CC616596A80FF8C3D /* m3_compile.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
 		756441C66BE6C69217CE8FDF /* SynthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38FAB8C9E2546987C4C966F7 /* SynthView.swift */; };
 		76819C276966EB4FB9B9B2B9 /* m3_bind.c in Sources */ = {isa = PBXBuildFile; fileRef = 8DB22A17BAF3531D50651431 /* m3_bind.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
+		7A9BCC29F24A6C989EFBE5F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACBD9D8B478C50C8BD006802 /* Assets.xcassets */; };
 		7C462113D0095F63110A9A7D /* m3_module.c in Sources */ = {isa = PBXBuildFile; fileRef = 770315505A0F5BDB0CD7F09A /* m3_module.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
 		7DD6D5FD1922FA9C7C322D4E /* m3_core.c in Sources */ = {isa = PBXBuildFile; fileRef = D68A05AC79D62A2A21332645 /* m3_core.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
 		80CFF76BA4C2A9247D26754A /* Modules in Resources */ = {isa = PBXBuildFile; fileRef = D4855DA8D023FA1B6C663A56 /* Modules */; };
@@ -137,6 +140,7 @@
 		BCD495A90098BF58007BC450 /* ChordLaunchers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3E8D04987BF4B425F0C12B /* ChordLaunchers.swift */; };
 		BCEDB4E86CFD1DE0E68BB5D1 /* m3_bind.c in Sources */ = {isa = PBXBuildFile; fileRef = 8DB22A17BAF3531D50651431 /* m3_bind.c */; settings = {COMPILER_FLAGS = "-O3 -DNASSERTS -UDEBUG -fomit-frame-pointer -Wno-shorten-64-to-32 -Wno-unused-variable -Wno-strict-prototypes"; }; };
 		BECCFACDF4F3A77DB9ACD61C /* NavigationStrip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6375FD475D7B006F81961628 /* NavigationStrip.swift */; };
+		C318D29F09DF34EA40EB85C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACBD9D8B478C50C8BD006802 /* Assets.xcassets */; };
 		C3563D4F8788BED3DE7B0B41 /* PerformancePads.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F39EBEA44121DD9F5A0305 /* PerformancePads.swift */; };
 		C6B9944D20E6C221C209916B /* SynthKnob.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADA81B11B5436F73A0AF9CFD /* SynthKnob.swift */; };
 		C9D29213B7AF5835FF9AF179 /* SynthAudioUnit.mm in Sources */ = {isa = PBXBuildFile; fileRef = 783DF7388356D2AAFF626CC6 /* SynthAudioUnit.mm */; };
@@ -265,6 +269,7 @@
 		A2EC6BD796307227E2C06C54 /* GlitchSynthApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlitchSynthApp.swift; sourceTree = "<group>"; };
 		A8D7100A979EB3B964966FC8 /* FirmwarePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirmwarePicker.swift; sourceTree = "<group>"; };
 		ABEF587C33BAA6555F136E50 /* InstrumentPackage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = InstrumentPackage.hpp; sourceTree = "<group>"; };
+		ACBD9D8B478C50C8BD006802 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ADA81B11B5436F73A0AF9CFD /* SynthKnob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynthKnob.swift; sourceTree = "<group>"; };
 		BF6F2DD692B00EFB43438DC8 /* MIDIMap.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MIDIMap.hpp; sourceTree = "<group>"; };
 		C00EA6D74337A2CF9FE3CFCA /* m3_exec.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = m3_exec.c; sourceTree = "<group>"; };
@@ -351,6 +356,7 @@
 		68BF36E8A1101DF4E45870F0 /* Apple */ = {
 			isa = PBXGroup;
 			children = (
+				ACBD9D8B478C50C8BD006802 /* Assets.xcassets */,
 				49518A131B1FA2C0F874C432 /* Signing.xcconfig */,
 			);
 			path = Apple;
@@ -542,6 +548,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09733CA7CD709BACE2F28A4D /* Assets.xcassets in Resources */,
 				5AD8D7FF87CD3FF5C58D1141 /* LICENSE in Resources */,
 				80E112C9FCC4528D24F31106 /* Library in Resources */,
 				01697CE4F1F1D95A6E858167 /* Mac-Info.plist in Resources */,
@@ -553,6 +560,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2505FB16BCB270C116259863 /* Assets.xcassets in Resources */,
 				A749D03B40BC278E0A6D1B2C /* LICENSE in Resources */,
 				49D2FA81EDAA605B6C39B47F /* Library in Resources */,
 				2D0D1F5D95FA4386EDC4B403 /* Modules in Resources */,
@@ -564,6 +572,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7A9BCC29F24A6C989EFBE5F4 /* Assets.xcassets in Resources */,
 				D02E89F7BD9C209D21DC7B81 /* LICENSE in Resources */,
 				8341EEF114EACD037F2B6FB7 /* Library in Resources */,
 				80CFF76BA4C2A9247D26754A /* Modules in Resources */,
@@ -574,6 +583,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C318D29F09DF34EA40EB85C3 /* Assets.xcassets in Resources */,
 				17C5F1C0DCAF24A303F5F54A /* LICENSE in Resources */,
 				50FF6829BF0701E9602650DB /* Library in Resources */,
 				39679CA48FDED2F358250468 /* Modules in Resources */,
@@ -791,6 +801,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = ESPatcher;
 				INFOPLIST_KEY_CFBundleName = ESPatcher;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -824,6 +835,7 @@
 			baseConfigurationReference = 49518A131B1FA2C0F874C432 /* Signing.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
@@ -858,7 +870,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -890,6 +902,7 @@
 		9EB14568FCA3EF7B6D14BB9F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_DEBUG_DYLIB = NO;
 				INFOPLIST_FILE = "Apple/Extension/iOS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -905,6 +918,7 @@
 		AD231704ABFC3F8A8ABCAE77 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ENABLE_DEBUG_DYLIB = NO;
 				INFOPLIST_FILE = "Apple/Extension/iOS-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -925,6 +939,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = ESPatcher;
 				INFOPLIST_KEY_CFBundleName = ESPatcher;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -974,6 +989,7 @@
 			baseConfigurationReference = 49518A131B1FA2C0F874C432 /* Signing.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
@@ -1008,7 +1024,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 11;
+				CURRENT_PROJECT_VERSION = 12;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_HARDENED_RUNTIME = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;

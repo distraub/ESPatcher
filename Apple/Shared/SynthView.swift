@@ -21,29 +21,31 @@ struct SynthView: View {
     }
     var body: some View {
         @Bindable var model = model
-        ScrollView(scrollAxes) {
-            VStack(alignment: .leading, spacing: 12) {
-                FirmwarePicker(model: model)
-                NavigationStrip(model: model)
-                HStack(alignment: .top, spacing: 16) {
-                    Group {
-                        if model.packageInfo != nil { PackageInstrumentScreen(model: model) }
-                        else { InstrumentScreen(model: model) }
+        GeometryReader { geometry in
+            ScrollView(scrollAxes) {
+                VStack(alignment: .leading, spacing: 12) {
+                    FirmwarePicker(model: model)
+                    NavigationStrip(model: model)
+                    HStack(alignment: .top, spacing: 16) {
+                        Group {
+                            if model.packageInfo != nil { PackageInstrumentScreen(model: model) }
+                            else { InstrumentScreen(model: model) }
+                        }
+                            .frame(maxWidth: .infinity)
+                        PerformancePads(model: model, height: performanceHeight)
                     }
-                        .frame(maxWidth: .infinity)
-                    PerformancePads(model: model, height: performanceHeight)
-                }
-                .frame(height: performanceHeight)
-                .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width in
-                    if width > 0 { performanceWidth = width }
-                }
-                SynthKnobPanel(model: model)
-                InstrumentControls(model: model)
-                ChordLaunchers(model: model)
-                if showPiano {
-                    HStack(spacing: 3) { ForEach(0..<13) { index in NoteKey(index: index, model: model) } }
-                }
-            }.padding(16).frame(minWidth: 1024, maxWidth: 1120)
+                    .frame(height: performanceHeight)
+                    .onGeometryChange(for: CGFloat.self) { $0.size.width } action: { width in
+                        if width > 0 { performanceWidth = width }
+                    }
+                    SynthKnobPanel(model: model)
+                    InstrumentControls(model: model)
+                    ChordLaunchers(model: model)
+                    if showPiano {
+                        HStack(spacing: 3) { ForEach(0..<13) { index in NoteKey(index: index, model: model) } }
+                    }
+                }.padding(12).frame(width: max(760, geometry.size.width))
+            }
         }
         .background {
             palette.background.contentShape(.rect)

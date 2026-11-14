@@ -15,11 +15,12 @@ settings:
     SWIFT_OBJC_BRIDGING_HEADER: Apple/Shared/Bridge.h
     CODE_SIGN_STYLE: Automatic
     MARKETING_VERSION: 0.1.0
-    CURRENT_PROJECT_VERSION: 11
+    CURRENT_PROJECT_VERSION: 12
     ENABLE_HARDENED_RUNTIME: NO
     CODE_SIGN_IDENTITY[sdk=macosx*]: '-'
     CODE_SIGN_IDENTITY[sdk=iphonesimulator*]: '-'
     CODE_SIGN_IDENTITY[sdk=iphoneos*]: Apple Development
+    ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
     GENERATE_INFOPLIST_FILE: YES
     INFOPLIST_KEY_LSApplicationCategoryType: public.app-category.music
 targets:
@@ -27,6 +28,7 @@ targets:
     type: application
     platform: macOS
     sources:
+      - path: Apple/Assets.xcassets
       - path: Apple/App
       - path: Apple/Shared
       - path: Core
@@ -77,6 +79,7 @@ targets:
     type: app-extension
     platform: macOS
     sources:
+      - path: Apple/Assets.xcassets
       - path: Apple/Extension
       - path: Apple/Shared
       - path: Core
@@ -133,13 +136,14 @@ targets:
                 manufacturer: MSND
                 subtype: gsm5
                 type: aumu
-                version: 11
+                version: 12
                 sandboxSafe: true
                 tags: [Synthesizer]
   ESPatcherIOS:
     type: application
     platform: iOS
     sources:
+      - path: Apple/Assets.xcassets
       - path: Apple/App
       - path: Apple/Shared
       - path: Core
@@ -185,6 +189,7 @@ targets:
         INFOPLIST_KEY_CFBundleName: ESPatcher
         TARGETED_DEVICE_FAMILY: '1,2'
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight"
     dependencies:
       - target: ESPatcherIOSAU
         embed: true
@@ -192,6 +197,7 @@ targets:
     type: app-extension
     platform: iOS
     sources:
+      - path: Apple/Assets.xcassets
       - path: Apple/Extension
       - path: Apple/Shared
       - path: Core
@@ -231,6 +237,7 @@ targets:
         compilerFlags: ['-O3', '-DNASSERTS', '-UDEBUG', '-fomit-frame-pointer', '-Wno-shorten-64-to-32', '-Wno-unused-variable', '-Wno-strict-prototypes']
     settings:
       base:
+        ENABLE_DEBUG_DYLIB: NO
         PRODUCT_BUNDLE_IDENTIFIER: net.matheusound.glitchsynthm5.ios.au
         TARGETED_DEVICE_FAMILY: '1,2'
     info:
@@ -248,7 +255,7 @@ targets:
                 manufacturer: MSND
                 subtype: gsm5
                 type: aumu
-                version: 11
+                version: 12
                 sandboxSafe: true
                 tags: [Synthesizer]
 schemes:

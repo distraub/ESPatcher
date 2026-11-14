@@ -21,7 +21,7 @@ final class AudioHost {
             try AVAudioSession.sharedInstance().setActive(true)
             #endif
             let description = AudioComponentDescription(componentType: kAudioUnitType_MusicDevice, componentSubType: 0x67734476, componentManufacturer: 0x4d534e44, componentFlags: 0, componentFlagsMask: 0)
-            AUAudioUnit.registerSubclass(GSSynthAudioUnit.self, as: description, name: "Alex Matheu: ESPatcher", version: 11)
+            AUAudioUnit.registerSubclass(GSSynthAudioUnit.self, as: description, name: "Alex Matheu: ESPatcher", version: 12)
             #if os(macOS)
             let options: AudioComponentInstantiationOptions = [.loadInProcess]
             #else

@@ -4,9 +4,9 @@ struct SynthKnobPanel: View {
     let model: SynthModel
     @Environment(\.synthTheme) private var theme
     @ScaledMetric(relativeTo: .body) private var diameter = 72.0
-    private let columns = Array(repeating: GridItem(.flexible(minimum: 92), spacing: 12), count: 8)
+    private let wideColumns = Array(repeating: GridItem(.flexible(minimum: 72), spacing: 8), count: 8)
     var body: some View {
-        LazyVGrid(columns: columns, spacing: 12) {
+        LazyVGrid(columns: wideColumns, spacing: 12) {
             ForEach(0..<8) { slot in
                 if let parameter = model.navigation.bindings[slot] {
                     SynthKnob(parameter: parameter, model: model, slot: slot)
