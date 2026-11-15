@@ -1,0 +1,7 @@
+{
+  "repository": "https://github.com/distraub/glitchdrums-fm1",
+  "commit": "4256d0b5e230862156038beb19ad41fcec2b3fd2",
+  "version": "0.17.16",
+  "license": "GPL-3.0-only",
+  "scope": "Full firmware source, all eight lanes and original UI; no voice/FX reduction"
+}

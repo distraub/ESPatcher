@@ -32,6 +32,15 @@ struct InstrumentLibraryView: View {
                 }
                 .buttonStyle(.bordered)
             }
+            if let prototypeURL = URL(string: "https://distraub.github.io/ESPatcher/Instruments/GlitchDrums/") {
+                Link(destination: prototypeURL) {
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text("GlitchDrums · Full firmware prototype").font(.headline)
+                        Text("Open browser prototype · eight engines, sequencer and effects · GPL")
+                            .font(.caption).foregroundStyle(.secondary)
+                    }.frame(maxWidth: .infinity, alignment: .leading).padding(12)
+                }.buttonStyle(.bordered)
+            }
             Button("Open .espkg package…", systemImage: "folder", action: openFile)
             if model.firmwareLoading { ProgressView("Preparing instrument…") }
             if let error = model.firmwareError { Text(error).font(.callout).foregroundStyle(theme.alternate) }

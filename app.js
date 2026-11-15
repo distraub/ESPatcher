@@ -289,7 +289,8 @@ async function openLibrary(){
   const button=document.createElement('button');button.textContent=entry.name;
   button.onclick=async()=>{try{const response=await fetch('Library/'+entry.file);if(!response.ok)throw new Error('Package download failed');const bytes=await response.arrayBuffer();if(await sha256(bytes)!==entry.sha256)throw new Error('Package checksum mismatch');await openPackage(bytes);}catch(error){$('libraryStatus').textContent=error.message;}};
   $('libraryItems').append(button);
- }}catch(error){$('libraryStatus').textContent=error.message;}
+ }const prototype=document.createElement('a');prototype.href='Instruments/GlitchDrums/';prototype.textContent='GlitchDrums · Full firmware browser prototype (GPL)';$('libraryItems').append(prototype);
+ }catch(error){$('libraryStatus').textContent=error.message;}
 }
 async function openPackage(bytes){
  if(switching)throw new Error('A switch is already in progress');switching=true;$('instrument').disabled=true;$('start').disabled=true;

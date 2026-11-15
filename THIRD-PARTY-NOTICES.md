@@ -3,6 +3,12 @@
 ESPatcher's original code is MIT licensed (see LICENSE). Dependency code retains
 its own copyright and license; the root license does not replace these notices.
 
+- **GlitchDrums full-firmware instrument**: GPL-3.0-only, in
+  [Instruments/GlitchDrums](Instruments/GlitchDrums/README.md), pinned to the
+  revision in UPSTREAM.json. Its bridge, browser front end, dedicated tests and
+  experimental device target retain GPL licensing. The source and full license
+  accompany the module. Its Terminus font notice is retained under upstream/platform/gen.
+  This separate instrument is not covered by the host's MIT license.
 - **wasm3 v0.5.0**: MIT. Vendored runtime and local sandbox changes are described
   in [Vendor/wasm3/README.md](Vendor/wasm3/README.md); full upstream notice:
   [Vendor/wasm3/LICENSE](Vendor/wasm3/LICENSE).

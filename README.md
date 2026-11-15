@@ -9,6 +9,15 @@ The native host loads `.gsm5` WebAssembly instruments in isolated wasm3 runtimes
 AMSynth also compiles natively for Cardputer ADV; hardware timing remains untested.
 This is not an ESP32 emulator or a loader for arbitrary device firmware binaries.
 
+## Full GlitchDrums port prototype
+
+[Play the full browser prototype](https://distraub.github.io/ESPatcher/Instruments/GlitchDrums/).
+All eight engines and the original firmware workflow are retained for CPU comparison.
+This separate GPL instrument currently runs in the browser; native Apple/AUv3
+and full Cardputer integration remain in progress. The unchanged device target
+exceeds its DRAM budget; a separate voice-only CPU probe cross-builds successfully.
+See [port status and reproducible tests](docs/GLITCHDRUMS-PORT.md).
+
 ## Try it
 
 [Play ESPatcher in your browser](https://distraub.github.io/ESPatcher/) ·
@@ -209,7 +218,7 @@ Begin with [Getting started](docs/GETTING-STARTED.md), then read the
 AMSynth Analog and FM share the readable reference engine in `Firmware/instrument.c`.
 See [the platform roadmap](docs/ROADMAP.md) for implemented features and future APIs.
 Contributions: [CONTRIBUTING.md](CONTRIBUTING.md). Original code is
-[MIT licensed](LICENSE); dependency notices are in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+[MIT licensed](LICENSE), except the separately GPL-licensed GlitchDrums instrument; dependency notices are in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
 ## MIDI and on-device runtime direction
 
