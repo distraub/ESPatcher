@@ -1,39 +1,21 @@
 --- a/platform/web.c
 +++ b/platform/web.c
-@@ -8,7 +8,13 @@
- #include "fm1.h"
- #include "output.h"
- static GDOutput gd_output_state={65536};
+@@ -10,0 +11,5 @@
 +#if GD_PORT_NATIVE
 +#include <string.h>
 +#include <stdio.h>
 +static void fmt_int(char *buf,int32_t value){snprintf(buf,12,"%d",value);}
 +#else
- #include "libc.c"
+@@ -11,0 +17 @@
 +#endif
- 
- typedef struct { /* as gfx.c */
-   uint8_t h;
-@@ -22,7 +28,11 @@
- #include "felucca_font.h"
- #include "common.c"
- 
+@@ -24,0 +31 @@
 +#if defined(__wasm__)
- #define EXPORT(name) __attribute__((export_name(#name)))
+@@ -25,0 +33,3 @@
 +#else
 +#define EXPORT(name)
 +#endif
- #define HALF_FRAMES 256u
- 
- static uint32_t now_ms, now_us, fb_gen;
 --- a/src/profile.h
 +++ b/src/profile.h
-@@ -1,7 +1,7 @@
- /* SPDX-License-Identifier: GPL-3.0-only */
- #pragma once
- #include <stdint.h>
+@@ -4 +4 @@
 -#if GD_NATIVE_FM1
 +#if GD_NATIVE_FM1 || GD_PORT_PROFILE
- extern volatile uint32_t gd_profile_active,gd_profile_requested;
- uint32_t gd_profile_now(void);
- void gd_profile_add(unsigned stage,uint32_t ticks);
